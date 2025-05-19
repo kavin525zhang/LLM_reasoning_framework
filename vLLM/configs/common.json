@@ -1,0 +1,33 @@
+{
+  "basic": {
+    "port": 8003,
+    "log_level": "INFO"
+  },
+  "service": {
+    "language_model": {
+      "llama2": {
+        "type": "vllm",
+        "model_path": "/mnt/disk1/models/Qwen2-72B-Instruct-AWQ",
+        "vram_ratio": 0.8,
+        "parallel_rank": 1,
+        "pipeline_parallel_rank": 1,
+        "max_length": 16384,
+        "scheduler_steps": 1,
+        "fp8_kv_cache": true,
+        "enforce_fp16": false,
+        "enable_prefix_caching": false,
+        "template": {
+          "sys": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n",
+          "user": "<|im_start|>user\n{}<|im_end|>\n",
+          "ai": "<|im_start|>assistant\n{}",
+          "sep": "<|im_end|>\n"
+        }
+      }
+    }
+  },
+  "telemetry": {
+    "enable": false,
+    "instance_id": "gpu-node-xxx",
+    "model_id": "Qwen2-72B-Instruct-AWQ"
+  }
+}

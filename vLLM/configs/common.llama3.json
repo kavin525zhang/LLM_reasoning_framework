@@ -1,0 +1,26 @@
+{
+  "basic": {
+    "port": 8003,
+    "log_level": "INFO"
+  },
+  "service": {
+    "language_model": {
+      "llama2": {
+        "type": "vllm",
+        "model_path": "/mnt/disk1/models/Meta-Llama-3-8B-Instruct",
+        "vram_ratio": 0.8,
+        "parallel_rank": 1,
+        "max_length": 8192,
+        "fp8_kv_cache": true,
+        "enforce_fp16": false,
+        "enable_prefix_caching": false,
+        "template": {
+          "sys": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|>",
+          "user": "<|start_header_id|>user<|end_header_id|>\n\n{}<|eot_id|>",
+          "ai": "<|start_header_id|>assistant<|end_header_id|>\n\n",
+          "sep": "<|eot_id|>"
+        }
+      }
+    }
+  }
+}

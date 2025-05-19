@@ -1,0 +1,26 @@
+{
+  "basic": {
+    "port": 8003,
+    "log_level": "INFO"
+  },
+  "service": {
+    "language_model": {
+      "deepseek-r1-llama3.3-70b": {
+        "type": "vllm",
+        "model_path": "/mnt/disk1/models/DeepSeek-R1-Distill-Llama-70B",
+        "vram_ratio": 0.95,
+        "parallel_rank": 2,
+        "max_length": 32768,
+        "fp8_kv_cache": true,
+        "enforce_fp16": false,
+        "enable_prefix_caching": false,
+        "template": {
+          "sys": "<｜begin▁of▁sentence｜>",
+          "user": "<｜User｜>{}",
+          "ai": "<｜Assistant｜><think>\n\n</think>{}",
+          "sep": "<｜end▁of▁sentence｜>"
+        }
+      }
+    }
+  }
+}

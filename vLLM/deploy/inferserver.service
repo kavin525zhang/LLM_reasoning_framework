@@ -1,0 +1,20 @@
+[Unit]
+Description=Wuya Model Infer Service
+After=network.target
+
+[Service]
+User=root
+Group=root
+# 如果在 CentOS 之类 glibc 版本很低的情况下，建议重载
+# Environment=LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/anaconda3/lib/
+# 设置需要使用的 GPU ID
+Environment=CUDA_DEVICE_ORDER=PCI_BUS_ID
+Environment=CUDA_VISIBLE_DEVICES=2
+# 如果使用 CD 自动部署
+# ExecStartPre=/usr/bin/git pull
+ExecStart=/root/anaconda3/envs/llm/bin/python main.py
+WorkingDirectory=/opt/share/dzg/model-server
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Wuya Model Infer CD Service
+After=network.target
+
+[Service]
+User=root
+Group=root
+ExecStart=/root/anaconda3/envs/llm/bin/python inferserver_cd_webhook.py
+WorkingDirectory=/opt/share/dzg/model-server/deploy
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
