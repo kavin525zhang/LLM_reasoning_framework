@@ -6,4 +6,6 @@
 ![模型配置](model_setting.png)
 * 允许MCP  
 ![允许MCP](MCP_agree.png)
-* 配置mcp_settings
+* 配置mcp_settings  
+* 问答页面  
+![问答页面](response.png)
