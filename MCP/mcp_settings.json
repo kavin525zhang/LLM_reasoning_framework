@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+      "demo": {
+        "command": "/usr/local/bin/fastmcp",
+        "args": [
+          "run",
+          "/home/transwarp/Documents/workspace/LLM_2025/MCP/calculator_stdio.py"
+        ],
+        "disabled": false,
+        "alwaysAllow": []
+      }
+    }
+  }
