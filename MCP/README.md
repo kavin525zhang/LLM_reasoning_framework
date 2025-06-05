@@ -42,3 +42,4 @@
 ## 参考资料
 * [Python FastMCP实现MCP实践全解析](https://blog.csdn.net/lingding_cn/article/details/147355620)
 * [MCP-Chinese](https://github.com/liaokongVFX/MCP-Chinese-Getting-Started-Guide)
+* [mcp_demo](https://github.com/aixiaoxin123/mcp_demo_project)
