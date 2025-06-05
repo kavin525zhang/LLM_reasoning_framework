@@ -28,4 +28,3 @@ python3 -m sglang.launch_server
 
 # 参考资料
 [SGLang安装教程](https://blog.csdn.net/weixin_39806242/article/details/145320296)
-[MCP-Chinese](https://github.com/liaokongVFX/MCP-Chinese-Getting-Started-Guide)
