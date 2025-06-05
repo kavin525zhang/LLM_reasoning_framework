@@ -48,7 +48,7 @@ class MCPClient:
         )
         
         messages = [
-            {"role": "system", "content": system_prompt},
+            # {"role": "system", "content": system_prompt},
             {"role": "user", "content": query}
         ]
 
@@ -93,7 +93,7 @@ class MCPClient:
             print("result:{}".format(result))
 			
             # 将 deepseek 返回的调用哪个工具数据和工具执行完成后的数据都存入messages中
-            # messages.append(content.message.model_dump())
+            #messages.append(content.message.model_dump())
             messages.append({'content': "", 'refusal': "", 'role': 'user', 'audio': "", 'function_call': "", 'tool_calls': [{'id': '0', 'function': {'arguments': '{"a": 10, "b": 20}', 'name': 'add'}, 'type': 'function'}], 'reasoning_content': ""})
             messages.append({
                 "role": "tool",
