@@ -1,0 +1,2 @@
+# 单节点运行命令  
+```python -m vllm.entrypoints.openai.api_server --model /mnt/disk2/yr/Qwen2.5-72B-Instruct --tool-call-parser hermes --enable-auto-tool-choice --host 172.17.124.33 --port 9528 --tensor-parallel-size 4```

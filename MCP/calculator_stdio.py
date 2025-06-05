@@ -10,12 +10,12 @@ def add(a: int, b: int) -> int:
     return a + b
  
 @mcp.tool()
-def ssubtract(a: int, b: int) -> int:
+def subtract(a: int, b: int) -> int:
     """从第一个数中减去第二个数"""
     return a - b
  
 @mcp.tool()
-def mmultiply(a: int, b: int) -> int:
+def multiply(a: int, b: int) -> int:
     """将两个数相乘"""
     return a * b
  
