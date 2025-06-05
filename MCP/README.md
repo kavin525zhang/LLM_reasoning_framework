@@ -26,6 +26,10 @@
 * 客户端脚本  
 ```python sse_client.py```
 
+## 注意事项 
+* system_prompt对输出有影响，干掉就能正常输出，但可能也跟内容有关系（可以多测试几组）  
+* 问题比较大的是模型输出后，需要从结果正则提取tool_call，这时由于格式的不一样会报错，需要改写处理逻辑
+
 ## 参考资料
 * [Python FastMCP实现MCP实践全解析](https://blog.csdn.net/lingding_cn/article/details/147355620)
 * [MCP-Chinese](https://github.com/liaokongVFX/MCP-Chinese-Getting-Started-Guide)
