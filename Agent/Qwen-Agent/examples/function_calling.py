@@ -36,12 +36,12 @@ def get_current_weather(location, unit='fahrenheit'):
 def test(fncall_prompt_type: str = 'qwen'):
     llm = get_chat_model({
         # Use the model service provided by DashScope:
-        'model': 'qwen-plus-latest',
-        'model_server': 'dashscope',
-        'api_key': os.getenv('DASHSCOPE_API_KEY'),
-        'generate_cfg': {
-            'fncall_prompt_type': fncall_prompt_type
-        },
+        # 'model': 'qwen-plus-latest',
+        # 'model_server': 'dashscope',
+        # 'api_key': os.getenv('DASHSCOPE_API_KEY'),
+        # 'generate_cfg': {
+        #     'fncall_prompt_type': fncall_prompt_type
+        # },
 
         # Use the OpenAI-compatible model service provided by DashScope:
         # 'model': 'qwen2.5-72b-instruct',
@@ -54,13 +54,13 @@ def test(fncall_prompt_type: str = 'qwen'):
         # 'api_key': os.getenv('TOGETHER_API_KEY'),
 
         # Use your own model service compatible with OpenAI API:
-        # 'model': 'Qwen/qwen2.5-7b-instruct',
-        # 'model_server': 'http://localhost:8000/v1',  # api_base
-        # 'api_key': 'EMPTY',
+        'model': '/mnt/disk2/yr/Qwen2.5-72B-Instruct',
+        'model_server': 'http://172.17.124.33:9528/v1',  # api_base
+        'api_key': 'None'
     })
 
     # Step 1: send the conversation and available functions to the model
-    messages = [{'role': 'user', 'content': "What's the weather like in San Francisco?"}]
+    messages = [{'role': 'user', 'content': "What's the weather like in tokyo?"}]
     functions = [{
         'name': 'get_current_weather',
         'description': 'Get the current weather in a given location',

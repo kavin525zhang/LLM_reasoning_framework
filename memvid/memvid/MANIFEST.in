@@ -1,0 +1,9 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include memvid *.py
+recursive-include examples *.py
+recursive-include tests *.py
+global-exclude __pycache__ *.pyc *.pyo *.swp .DS_Store
+exclude data/*
+exclude output/*
