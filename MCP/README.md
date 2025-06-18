@@ -1,4 +1,11 @@
-# MCP  
+# MCP
+## 四款MCP客户端  
+* [Claude Desktop](https://docs.anthropic.com/en/home)   
+* [Cherry Studio]()
+* [Cursor]()
+* [DeepChat]()
+* [ChatWise]()
+
 ## stdio
 ### 测试
 * VSCODE安装ROO CODE CHINESE
@@ -43,3 +50,5 @@
 * [Python FastMCP实现MCP实践全解析](https://blog.csdn.net/lingding_cn/article/details/147355620)
 * [MCP-Chinese](https://github.com/liaokongVFX/MCP-Chinese-Getting-Started-Guide)
 * [mcp_demo](https://github.com/aixiaoxin123/mcp_demo_project)
+* [Awesome-MCP-ZH](https://github.com/yzfly/Awesome-MCP-Z?)
+* [mindmap-mcp-server](https://github.com/YuChenSSR/mindmap-mcp-server)

@@ -25,7 +25,9 @@ def test():
 
 def app_gui():
     # Define the agent
-    bot = Assistant(llm={'model': 'qwen-plus-latest'},
+    bot = Assistant(llm={'model': '/infinity/models/qwen2.5/Qwen2.5-72B-Instruct',
+                         'model_server': 'http://172.17.124.31:8024/v1',  # base_url, also known as api_base
+                         'api_key': 'EMPTY'},
                     name='Assistant',
                     description='使用RAG检索并回答，支持文件类型：PDF/Word/PPT/TXT/HTML。')
     chatbot_config = {
