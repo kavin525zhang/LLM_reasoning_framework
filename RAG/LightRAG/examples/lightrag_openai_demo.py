@@ -3,7 +3,12 @@ import asyncio
 import logging
 import logging.config
 from lightrag import LightRAG, QueryParam
-from lightrag.llm.openai import gpt_4o_mini_complete, openai_embed
+from lightrag.llm.openai import (
+    gpt_4o_mini_complete,
+    openai_complete,
+    openai_embed,
+    bge_embed
+)
 from lightrag.kg.shared_storage import initialize_pipeline_status
 from lightrag.utils import logger, set_verbose_debug
 
@@ -80,8 +85,8 @@ if not os.path.exists(WORKING_DIR):
 async def initialize_rag():
     rag = LightRAG(
         working_dir=WORKING_DIR,
-        embedding_func=openai_embed,
-        llm_model_func=gpt_4o_mini_complete,
+        embedding_func=bge_embed,
+        llm_model_func=openai_complete,
     )
 
     await rag.initialize_storages()

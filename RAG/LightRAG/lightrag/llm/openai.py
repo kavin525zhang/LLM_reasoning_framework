@@ -2,6 +2,9 @@ from ..utils import verbose_debug, VERBOSE_DEBUG
 import sys
 import os
 import logging
+import requests
+session = requests.Session()
+import traceback
 
 if sys.version_info < (3, 9):
     from typing import AsyncIterator
@@ -452,3 +455,34 @@ async def openai_embed(
             model=model, input=texts, encoding_format="float"
         )
         return np.array([dp.embedding for dp in response.data])
+
+@wrap_embedding_func_with_attrs(embedding_dim=1024, max_token_size=8192)
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    retry=(
+        retry_if_exception_type(RateLimitError)
+        | retry_if_exception_type(APIConnectionError)
+        | retry_if_exception_type(APITimeoutError)
+    ),
+)
+async def bge_embed(
+    texts: list[str],
+    model: str = "bge",
+    base_url: str = None,
+    api_key: str = None,
+    client_configs: dict[str, Any] = None,
+) -> np.ndarray:
+    
+    result = []
+    try:
+        res = session.post(
+            "http://172.17.120.200:8003/embedding",
+            json={"text": texts, "type": model},
+            timeout=60
+        )
+        result = res.json()
+    except:
+        print("embedding error: {}".format(traceback.format_exc()))
+    finally:
+        return np.array(result)
