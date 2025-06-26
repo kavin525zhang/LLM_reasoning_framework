@@ -25,7 +25,11 @@ ROOT_RESOURCE = os.path.join(os.path.dirname(__file__), 'resource')
 
 
 def init_agent_service():
-    llm_cfg = {'model': 'qwen-max'}
+    llm_cfg = {
+        'model': '/infinity/models/qwen2.5/Qwen2.5-72B-Instruct',
+        'model_server': 'http://172.17.124.31:8024/v1',  # base_url, also known as api_base
+        'api_key': 'EMPTY'
+    }
     system = ('你扮演一个数据库助手，你具有查询数据库的能力')
     tools = [{
         "mcpServers": {

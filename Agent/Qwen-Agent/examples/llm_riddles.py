@@ -44,7 +44,11 @@ class LLMRiddles(Agent):
 
 def test():
     # Define a writer agent
-    bot = LLMRiddles(llm={'model': 'qwen-max'})
+    bot = LLMRiddles(llm={
+        'model': '/infinity/models/qwen2.5/Qwen2.5-72B-Instruct',
+        'model_server': 'http://172.17.124.31:8024/v1',  # base_url, also known as api_base
+        'api_key': 'EMPTY'
+    })
 
     # Gaming
     for topic in bot.topics:
@@ -87,5 +91,5 @@ def app_tui():
 
 
 if __name__ == '__main__':
-    # test()
-    app_tui()
+    test()
+    #app_tui()

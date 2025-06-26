@@ -18,11 +18,14 @@ from qwen_agent.gui import WebUI
 
 def test():
     # Define the agent
-    bot = DialogueRetrievalAgent(llm={'model': 'qwen-max'})
+    bot = DialogueRetrievalAgent(llm={
+        'model': '/infinity/models/qwen2.5/Qwen2.5-72B-Instruct',
+        'model_server': 'http://172.17.124.31:8024/v1',  # base_url, also known as api_base
+        'api_key': 'EMPTY'})
 
     # Chat
-    long_text = '，'.join(['这是干扰内容'] * 1000 + ['小明的爸爸叫大头'] + ['这是干扰内容'] * 1000)
-    messages = [{'role': 'user', 'content': f'小明爸爸叫什么？\n{long_text}'}]
+    long_text = '，'.join(['小明的爸爸不是李磊'] * 1000 + ['小明的爸爸叫大头'] + ['小明的爸爸不是李磊'] * 1000)
+    messages = [{'role': 'user', 'content': f'小明是谁的儿子？\n{long_text}'}]
 
     for response in bot.run(messages):
         print('bot response:', response)
@@ -52,4 +55,4 @@ def app_gui():
 if __name__ == '__main__':
     # test()
     # app_tui()
-    app_gui()
+    test()
