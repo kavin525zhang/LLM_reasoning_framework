@@ -52,3 +52,7 @@
 * [mcp_demo](https://github.com/aixiaoxin123/mcp_demo_project)
 * [Awesome-MCP-ZH](https://github.com/yzfly/Awesome-MCP-Z?)
 * [mindmap-mcp-server](https://github.com/YuChenSSR/mindmap-mcp-server)
+* [elasticsearch-mcp](https://github.com/cr7258/hands-on-lab/tree/main/ai/claude/mcp/client/elasticsearch-mcp-client-example)
+* [MCP传输机制Stdio与SSE](https://zhuanlan.zhihu.com/p/1891623741584294739)
+* [MCP](https://modelcontextprotocol.io/examples)
+* [MCP_examples](https://github.com/modelcontextprotocol/python-sdk)

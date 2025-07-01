@@ -47,7 +47,12 @@ def app_tui():
 
 def app_gui():
     # Define the agent
-    bot = DialogueRetrievalAgent(llm={'model': 'qwen-max'})
+    bot = DialogueRetrievalAgent(llm={
+        # 'model': '/infinity/models/qwen2.5/Qwen2.5-72B-Instruct',
+        'model': '/mnt/nas_infinith/gyj/models/qwen2.5/Qwen2.5-72B-Instruct',
+        'model_server': 'http://172.17.124.12:8024/v1',  # base_url, also known as api_base
+        'api_key': 'EMPTY'
+    })
 
     WebUI(bot).run()
 
@@ -55,4 +60,4 @@ def app_gui():
 if __name__ == '__main__':
     # test()
     # app_tui()
-    test()
+    app_gui()
