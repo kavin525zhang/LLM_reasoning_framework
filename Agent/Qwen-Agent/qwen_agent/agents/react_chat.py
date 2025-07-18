@@ -88,6 +88,7 @@ class ReActChat(FnCallAgent):
             if output:
                 response += output[-1].content
 
+            print("outputttttttttttt:{}".format(output))
             has_action, action, action_input, thought = self._detect_tool(output[-1].content)
             if not has_action:
                 break

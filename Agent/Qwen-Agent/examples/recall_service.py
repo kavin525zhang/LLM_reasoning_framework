@@ -11,7 +11,8 @@ def search_financial_report(query: str) -> str:
 @mcp.tool()
 def search_news(query: str) -> str:
     """当需要了解宏观经济状况、货币政策、金融市场、行业动态和公司财务等方面时使用"""
-    return "news:{}".format(query)
+    # return "news:{}".format(query)
+    return "李强总理 2025年7月3日，在湖南浏阳召开中考填报志愿的相关工作"
  
 @mcp.tool()
 def search_web(query: str) -> str:

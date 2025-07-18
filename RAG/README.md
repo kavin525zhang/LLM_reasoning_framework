@@ -1,6 +1,10 @@
 # RAG
+## 基于语言模型的分块：精准捕捉文本结构
+做法就是文本分块后，再结合全文和分块对每个分块生成上下文的总结性信息，最终与分块重新组合再一起，具体查看[chunk_split_by_llm.py](RAG/examples/chunk_split_by_llm.py)
 
 ## 参考资料  
 * [LightRAG](https://github.com/HKUDS/LightRAG)
 * [GraphRAG](https://github.com/microsoft/graphrag)
 * [E-2GraphRAG](https://github.com/YiboZhao624/E-2GraphRAG)
+* [Retrieval-Augmented Generation (RAG): From Theory to LangChain Implementation](https://towardsdatascience.com/retrieval-augmented-generation-rag-from-theory-to-langchain-implementation-4e9bd5f6a4f2/)
+* [RAG进阶技术！这十种方法你一定要知道](https://www.51cto.com/aigc/4926.html)

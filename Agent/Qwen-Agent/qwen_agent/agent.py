@@ -248,6 +248,7 @@ class Agent(ABC):
         func_name = None
         func_args = None
 
+        print("messageeeeeeeeeeeeeeee1111:{}".format(message))
         if message.function_call:
             func_call = message.function_call
             func_name = func_call.name

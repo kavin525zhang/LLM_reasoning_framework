@@ -69,8 +69,18 @@ def multiply_by_two(x: int) -> int:
 class FinalResult(BaseModel):
     number: int
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 multiply_agent = Agent(
+    model=model,
     name="Multiply Agent",
     instructions="Multiply the number by 2 and then return the final result.",
     tools=[multiply_by_two],
@@ -78,6 +88,7 @@ multiply_agent = Agent(
 )
 
 start_agent = Agent(
+    model=model,
     name="Start Agent",
     instructions="Generate a random number. If it's even, stop. If it's odd, hand off to the multiplier agent.",
     tools=[random_number],

@@ -134,10 +134,12 @@ class BackendSpanExporter(TracingExporter):
                 )
             except httpx.RequestError as exc:
                 # Network or other I/O error, we'll retry
+                print("3333")
                 logger.warning(f"[non-fatal] Tracing: request failed: {exc}")
 
             # If we reach here, we need to retry or give up
             if attempt >= self.max_retries:
+                print("22")
                 logger.error("[non-fatal] Tracing: max retries reached, giving up on this batch.")
                 return
 

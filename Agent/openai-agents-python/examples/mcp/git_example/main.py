@@ -4,9 +4,19 @@ import shutil
 from agents import Agent, Runner, trace
 from agents.mcp import MCPServer, MCPServerStdio
 
+from agents import OpenAIChatCompletionsModel
+from openai import AsyncOpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def run(mcp_server: MCPServer, directory_path: str):
     agent = Agent(
+        model=model,
         name="Assistant",
         instructions=f"Answer questions about the git repository at {directory_path}, use that for repo_path",
         mcp_servers=[mcp_server],

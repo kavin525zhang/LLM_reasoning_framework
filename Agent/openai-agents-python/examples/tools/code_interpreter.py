@@ -2,9 +2,19 @@ import asyncio
 
 from agents import Agent, CodeInterpreterTool, Runner, trace
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIResponsesModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= OpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def main():
     agent = Agent(
+        model=model,
         name="Code interpreter",
         instructions="You love doing math.",
         tools=[
@@ -16,7 +26,7 @@ async def main():
 
     with trace("Code interpreter example"):
         print("Solving math problem...")
-        result = Runner.run_streamed(agent, "What is the square root of273 * 312821 plus 1782?")
+        result = Runner.run_streamed(agent, "What is the square root of 273 * 312821 plus 1782?")
         async for event in result.stream_events():
             if (
                 event.type == "run_item_stream_event"

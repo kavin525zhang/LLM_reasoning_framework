@@ -6,9 +6,19 @@ from agents import Agent, HostedMCPTool, Runner
 """This example demonstrates how to use the hosted MCP support in the OpenAI Responses API, with
 approvals not required for any tools. You should only use this for trusted MCP servers."""
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def main(verbose: bool, stream: bool):
     agent = Agent(
+        model=model,
         name="Assistant",
         tools=[
             HostedMCPTool(

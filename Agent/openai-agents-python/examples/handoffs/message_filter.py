@@ -3,8 +3,18 @@ from __future__ import annotations
 import json
 import random
 
-from agents import Agent, HandoffInputData, Runner, function_tool, handoff, trace
+from agents import (
+    Agent, 
+    HandoffInputData, 
+    Runner, 
+    function_tool, 
+    handoff, 
+    trace,
+    OpenAIChatCompletionsModel
+)
 from agents.extensions import handoff_filters
+
+from openai import AsyncOpenAI
 
 
 @function_tool
@@ -30,20 +40,30 @@ def spanish_handoff_message_filter(handoff_message_data: HandoffInputData) -> Ha
         new_items=tuple(handoff_message_data.new_items),
     )
 
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 first_agent = Agent(
+    model=model,
     name="Assistant",
     instructions="Be extremely concise.",
     tools=[random_number_tool],
 )
 
 spanish_agent = Agent(
+    model=model,
     name="Spanish Assistant",
     instructions="You only speak Spanish and are extremely concise.",
     handoff_description="A Spanish-speaking assistant.",
 )
 
 second_agent = Agent(
+    model=model,
     name="Assistant",
     instructions=(
         "Be a helpful assistant. If the user speaks Spanish, handoff to the Spanish assistant."

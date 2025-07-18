@@ -2,9 +2,19 @@ import asyncio
 
 from agents import Agent, Runner, WebSearchTool, trace
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIResponsesModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def main():
     agent = Agent(
+        model=model,
         name="Web searcher",
         instructions="You are a helpful agent.",
         tools=[WebSearchTool(user_location={"type": "approximate", "city": "New York"})],

@@ -6,8 +6,11 @@ import uuid
 
 from pydantic import BaseModel
 
+from openai import AsyncOpenAI
+
 from agents import (
     Agent,
+    OpenAIChatCompletionsModel,
     HandoffOutputItem,
     ItemHelpers,
     MessageOutputItem,
@@ -85,7 +88,22 @@ async def on_seat_booking_handoff(context: RunContextWrapper[AirlineAgentContext
 
 ### AGENTS
 
+# model = OpenAIChatCompletionsModel(
+#     model="/mnt/nas_infinith/gyj/models/qwen2.5/Qwen2.5-72B-Instruct",
+#     openai_client= AsyncOpenAI(
+#         base_url="http://172.17.124.12:8024/v1", 
+#         api_key="EMPTY"
+#     )
+# )
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 faq_agent = Agent[AirlineAgentContext](
+    model=model,
     name="FAQ Agent",
     handoff_description="A helpful agent that can answer questions about the airline.",
     instructions=f"""{RECOMMENDED_PROMPT_PREFIX}
@@ -99,6 +117,7 @@ faq_agent = Agent[AirlineAgentContext](
 )
 
 seat_booking_agent = Agent[AirlineAgentContext](
+    model=model,
     name="Seat Booking Agent",
     handoff_description="A helpful agent that can update a seat on a flight.",
     instructions=f"""{RECOMMENDED_PROMPT_PREFIX}
@@ -113,6 +132,7 @@ seat_booking_agent = Agent[AirlineAgentContext](
 )
 
 triage_agent = Agent[AirlineAgentContext](
+    model=model,
     name="Triage Agent",
     handoff_description="A triage agent that can delegate a customer's request to the appropriate agent.",
     instructions=(
@@ -146,6 +166,7 @@ async def main():
         with trace("Customer service", group_id=conversation_id):
             input_items.append({"content": user_input, "role": "user"})
             result = await Runner.run(current_agent, input_items, context=context)
+            print("results:{}".format(result))
 
             for new_item in result.new_items:
                 agent_name = new_item.agent.name

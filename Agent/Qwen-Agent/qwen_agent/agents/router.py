@@ -61,15 +61,19 @@ class Router(Assistant, MultiAgentHub):
     def _run(self, messages: List[Message], lang: str = 'en', **kwargs) -> Iterator[List[Message]]:
         # This is a temporary plan to determine the source of a message
         messages_for_router = []
+        print("messagessssssssssssss:{}".format(messages))
         for msg in messages:
             if msg[ROLE] == ASSISTANT:
                 msg = self.supplement_name_special_token(msg)
             messages_for_router.append(msg)
+        print("messagesssssssssssssstt:{}".format(messages))
         response = []
         for response in super()._run(messages=messages_for_router, lang=lang, **kwargs):
             yield response
 
+        print("2222222:", response[-1].content)
         if 'Call:' in response[-1].content and self.agents:
+            print("1111:", response[-1].content)
             # According to the rule in prompt to selected agent
             selected_agent_name = response[-1].content.split('Call:')[-1].strip().split('\n')[0].strip()
             logger.info(f'Need help from {selected_agent_name}')

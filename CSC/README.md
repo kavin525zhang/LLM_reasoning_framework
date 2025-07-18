@@ -14,3 +14,5 @@
 * [nlp-fluency](https://github.com/baojunshan/nlp-fluency)
 * [ChineseErrorCorrector](https://github.com/TW-NLP/ChineseErrorCorrector)
 * [DCN](https://github.com/destwang/DCN)
+* [FASPell_paper](https://aclanthology.org/D19-5522.pdf)
+* [FASPell](https://github.com/iqiyi/FASPell)

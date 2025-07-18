@@ -5,15 +5,6 @@ from openai import AsyncOpenAI
 
 from agents import Agent, OpenAIChatCompletionsModel, Runner, function_tool, set_tracing_disabled
 
-BASE_URL = os.getenv("EXAMPLE_BASE_URL") or ""
-API_KEY = os.getenv("EXAMPLE_API_KEY") or ""
-MODEL_NAME = os.getenv("EXAMPLE_MODEL_NAME") or ""
-
-if not BASE_URL or not API_KEY or not MODEL_NAME:
-    raise ValueError(
-        "Please set EXAMPLE_BASE_URL, EXAMPLE_API_KEY, EXAMPLE_MODEL_NAME via env var or code."
-    )
-
 """This example uses a custom provider for a specific agent. Steps:
 1. Create a custom OpenAI client.
 2. Create a `Model` that uses the custom client.
@@ -23,7 +14,10 @@ Note that in this example, we disable tracing under the assumption that you don'
 from platform.openai.com. If you do have one, you can either set the `OPENAI_API_KEY` env var
 or call set_tracing_export_api_key() to set a tracing specific key.
 """
-client = AsyncOpenAI(base_url=BASE_URL, api_key=API_KEY)
+client = AsyncOpenAI(
+    base_url="http://172.17.124.33:9528/v1", 
+    api_key="EMPTY"
+)
 set_tracing_disabled(disabled=True)
 
 # An alternate approach that would also work:
@@ -43,7 +37,8 @@ async def main():
     agent = Agent(
         name="Assistant",
         instructions="You only respond in haikus.",
-        model=OpenAIChatCompletionsModel(model=MODEL_NAME, openai_client=client),
+        model=OpenAIChatCompletionsModel(model="/mnt/disk2/yr/Qwen2.5-72B-Instruc", 
+                                         openai_client=client),
         tools=[get_weather],
     )
 

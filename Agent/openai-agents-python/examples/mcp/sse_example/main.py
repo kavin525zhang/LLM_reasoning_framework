@@ -9,9 +9,19 @@ from agents import Agent, Runner, gen_trace_id, trace
 from agents.mcp import MCPServer, MCPServerSse
 from agents.model_settings import ModelSettings
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def run(mcp_server: MCPServer):
     agent = Agent(
+        model=model,
         name="Assistant",
         instructions="Use the tools to answer the questions.",
         mcp_servers=[mcp_server],

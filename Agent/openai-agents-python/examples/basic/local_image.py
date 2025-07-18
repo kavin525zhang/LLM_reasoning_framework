@@ -12,12 +12,22 @@ def image_to_base64(image_path):
         encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
     return encoded_string
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def main():
     # Print base64-encoded image
     b64_image = image_to_base64(FILEPATH)
 
     agent = Agent(
+        model=model,
         name="Assistant",
         instructions="You are a helpful assistant.",
     )

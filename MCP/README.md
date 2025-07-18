@@ -56,3 +56,4 @@
 * [MCP传输机制Stdio与SSE](https://zhuanlan.zhihu.com/p/1891623741584294739)
 * [MCP](https://modelcontextprotocol.io/examples)
 * [MCP_examples](https://github.com/modelcontextprotocol/python-sdk)
+* [awesome-mcp-servers](https://github.com/punkpeye/awesome-mcp-servers?tab=readme-ov-file)

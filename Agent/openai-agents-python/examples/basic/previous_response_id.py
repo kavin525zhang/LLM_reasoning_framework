@@ -13,9 +13,19 @@ store the response ID along with an expiration date; if the response is no longe
 you'll need to re-send the previous conversation history.
 """
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def main():
     agent = Agent(
+        model=model,
         name="Assistant",
         instructions="You are a helpful assistant. be VERY concise.",
     )
@@ -36,6 +46,7 @@ async def main():
 async def main_stream():
     agent = Agent(
         name="Assistant",
+        model=model,
         instructions="You are a helpful assistant. be VERY concise.",
     )
 
@@ -45,7 +56,7 @@ async def main_stream():
         if event.type == "raw_response_event" and event.data.type == "response.output_text.delta":
             print(event.data.delta, end="", flush=True)
 
-    print()
+    # print()
 
     result = Runner.run_streamed(
         agent,
@@ -59,8 +70,9 @@ async def main_stream():
 
 
 if __name__ == "__main__":
-    is_stream = input("Run in stream mode? (y/n): ")
-    if is_stream == "y":
-        asyncio.run(main_stream())
-    else:
-        asyncio.run(main())
+    asyncio.run(main())
+    # is_stream = input("Run in stream mode? (y/n): ")
+    # if is_stream == "y":
+    #     asyncio.run(main_stream())
+    # else:
+    #     asyncio.run(main())

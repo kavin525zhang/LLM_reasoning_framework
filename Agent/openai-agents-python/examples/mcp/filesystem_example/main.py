@@ -5,12 +5,22 @@ import shutil
 from agents import Agent, Runner, gen_trace_id, trace
 from agents.mcp import MCPServer, MCPServerStdio
 
+from agents import OpenAIChatCompletionsModel
+from openai import AsyncOpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def run(mcp_server: MCPServer):
     agent = Agent(
+        model=model,
         name="Assistant",
         instructions="Use the tools to read the filesystem and answer questions based on those files.",
-        mcp_servers=[mcp_server],
+        mcp_servers=[mcp_server]
     )
 
     # List the files it can read
@@ -35,7 +45,6 @@ async def run(mcp_server: MCPServer):
 async def main():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     samples_dir = os.path.join(current_dir, "sample_files")
-
     async with MCPServerStdio(
         name="Filesystem Server, via npx",
         params={

@@ -47,34 +47,48 @@ class CustomOutputSchema(AgentOutputSchemaBase):
         # Just for demonstration, we'll return a list.
         return list(json_obj["jokes"].values())
 
+from agents import OpenAIChatCompletionsModel, OpenAIResponsesModel, OpenAIProvider
+from openai import AsyncOpenAI, OpenAI
+model = OpenAIChatCompletionsModel(
+    model="/mnt/disk2/yr/Qwen2.5-72B-Instruct",
+    openai_client= AsyncOpenAI(
+        base_url="http://172.17.124.33:9528/v1", 
+        api_key="EMPTY"
+    )
+)
 
 async def main():
     agent = Agent(
+        model=model,
         name="Assistant",
         instructions="You are a helpful assistant.",
-        output_type=OutputType,
+        output_type=AgentOutputSchema(OutputType, strict_json_schema=False)
     )
 
-    input = "Tell me 3 short jokes."
+    input = "请说三个冷笑话"
 
     # First, let's try with a strict output type. This should raise an exception.
-    try:
-        result = await Runner.run(agent, input)
-        raise AssertionError("Should have raised an exception")
-    except Exception as e:
-        print(f"Error (expected): {e}")
+    # try:
+    #     result = await Runner.run(
+    #         agent, 
+    #         input
+    #     )
+    #     print("11:{}".format(result.final_output))
+    #     # raise AssertionError("Should have raised an exception")
+    # except Exception as e:
+    #     print(f"Error (expected): {e}")
 
     # Now let's try again with a non-strict output type. This should work.
     # In some cases, it will raise an error - the schema isn't strict, so the model may
     # produce an invalid JSON object.
-    agent.output_type = AgentOutputSchema(OutputType, strict_json_schema=False)
-    result = await Runner.run(agent, input)
-    print(result.final_output)
+    # agent.output_type = AgentOutputSchema(OutputType, strict_json_schema=False)
+    # result = await Runner.run(agent, input)
+    # print("22:{}".format(result.final_output))
 
-    # Finally, let's try a custom output type.
+    # # Finally, let's try a custom output type.
     agent.output_type = CustomOutputSchema()
     result = await Runner.run(agent, input)
-    print(result.final_output)
+    print("33:{}".format(result.final_output))
 
 
 if __name__ == "__main__":
