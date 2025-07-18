@@ -1,6 +1,6 @@
 # RAG
 ## 基于语言模型的分块：精准捕捉文本结构
-做法就是文本分块后，再结合全文和分块对每个分块生成上下文的总结性信息，最终与分块重新组合再一起，具体查看[chunk_split_by_llm.py](RAG/examples/chunk_split_by_llm.py)
+做法就是文本分块后，再结合全文和分块对每个分块生成上下文的总结性信息，最终与分块重新组合再一起，具体查看[chunk_split_by_llm.py](examples/chunk_split_by_llm.py)
 
 ## 参考资料  
 * [LightRAG](https://github.com/HKUDS/LightRAG)
