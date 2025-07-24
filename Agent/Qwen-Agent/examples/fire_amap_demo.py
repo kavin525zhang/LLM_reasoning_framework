@@ -16,7 +16,7 @@ def init_agent_service():
                 "command": "npx",
                 "args": ["-y", "firecrawl-mcp"],
                 "env": {
-                    "FIRECRAWL_API_KEY": "fc-240c33fff0db4ccaa7e3fe9229f0c851"
+                    # "FIRECRAWL_API_KEY": "fc-240c33fff0db4ccaa7e3fe9229f0c851"
                 },
             },
         },
