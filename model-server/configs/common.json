@@ -1,0 +1,46 @@
+{
+  "basic": {
+    "port": 8001,
+    "log_level": "INFO"
+  },
+  "service": {
+    "language_model": {},
+    "embedding_model": {
+      "bge": {
+        "model_path": "/mnt/disk1/kavin/bge-large-zh-o4-onnx",
+        "device": "cuda:4",
+        "max_length": 2048,
+        "batch_size": 8,
+        "instruction": "为这个句子生成表示以用于检索相关文章："
+      }
+    },
+    "rerank_model": {
+      "bge": {
+        "model_path": "/models/bge-reranker-large-o4-onnx",
+        "device": "cuda:0",
+        "batch_size": 8
+      }
+    },
+    "mdid_model": {
+      "mbert": {
+        "model_path": "/models/mdid-v4.2-o1-onnx",
+        "device": "cuda:0",
+        "batch_size": 8
+      }
+    },
+    "ocr_model": {
+      "rapid_ocr": {
+        "device": "cuda:0",
+        "batch_size": 8
+      }
+    },
+    "table_model": {
+      "rapid_table": {
+        "device": "cuda:0"
+      }
+    }
+  },
+  "integration": {
+    "xinference": false
+  }
+}

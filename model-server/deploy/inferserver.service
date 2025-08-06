@@ -1,0 +1,15 @@
+[Unit]
+Description=Wuya Model Infer Service
+After=network.target
+
+[Service]
+User=root
+Group=root
+Environment=LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/anaconda3/lib/
+ExecStartPre=/usr/bin/git pull
+ExecStart=/root/anaconda3/envs/llm/bin/python main.py
+WorkingDirectory=/opt/share/dzg/model-server
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
