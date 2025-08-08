@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+python-multipart
+rich
+# 如果要安装 CPU 版本 MFR 请将 URL 中的 cuda 换成 cpu
+--extra-index-url http://172.16.180.50:8989/simple/cuda --trusted-host 172.16.180.50
+ggmlmodelzoo

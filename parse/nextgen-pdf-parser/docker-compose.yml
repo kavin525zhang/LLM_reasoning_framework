@@ -1,0 +1,16 @@
+services:
+  nextgen-pdf-parser:
+    tty: true        # docker run -t
+    image: infinity:nextgen-pdf-parser-0925
+    volumes:
+      - ./models:/workspace/models
+      - ./sdist:/workspace/service
+    entrypoint: /workspace/service/entrypoint.sh
+    network_mode: "host"
+    privileged: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+              driver: nvidia
