@@ -11,3 +11,4 @@
 * [Retrieval-Augmented Generation (RAG): From Theory to LangChain Implementation](https://towardsdatascience.com/retrieval-augmented-generation-rag-from-theory-to-langchain-implementation-4e9bd5f6a4f2/)
 * [RAG进阶技术！这十种方法你一定要知道](https://www.51cto.com/aigc/4926.html)
 * [chunk分块实践篇](https://juejin.cn/post/7507192967069876265)
+* [PIKE-RAG](https://github.com/microsoft/PIKE-RAG)
