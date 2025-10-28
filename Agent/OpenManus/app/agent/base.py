@@ -133,6 +133,7 @@ class BaseAgent(BaseModel, ABC):
 
         results: List[str] = []
         async with self.state_context(AgentState.RUNNING):
+            # 中止条件：达到最大执行步骤或者遇到结束状态标记
             while (
                 self.current_step < self.max_steps and self.state != AgentState.FINISHED
             ):
@@ -141,6 +142,7 @@ class BaseAgent(BaseModel, ABC):
                 step_result = await self.step()
 
                 # Check for stuck state
+                # 检测重复内容，如果重复，通过调整prompt支会模型，让模型采取新的策略
                 if self.is_stuck():
                     self.handle_stuck_state()
 

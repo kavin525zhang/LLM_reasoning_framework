@@ -13,6 +13,7 @@ from app.tool.browser_use_tool import BrowserUseTool
 from app.tool.mcp import MCPClients, MCPClientTool
 from app.tool.python_execute import PythonExecute
 from app.tool.str_replace_editor import StrReplaceEditor
+from app.tool.web_search import WebSearch
 
 
 class Manus(ToolCallAgent):
@@ -34,10 +35,11 @@ class Manus(ToolCallAgent):
     available_tools: ToolCollection = Field(
         default_factory=lambda: ToolCollection(
             PythonExecute(),
-            BrowserUseTool(),
+            # BrowserUseTool(),
             StrReplaceEditor(),
-            AskHuman(),
-            Terminate(),
+            # AskHuman(),
+            Terminate()
+            # WebSearch()
         )
     )
 
@@ -60,12 +62,14 @@ class Manus(ToolCallAgent):
     async def create(cls, **kwargs) -> "Manus":
         """Factory method to create and properly initialize a Manus instance."""
         instance = cls(**kwargs)
+        # 初始化mcp工具
         await instance.initialize_mcp_servers()
         instance._initialized = True
         return instance
 
     async def initialize_mcp_servers(self) -> None:
         """Initialize connections to configured MCP servers."""
+        # config.mcp_config.servers: {}
         for server_id, server_config in config.mcp_config.servers.items():
             try:
                 if server_config.type == "sse":

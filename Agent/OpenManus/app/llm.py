@@ -692,6 +692,8 @@ class LLM:
 
             # If there are tools, calculate token count for tool descriptions
             tools_tokens = 0
+            # import json
+            # print("ttooollllllll:{}".format(json.dumps(tools, ensure_ascii=False, indent=4)))
             if tools:
                 for tool in tools:
                     tools_tokens += self.count_tokens(str(tool))
@@ -719,7 +721,7 @@ class LLM:
                 "timeout": timeout,
                 **kwargs,
             }
-
+            # print("paramssssssssssssssss:{}".format(params))
             if self.model in REASONING_MODELS:
                 params["max_completion_tokens"] = self.max_tokens
             else:
@@ -732,7 +734,6 @@ class LLM:
             response: ChatCompletion = await self.client.chat.completions.create(
                 **params
             )
-
             # Check if response is valid
             if not response.choices or not response.choices[0].message:
                 print(response)

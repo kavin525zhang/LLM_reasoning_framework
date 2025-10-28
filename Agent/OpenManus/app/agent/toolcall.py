@@ -38,10 +38,15 @@ class ToolCallAgent(ReActAgent):
 
     async def think(self) -> bool:
         """Process current state and decide next actions using tools"""
+        '''
+        self.next_step_prompt:
+        Based on user needs, proactively select the most appropriate tool or combination of tools. For complex tasks, you can break down the problem and use different tools step by step to solve it. After using each tool, clearly explain the execution results and suggest the next steps.
+
+        If you want to stop the interaction at any point, use the `terminate` tool/function call. 
+        '''
         if self.next_step_prompt:
             user_msg = Message.user_message(self.next_step_prompt)
             self.messages += [user_msg]
-
         try:
             # Get response with tool options
             response = await self.llm.ask_tool(
@@ -52,7 +57,7 @@ class ToolCallAgent(ReActAgent):
                     else None
                 ),
                 tools=self.available_tools.to_params(),
-                tool_choice=self.tool_choices,
+                tool_choice=self.tool_choices,  # none、auto、required
             )
         except ValueError:
             raise
@@ -77,6 +82,9 @@ class ToolCallAgent(ReActAgent):
         )
         content = response.content if response and response.content else ""
 
+        print("self.tool_callsssssssss:{}".format(self.tool_calls))
+        print("content:{}".format(content))
+
         # Log response info
         logger.info(f"✨ {self.name}'s thoughts: {content}")
         logger.info(
@@ -86,13 +94,15 @@ class ToolCallAgent(ReActAgent):
             logger.info(
                 f"🧰 Tools being prepared: {[call.function.name for call in tool_calls]}"
             )
-            logger.info(f"🔧 Tool arguments: {tool_calls[0].function.arguments}")
+            logger.info(f"🔧 Tool arguments: {json.dumps(json.loads(tool_calls[0].function.arguments), ensure_ascii=False)}")
 
         try:
             if response is None:
                 raise RuntimeError("No response received from the LLM")
 
             # Handle different tool_choices modes
+            # self.tool_choices: ToolChoice.AUTO
+            print("self.tool_choicessssssss:{}".format(self.tool_choices))
             if self.tool_choices == ToolChoice.NONE:
                 if tool_calls:
                     logger.warning(
@@ -115,8 +125,8 @@ class ToolCallAgent(ReActAgent):
                 return True  # Will be handled in act()
 
             # For 'auto' mode, continue with content if no commands but content exists
-            if self.tool_choices == ToolChoice.AUTO and not self.tool_calls:
-                return bool(content)
+            # if self.tool_choices == ToolChoice.AUTO and not self.tool_calls:
+            #     return bool(content)
 
             return bool(self.tool_calls)
         except Exception as e:
@@ -165,10 +175,12 @@ class ToolCallAgent(ReActAgent):
 
     async def execute_tool(self, command: ToolCall) -> str:
         """Execute a single tool call with robust error handling"""
+        print("11111111111111:{}".format(command))
         if not command or not command.function or not command.function.name:
             return "Error: Invalid command format"
 
         name = command.function.name
+        print("name:{}, self.available_tools.tool_map:{}".format(name, list(self.available_tools.tool_map.keys())))
         if name not in self.available_tools.tool_map:
             return f"Error: Unknown tool '{name}'"
 
