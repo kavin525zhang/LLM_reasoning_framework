@@ -1,0 +1,34 @@
+const getSlider = () => ({
+    style: {
+        fill: {
+            type: "palette",
+            key: "scrollBarSliderColor"
+        }
+    }
+});
+
+export const scrollBar = {
+    horizontal: {
+        height: 10,
+        slider: {
+            style: {
+                fill: {
+                    type: "palette",
+                    key: "scrollBarSliderColor"
+                }
+            }
+        }
+    },
+    vertical: {
+        width: 10,
+        slider: {
+            style: {
+                fill: {
+                    type: "palette",
+                    key: "scrollBarSliderColor"
+                }
+            }
+        }
+    }
+};
+//# sourceMappingURL=scroll-bar.js.map

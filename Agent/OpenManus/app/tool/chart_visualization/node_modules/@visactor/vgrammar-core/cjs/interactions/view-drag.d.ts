@@ -1,0 +1,20 @@
+import type { ViewDragOptions, IView, InteractionEvent, IViewDragMixin } from '../types';
+import { ViewNavigationBase } from './view-navigation-base';
+export interface ViewDrag extends Pick<IViewDragMixin, 'handleDragStart' | 'handleDragEnd' | 'handleDragUpdate'>, ViewNavigationBase<ViewDragOptions> {
+}
+export declare class ViewDrag extends ViewNavigationBase<ViewDragOptions> {
+    static type: string;
+    type: string;
+    static defaultOptions: ViewDragOptions;
+    protected _inited?: boolean;
+    protected handleUpdate: (e: InteractionEvent) => void;
+    protected _isStarted?: boolean;
+    constructor(view: IView, option?: ViewDragOptions);
+    protected getEvents(): {
+        type: import("../types").EventType;
+        handler: (e: InteractionEvent) => void;
+    }[];
+    handleStart: (e: InteractionEvent) => void;
+    handleUpdateInner: (e: InteractionEvent) => void;
+    handleEnd: (e: InteractionEvent) => void;
+}

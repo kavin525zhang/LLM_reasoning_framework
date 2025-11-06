@@ -1,0 +1,36 @@
+import { BasePluginService } from "../base/base-plugin-service";
+
+export class ChartPluginService extends BasePluginService {
+    constructor(globalInstance) {
+        super(), this.globalInstance = globalInstance;
+    }
+    onInit(chartSpec) {
+        this._plugins.forEach((plugin => {
+            plugin.onInit && plugin.onInit(this, chartSpec);
+        }));
+    }
+    onBeforeResize(width, height) {
+        this._plugins.forEach((plugin => {
+            plugin.onBeforeResize && plugin.onBeforeResize(this, width, height);
+        }));
+    }
+    onAfterChartSpecTransform(chartSpec, actionSource) {
+        this._plugins.forEach((plugin => {
+            plugin.onAfterChartSpecTransform && plugin.onAfterChartSpecTransform(this, chartSpec, actionSource);
+        }));
+    }
+    onAfterModelSpecTransform(chartSpec, chartSpecInfo, actionSource) {
+        this._plugins.forEach((plugin => {
+            plugin.onAfterModelSpecTransform && plugin.onAfterModelSpecTransform(this, chartSpec, chartSpecInfo, actionSource);
+        }));
+    }
+    onBeforeInitChart(chartSpec, actionSource) {
+        this._plugins.forEach((plugin => {
+            plugin.onBeforeInitChart && plugin.onBeforeInitChart(this, chartSpec, actionSource);
+        }));
+    }
+    releaseAll() {
+        super.releaseAll(), this.globalInstance = null;
+    }
+}
+//# sourceMappingURL=plugin-service.js.map

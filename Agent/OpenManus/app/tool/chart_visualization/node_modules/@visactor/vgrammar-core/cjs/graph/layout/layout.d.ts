@@ -1,0 +1,4 @@
+import type { IMark } from '../../types/grammar';
+import type { ILayoutOptions, IView } from '../../types/view';
+export declare const defaultDoLayout: (layoutMarks: IMark[], options: ILayoutOptions, view: IView) => void;
+export declare const registerDefaultLayout: () => void;

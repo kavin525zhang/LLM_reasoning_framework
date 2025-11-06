@@ -1,0 +1,7 @@
+const isObject = value => {
+    const type = typeof value;
+    return null !== value && "object" === type || "function" === type;
+};
+
+export default isObject;
+//# sourceMappingURL=isObject.js.map

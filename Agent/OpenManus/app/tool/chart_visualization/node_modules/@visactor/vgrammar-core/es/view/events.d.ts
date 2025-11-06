@@ -1,0 +1,3 @@
+import type { IViewEventConfig } from '../types';
+export declare function prevent(eventConfig: IViewEventConfig, type: string): boolean;
+export declare function permit(eventConfig: IViewEventConfig, key: string, type: string): boolean;

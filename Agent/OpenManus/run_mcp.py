@@ -2,6 +2,7 @@
 import argparse
 import asyncio
 import sys
+import traceback
 
 from app.agent.mcp import MCPAgent
 from app.config import config
@@ -31,7 +32,7 @@ class MCPRunner:
                 args=["-m", self.server_reference],
             )
         else:  # sse
-            await self.agent.initialize(connection_type="sse", server_url=server_url)
+            await self.agent.initialize(connection_type=connection_type, server_url=server_url)
 
         logger.info(f"Connected to MCP server via {connection_type}")
 
@@ -72,13 +73,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--connection",
         "-c",
-        choices=["stdio", "sse"],
-        default="stdio",
-        help="Connection type: stdio or sse",
+        choices=["stdio", "sse", "streamable-http"],
+        default="streamable-http",
+        help="Connection type: stdio or sse or streamable-http",
     )
     parser.add_argument(
         "--server-url",
-        default="http://127.0.0.1:8000/sse",
+        default="http://172.18.140.24:9527/mcp",
         help="URL for SSE connection",
     )
     parser.add_argument(
@@ -106,6 +107,7 @@ async def run_mcp() -> None:
     except KeyboardInterrupt:
         logger.info("Program interrupted by user")
     except Exception as e:
+        logger.error("eeee:{}".format(traceback.format_exc()))
         logger.error(f"Error running MCPAgent: {str(e)}", exc_info=True)
         sys.exit(1)
     finally:

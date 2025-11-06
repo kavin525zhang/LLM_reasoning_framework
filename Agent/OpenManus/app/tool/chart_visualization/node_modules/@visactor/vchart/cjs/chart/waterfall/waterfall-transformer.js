@@ -1,0 +1,23 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.WaterfallChartSpecTransformer = void 0;
+
+const vutils_1 = require("@visactor/vutils"), bar_1 = require("../bar"), util_1 = require("../util");
+
+class WaterfallChartSpecTransformer extends bar_1.BarChartSpecTransformer {
+    transformSpec(spec) {
+        super.transformSpec(spec), spec.legends && (0, vutils_1.array)(spec.legends).forEach((l => {
+            l.select = !1, l.hover = !1, l.filter = !1;
+        })), (0, util_1.setDefaultCrosshairForCartesianChart)(spec);
+    }
+    _getDefaultSeriesSpec(spec) {
+        const series = super._getDefaultSeriesSpec(spec);
+        return series.bar = spec.bar, series.stackLabel = spec.stackLabel, series.leaderLine = spec.leaderLine, 
+        series.total = spec.total, series;
+    }
+}
+
+exports.WaterfallChartSpecTransformer = WaterfallChartSpecTransformer;
+//# sourceMappingURL=waterfall-transformer.js.map

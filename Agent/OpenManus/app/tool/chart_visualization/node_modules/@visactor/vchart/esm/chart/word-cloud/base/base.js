@@ -1,0 +1,15 @@
+import { SeriesTypeEnum } from "../../../series/interface/type";
+
+import { BaseChart } from "../../base/base-chart";
+
+import { BaseWordCloudChartSpecTransformer } from "./word-cloud-base-transformer";
+
+export class BaseWordCloudChart extends BaseChart {
+    constructor() {
+        super(...arguments), this.transformerConstructor = BaseWordCloudChartSpecTransformer, 
+        this.type = "wordCloud", this.seriesType = SeriesTypeEnum.wordCloud;
+    }
+}
+
+BaseWordCloudChart.transformerConstructor = BaseWordCloudChartSpecTransformer;
+//# sourceMappingURL=base.js.map

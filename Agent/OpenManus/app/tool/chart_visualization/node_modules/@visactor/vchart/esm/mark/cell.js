@@ -1,0 +1,23 @@
+import { Factory } from "./../core/factory";
+
+import { BaseSymbolMark } from "./symbol";
+
+import { registerCellGraphic, registerCellMark as registerVgrammarCellMark } from "@visactor/vgrammar-core";
+
+export class CellMark extends BaseSymbolMark {
+    constructor() {
+        super(...arguments), this.type = CellMark.type;
+    }
+    _getDefaultStyle() {
+        return Object.assign(Object.assign({}, super._getDefaultStyle()), {
+            padding: 0
+        });
+    }
+}
+
+CellMark.type = "cell";
+
+export const registerCellMark = () => {
+    Factory.registerMark(CellMark.type, CellMark), registerCellGraphic(), registerVgrammarCellMark();
+};
+//# sourceMappingURL=cell.js.map

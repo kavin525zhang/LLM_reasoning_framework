@@ -1,0 +1,66 @@
+const getLabelTheme = () => ({
+    visible: !0,
+    style: {
+        textBaseline: "middle",
+        textAlign: "left",
+        fill: "black",
+        fontSize: {
+            type: "token",
+            key: "l6FontSize"
+        }
+    }
+});
+
+export const mapLabel = {
+    visible: !0,
+    offset: 12,
+    position: "top",
+    space: 10,
+    nameLabel: {
+        visible: !0,
+        style: {
+            textBaseline: "middle",
+            textAlign: "left",
+            fill: "black",
+            fontSize: {
+                type: "token",
+                key: "l6FontSize"
+            }
+        }
+    },
+    valueLabel: {
+        visible: !0,
+        style: {
+            textBaseline: "middle",
+            textAlign: "left",
+            fill: "black",
+            fontSize: {
+                type: "token",
+                key: "l6FontSize"
+            }
+        }
+    },
+    background: {
+        visible: !0,
+        padding: {
+            top: 4,
+            bottom: 4,
+            left: 6,
+            right: 6
+        },
+        style: {
+            cornerRadius: 2,
+            lineWidth: 1,
+            fill: "white",
+            stroke: "grey"
+        }
+    },
+    leader: {
+        visible: !1,
+        style: {
+            lineWidth: 1,
+            stroke: "red"
+        }
+    }
+};
+//# sourceMappingURL=map-label.js.map

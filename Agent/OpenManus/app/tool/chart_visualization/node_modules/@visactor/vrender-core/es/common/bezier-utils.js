@@ -1,0 +1,40 @@
+import { PointService, Point } from "@visactor/vutils";
+
+export function snapLength(xArr, yArr) {
+    let totalLength = 0;
+    const count = xArr.length;
+    for (let i = 0; i < count; i++) {
+        const x = xArr[i], y = yArr[i], nextX = xArr[(i + 1) % count], nextY = yArr[(i + 1) % count];
+        totalLength += PointService.distanceNN(x, y, nextX, nextY);
+    }
+    return totalLength / 2;
+}
+
+export function cubicLength(p0, p1, p2, p3, iterationCount) {
+    return snapLength([ p0.x, p1.x, p2.x, p3.x ], [ p0.y, p1.y, p2.y, p3.y ]);
+}
+
+export function cubicCalc(p0, p1, p2, p3, t) {
+    const one = 1 - t;
+    return one * one * one * p0 + 3 * p1 * t * one * one + 3 * p2 * t * t * one + p3 * t * t * t;
+}
+
+export function cubicPointAt(p0, p1, p2, p3, t) {
+    const x = cubicCalc(p0.x, p1.x, p2.x, p3.x, t), y = cubicCalc(p0.y, p1.y, p2.y, p3.y, t);
+    return new Point(x, y);
+}
+
+export function quadCalc(p0, p1, p2, t) {
+    const one = 1 - t;
+    return one * one * p0 + 2 * one * t * p1 + t * t * p2;
+}
+
+export function quadPointAt(p0, p1, p2, t) {
+    const x = quadCalc(p0.x, p1.x, p2.x, t), y = quadCalc(p0.y, p1.y, p2.y, t);
+    return new Point(x, y);
+}
+
+export function quadLength(p0, p1, p2, iterationCount) {
+    return snapLength([ p0.x, p1.x, p2.x ], [ p0.y, p1.y, p2.y ]);
+}
+//# sourceMappingURL=bezier-utils.js.map

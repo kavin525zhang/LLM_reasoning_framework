@@ -1,0 +1,44 @@
+import { CartesianLinearAxis } from "./linear-axis";
+
+import { ComponentTypeEnum } from "../../interface/type";
+
+import { LinearAxisMixin } from "../mixin/linear-axis-mixin";
+
+import { SymlogScale } from "@visactor/vscale";
+
+import { mixin } from "@visactor/vutils";
+
+import { Factory } from "../../../core/factory";
+
+import { registerAxis } from "../base-axis";
+
+import { registerLineAxis, registerLineGrid } from "@visactor/vgrammar-core";
+
+import { continuousTicks } from "@visactor/vrender-components";
+
+import { registerDataSetInstanceTransform } from "../../../data/register";
+
+export class CartesianSymlogAxis extends CartesianLinearAxis {
+    constructor() {
+        super(...arguments), this.type = ComponentTypeEnum.cartesianSymlogAxis, this._zero = !1, 
+        this._scale = new SymlogScale;
+    }
+    initScales() {
+        var _a;
+        super.initScales(), this._scale.constant(null !== (_a = this._spec.constant) && void 0 !== _a ? _a : 10);
+    }
+    registerTicksTransform() {
+        const name = `${this.type}-ticks`;
+        return registerDataSetInstanceTransform(this._option.dataSet, name, continuousTicks), 
+        name;
+    }
+    transformScaleDomain() {}
+}
+
+CartesianSymlogAxis.type = ComponentTypeEnum.cartesianSymlogAxis, CartesianSymlogAxis.specKey = "axes", 
+mixin(CartesianSymlogAxis, LinearAxisMixin);
+
+export const registerCartesianSymlogAxis = () => {
+    registerLineAxis(), registerLineGrid(), registerAxis(), Factory.registerComponent(CartesianSymlogAxis.type, CartesianSymlogAxis);
+};
+//# sourceMappingURL=symlog-axis.js.map

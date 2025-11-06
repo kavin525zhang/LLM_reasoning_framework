@@ -1,0 +1,123 @@
+import { isBoolean, isEmpty, isFunction, isNil, isNumber, isValid } from "@visactor/vutils";
+
+import { ComponentTypeEnum } from "../../interface/type";
+
+import { DataFilterBaseComponent } from "../data-filter-base-component";
+
+import { ScrollBar as ScrollBarComponent } from "@visactor/vrender-components";
+
+import { transformToGraphic } from "../../../util/style";
+
+import { LayoutLevel, LayoutZIndex } from "../../../constant/layout";
+
+import { ChartEvent } from "../../../constant/event";
+
+import { SCROLL_BAR_DEFAULT_SIZE } from "../../../constant/scroll-bar";
+
+import { Factory } from "../../../core/factory";
+
+import { isClose } from "../../../util";
+
+const SCROLLBAR_EVENT = "scrollDrag", SCROLLBAR_END_EVENT = "scrollUp";
+
+export class ScrollBar extends DataFilterBaseComponent {
+    constructor(spec, options) {
+        var _a;
+        super(spec, options), this.type = ComponentTypeEnum.scrollBar, this.name = ComponentTypeEnum.scrollBar, 
+        this.specKey = "scrollBar", this.layoutZIndex = LayoutZIndex.DataZoom, this.layoutLevel = LayoutLevel.DataZoom, 
+        this.layoutType = "region-relative", this._filterMode = null !== (_a = spec.filterMode) && void 0 !== _a ? _a : "axis";
+    }
+    setAttrFromSpec() {
+        super.setAttrFromSpec(), isBoolean(this._spec.roam) && (this._zoomAttr.enable = !1, 
+        this._dragAttr.enable = this._spec.roam, this._scrollAttr.enable = this._spec.roam), 
+        (this._zoomAttr.enable || this._dragAttr.enable || this._scrollAttr.enable) && this.initZoomable(this.event, this._option.mode);
+    }
+    onLayoutEnd(ctx) {
+        var _a, _b;
+        this._updateScaleRange(), null === (_b = (_a = this.effect).onZoomChange) || void 0 === _b || _b.call(_a), 
+        super.onLayoutEnd(ctx);
+    }
+    _updateScaleRange() {
+        this._component && this._component.setAttributes({
+            x: this.getLayoutStartPoint().x,
+            y: this.getLayoutStartPoint().y,
+            width: this.getLayoutRect().width,
+            height: this.getLayoutRect().height
+        });
+    }
+    _computeWidth() {
+        return isNumber(this._spec.width) ? this._spec.width : this._isHorizontal ? this.getLayoutRect().width : SCROLL_BAR_DEFAULT_SIZE;
+    }
+    _computeHeight() {
+        return isNumber(this._spec.height) ? this._spec.height : this._isHorizontal ? SCROLL_BAR_DEFAULT_SIZE : this.getLayoutRect().height;
+    }
+    _getAttrs() {
+        var _a, _b, _c, _d, _e, _f;
+        return Object.assign({
+            zIndex: this.layoutZIndex,
+            x: this.getLayoutStartPoint().x,
+            y: this.getLayoutStartPoint().y,
+            width: this.getLayoutRect().width,
+            height: this.getLayoutRect().height,
+            range: [ this._start, this._end ],
+            direction: this._isHorizontal ? "horizontal" : "vertical",
+            delayType: null === (_a = this._spec) || void 0 === _a ? void 0 : _a.delayType,
+            delayTime: isValid(null === (_b = this._spec) || void 0 === _b ? void 0 : _b.delayType) ? null !== (_d = null === (_c = this._spec) || void 0 === _c ? void 0 : _c.delayTime) && void 0 !== _d ? _d : 30 : 0,
+            realTime: null === (_f = null === (_e = this._spec) || void 0 === _e ? void 0 : _e.realTime) || void 0 === _f || _f
+        }, this._getComponentAttrs());
+    }
+    _createOrUpdateComponent() {
+        const attrs = this._getAttrs();
+        if (this._component) this._component.setAttributes(attrs); else {
+            const container = this.getContainer();
+            this._component = new ScrollBarComponent(attrs), this._component.addEventListener("scrollDrag", (e => {
+                const value = e.detail.value;
+                this._handleChange(value[0], value[1]);
+            })), this._component.addEventListener("scrollUp", (e => {
+                const value = e.detail.value;
+                this._handleChange(value[0], value[1]);
+            })), container.add(this._component);
+        }
+    }
+    _handleChange(start, end, updateComponent) {
+        super._handleChange(start, end, updateComponent);
+        const isSameScrollValue = isClose(this._start, start) && isClose(this._end, end);
+        if (this._shouldChange && (!isSameScrollValue || !1 === this._spec.realTime)) {
+            updateComponent && this._component && this._component.setAttribute("range", [ start, end ]), 
+            this._start = start, this._end = end;
+            const startValue = this.statePointToData(start), endValue = this.statePointToData(end);
+            (isFunction(this._spec.updateDataAfterChange) ? this._spec.updateDataAfterChange(start, end, startValue, endValue) : this._handleStateChange(this.statePointToData(start), this.statePointToData(end))) && this.event.emit(ChartEvent.scrollBarChange, {
+                model: this,
+                value: {
+                    filterData: "axis" !== this._filterMode,
+                    start: this._start,
+                    end: this._end,
+                    startValue: this._startValue,
+                    endValue: this._endValue,
+                    newDomain: this._newDomain
+                }
+            });
+        }
+    }
+    _handleDataCollectionChange() {
+        if (this._spec.auto) {
+            this._data.getDataView().reRunAllTransform();
+        }
+    }
+    _getComponentAttrs() {
+        const {rail: rail, slider: slider, innerPadding: innerPadding} = this._spec, attrs = {};
+        return isNil(innerPadding) || (attrs.padding = innerPadding), isEmpty(null == rail ? void 0 : rail.style) || (attrs.railStyle = transformToGraphic(rail.style)), 
+        isEmpty(null == slider ? void 0 : slider.style) || (attrs.sliderStyle = transformToGraphic(slider.style)), 
+        attrs.disableTriggerEvent = this._option.disableTriggerEvent, attrs;
+    }
+    _getNeedClearVRenderComponents() {
+        return [ this._component ];
+    }
+}
+
+ScrollBar.type = ComponentTypeEnum.scrollBar, ScrollBar.specKey = "scrollBar";
+
+export const registerScrollBar = () => {
+    Factory.registerComponent(ScrollBar.type, ScrollBar);
+};
+//# sourceMappingURL=scroll-bar.js.map

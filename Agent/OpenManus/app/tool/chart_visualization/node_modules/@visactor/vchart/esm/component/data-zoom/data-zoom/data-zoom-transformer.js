@@ -1,0 +1,33 @@
+import { isArray } from "../../../util";
+
+import { BaseComponentSpecTransformer } from "../../base";
+
+import { mergeSpec } from "@visactor/vutils-extension";
+
+export class DataZoomSpecTransformer extends BaseComponentSpecTransformer {
+    _mergeThemeToSpec(spec, chartSpec) {
+        const theme = this._theme;
+        let newSpec = spec;
+        if (this._shouldMergeThemeToSpec()) {
+            const merge = originalSpec => {
+                const result = mergeSpec({
+                    selectedBackgroundChart: {
+                        line: {},
+                        area: {}
+                    }
+                }, this._theme, originalSpec), {selectedBackgroundChart: selectedBackgroundChart = {}} = originalSpec, {line: line, area: area} = selectedBackgroundChart;
+                return line && !1 !== line.visible && (result.selectedBackgroundChart.line.style = Object.assign(Object.assign({}, result.selectedBackgroundChart.line.style), {
+                    visible: !0
+                })), area && !1 !== area.visible && (result.selectedBackgroundChart.area.style = Object.assign(Object.assign({}, result.selectedBackgroundChart.area.style), {
+                    visible: !0
+                })), result;
+            }, baseSpec = spec;
+            newSpec = isArray(baseSpec) ? baseSpec.map((spec => merge(spec))) : merge(baseSpec);
+        }
+        return this._adjustPadding(newSpec), {
+            spec: newSpec,
+            theme: theme
+        };
+    }
+}
+//# sourceMappingURL=data-zoom-transformer.js.map

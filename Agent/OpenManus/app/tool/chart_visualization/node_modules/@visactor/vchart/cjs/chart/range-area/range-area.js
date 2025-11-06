@@ -1,0 +1,24 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.registerRangeAreaChart = exports.RangeAreaChart = void 0;
+
+const type_1 = require("../../series/interface/type"), range_area_1 = require("../../series/range-area/range-area"), factory_1 = require("../../core/factory"), range_area_transformer_1 = require("./range-area-transformer"), base_1 = require("../base");
+
+class RangeAreaChart extends base_1.BaseChart {
+    constructor() {
+        super(...arguments), this.transformerConstructor = range_area_transformer_1.RangeAreaChartSpecTransformer, 
+        this.type = "rangeArea", this.seriesType = type_1.SeriesTypeEnum.rangeArea;
+    }
+}
+
+exports.RangeAreaChart = RangeAreaChart, RangeAreaChart.type = "rangeArea", RangeAreaChart.seriesType = type_1.SeriesTypeEnum.rangeArea, 
+RangeAreaChart.transformerConstructor = range_area_transformer_1.RangeAreaChartSpecTransformer;
+
+const registerRangeAreaChart = () => {
+    (0, range_area_1.registerRangeAreaSeries)(), factory_1.Factory.registerChart(RangeAreaChart.type, RangeAreaChart);
+};
+
+exports.registerRangeAreaChart = registerRangeAreaChart;
+//# sourceMappingURL=range-area.js.map

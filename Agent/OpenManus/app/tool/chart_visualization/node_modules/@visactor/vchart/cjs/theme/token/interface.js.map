@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/theme/token/interface.ts"],"names":[],"mappings":"","file":"interface.js","sourcesContent":["/** 语义化 token 的索引 */\nexport interface ITokenKey<T = any> {\n  /** type 声明 */\n  type: 'token';\n  /** token key */\n  key: string;\n  /** 默认值，在没有取到 key 对应的值时返回 */\n  default?: T;\n}\n\nexport type TokenMap = Record<string, any>;\n"]}

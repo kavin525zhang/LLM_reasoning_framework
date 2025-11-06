@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/label-item/index.ts"],"names":[],"mappings":"AAAA,cAAc,cAAc,CAAC;AAC7B,cAAc,QAAQ,CAAC","file":"index.js","sourcesContent":["export * from './label-item';\nexport * from './type';\n"]}

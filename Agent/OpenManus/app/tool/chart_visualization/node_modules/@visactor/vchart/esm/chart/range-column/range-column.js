@@ -1,0 +1,24 @@
+import { SeriesTypeEnum } from "../../series/interface/type";
+
+import { Factory } from "../../core/factory";
+
+import { registerRangeColumnSeries } from "../../series/range-column/range-column";
+
+import { RangeColumnChartSpecTransformer } from "./range-column-transformer";
+
+import { BaseChart } from "../base";
+
+export class RangeColumnChart extends BaseChart {
+    constructor() {
+        super(...arguments), this.transformerConstructor = RangeColumnChartSpecTransformer, 
+        this.type = "rangeColumn", this.seriesType = SeriesTypeEnum.rangeColumn;
+    }
+}
+
+RangeColumnChart.type = "rangeColumn", RangeColumnChart.seriesType = SeriesTypeEnum.rangeColumn, 
+RangeColumnChart.transformerConstructor = RangeColumnChartSpecTransformer;
+
+export const registerRangeColumnChart = () => {
+    registerRangeColumnSeries(), Factory.registerChart(RangeColumnChart.type, RangeColumnChart);
+};
+//# sourceMappingURL=range-column.js.map

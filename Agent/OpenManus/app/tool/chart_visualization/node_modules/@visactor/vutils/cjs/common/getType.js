@@ -1,0 +1,10 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+});
+
+const getType = value => ({}.toString.call(value).replace(/^\[object /, "").replace(/]$/, ""));
+
+exports.default = getType;
+//# sourceMappingURL=getType.js.map

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/utils/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAE,MAAM,SAAS,CAAC;AAC9C,OAAO,EAAE,iBAAiB,EAAE,MAAM,2BAA2B,CAAC","file":"index.js","sourcesContent":["export { scaleWholeRangeSize } from './utils';\nexport { wilkinsonExtended } from './tick-wilkinson-extended';\n"]}

@@ -1,0 +1,25 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.registerGaugeChart = exports.GaugeChart = void 0;
+
+const gauge_1 = require("../../series/gauge"), circular_1 = require("../../series/progress/circular/circular"), type_1 = require("../../series/interface/type"), factory_1 = require("../../core/factory"), gauge_transformer_1 = require("./gauge-transformer"), base_1 = require("../base");
+
+class GaugeChart extends base_1.BaseChart {
+    constructor() {
+        super(...arguments), this.transformerConstructor = gauge_transformer_1.GaugeChartSpecTransformer, 
+        this.type = "gauge", this.seriesType = type_1.SeriesTypeEnum.gaugePointer;
+    }
+}
+
+exports.GaugeChart = GaugeChart, GaugeChart.type = "gauge", GaugeChart.seriesType = type_1.SeriesTypeEnum.gaugePointer, 
+GaugeChart.transformerConstructor = gauge_transformer_1.GaugeChartSpecTransformer;
+
+const registerGaugeChart = () => {
+    (0, gauge_1.registerGaugePointerSeries)(), (0, gauge_1.registerGaugeSeries)(), (0, 
+    circular_1.registerCircularProgressSeries)(), factory_1.Factory.registerChart(GaugeChart.type, GaugeChart);
+};
+
+exports.registerGaugeChart = registerGaugeChart;
+//# sourceMappingURL=gauge.js.map

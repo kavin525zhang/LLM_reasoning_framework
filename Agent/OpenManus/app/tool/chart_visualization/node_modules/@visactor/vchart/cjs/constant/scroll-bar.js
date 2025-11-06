@@ -1,0 +1,6 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.SCROLL_BAR_DEFAULT_SIZE = void 0, exports.SCROLL_BAR_DEFAULT_SIZE = 12;
+//# sourceMappingURL=scroll-bar.js.map

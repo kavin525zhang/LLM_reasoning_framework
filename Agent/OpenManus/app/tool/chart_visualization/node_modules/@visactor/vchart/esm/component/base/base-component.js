@@ -1,0 +1,130 @@
+var __rest = this && this.__rest || function(s, e) {
+    var t = {};
+    for (var p in s) Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0 && (t[p] = s[p]);
+    if (null != s && "function" == typeof Object.getOwnPropertySymbols) {
+        var i = 0;
+        for (p = Object.getOwnPropertySymbols(s); i < p.length; i++) e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]) && (t[p[i]] = s[p[i]]);
+    }
+    return t;
+};
+
+import { CustomEvent } from "@visactor/vrender-core";
+
+import { ComponentPluginService } from "../../plugin/components/plugin-service";
+
+import { isEqual } from "@visactor/vutils";
+
+import { Event_Source_Type } from "../../constant/event";
+
+import { AnimateManager } from "../../animation/animate-manager";
+
+import { LayoutModel } from "../../model/layout-model";
+
+import { BaseComponentSpecTransformer } from "./base-component-transformer";
+
+export class BaseComponent extends LayoutModel {
+    static createComponent(specInfo, options) {
+        const {spec: spec} = specInfo, others = __rest(specInfo, [ "spec" ]);
+        return new this(spec, Object.assign(Object.assign({}, options), others));
+    }
+    getRegions() {
+        return this._regions;
+    }
+    created() {
+        super.created(), this.initLayout(), this.pluginService = new ComponentPluginService(this);
+    }
+    constructor(spec, options) {
+        super(spec, options), this.name = "component", this.modelType = "component", this.transformerConstructor = BaseComponentSpecTransformer, 
+        this._delegateEvent = (component, event, type, item = null, datum = null) => {
+            var _a, _b;
+            event instanceof CustomEvent || this.event.emit(type, {
+                model: this,
+                node: component,
+                event: event,
+                item: item,
+                datum: datum,
+                source: Event_Source_Type.chart,
+                chart: null === (_b = null === (_a = this._option) || void 0 === _a ? void 0 : _a.globalInstance) || void 0 === _b ? void 0 : _b.getChart()
+            }, "model");
+        }, this._option.animation && (this.animate = new AnimateManager({
+            getCompiler: options.getCompiler
+        }));
+    }
+    initLayout() {
+        var _a;
+        super.initLayout(), this._regions = null !== (_a = this._regions) && void 0 !== _a ? _a : this._option.getRegionsInIndex(), 
+        this._layout && (this._layout.layoutBindRegionID = this._regions.map((x => null == x ? void 0 : x.id)));
+    }
+    changeRegions(regions) {
+        throw new Error("Method not implemented.");
+    }
+    _getNeedClearVRenderComponents() {
+        throw new Error("Method not implemented.");
+    }
+    onRender(ctx) {
+        throw new Error("Method not implemented.");
+    }
+    getVRenderComponents() {
+        return this._getNeedClearVRenderComponents();
+    }
+    callPlugin(cb) {
+        this.pluginService && this.pluginService.getAll().forEach((plugin => cb(plugin)));
+    }
+    getContainer() {
+        var _a;
+        return this._container || (this._container = null === (_a = this._option) || void 0 === _a ? void 0 : _a.globalInstance.getStage().find((node => "root" === node.name), !0)), 
+        this._container;
+    }
+    _compareSpec(spec, prevSpec) {
+        const result = super._compareSpec(spec, prevSpec);
+        return result.reMake || (result.reMake = [ "seriesId", "seriesIndex", "regionId", "regionIndex" ].some((k => !isEqual(null == prevSpec ? void 0 : prevSpec[k], spec[k])))), 
+        (null == prevSpec ? void 0 : prevSpec.visible) !== spec.visible && (result.reCompile = !0), 
+        result;
+    }
+    release() {
+        var _a;
+        super.release(), this.clear(), null === (_a = this.pluginService) || void 0 === _a || _a.releaseAll(), 
+        this.pluginService = null;
+    }
+    clear() {
+        var _a;
+        const components = this._getNeedClearVRenderComponents();
+        components && components.length && components.forEach((c => {
+            var _a;
+            c && (null === (_a = this.getContainer()) || void 0 === _a || _a.removeChild(c), 
+            c = null);
+        })), this._container = null, null === (_a = this.pluginService) || void 0 === _a || _a.clearAll();
+    }
+    compile() {
+        this.compileMarks(), this.reAppendComponents();
+    }
+    compileMarks(group) {
+        this.getMarks().forEach((m => {
+            m.compile({
+                group: group,
+                context: {
+                    model: this
+                }
+            });
+        }));
+    }
+    reAppendComponents() {
+        const components = this._getNeedClearVRenderComponents();
+        components && components.length && components.forEach((c => {
+            var _a;
+            c && !c.stage && (null === (_a = this.getContainer()) || void 0 === _a || _a.appendChild(c));
+        }));
+    }
+    getBoundsInRect(rect, fullRect) {
+        return {
+            x1: 0,
+            x2: 0,
+            y1: 0,
+            y2: 0
+        };
+    }
+    getDatum(graphic) {}
+}
+
+BaseComponent.transformerConstructor = BaseComponentSpecTransformer;
+//# sourceMappingURL=base-component.js.map

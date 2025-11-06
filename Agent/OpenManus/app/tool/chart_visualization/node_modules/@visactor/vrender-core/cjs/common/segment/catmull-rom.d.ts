@@ -1,0 +1,38 @@
+import { type IPointLike } from '@visactor/vutils';
+import type { ICurvedSegment, IGenSegmentParams, ISegPath2D } from '../../interface/curve';
+import type { ICurveType } from '../../interface';
+export declare function point(curveClass: CatmullRom, x: number, y: number, defined: boolean, p: IPointLike): void;
+export declare class CatmullRom implements ICurvedSegment {
+    private _lastDefined1?;
+    private _lastDefined2?;
+    context: ISegPath2D;
+    protected startPoint?: IPointLike;
+    lastPoint0?: IPointLike;
+    lastPoint1?: IPointLike;
+    constructor(context: ISegPath2D, alpha?: number, startPoint?: IPointLike);
+    _alpha: number;
+    _x: number;
+    _y: number;
+    _x0: number;
+    _x1: number;
+    _y0: number;
+    _y1: number;
+    _x2: number;
+    _y2: number;
+    _line: number;
+    _point: number;
+    _l01_a: number;
+    _l12_a: number;
+    _l23_a: number;
+    _l01_2a: number;
+    _l12_2a: number;
+    _l23_2a: number;
+    areaStart(): void;
+    areaEnd(): void;
+    lineStart(): void;
+    lineEnd(): void;
+    point(p: IPointLike): void;
+    tryUpdateLength(): number;
+}
+export declare function commonGenCatmullRomSegments(type: ICurveType, cons: any): (points: IPointLike[], alpha: number, params?: IGenSegmentParams) => ISegPath2D | null;
+export declare const genCatmullRomSegments: (points: IPointLike[], alpha: number, params?: IGenSegmentParams) => ISegPath2D | null;

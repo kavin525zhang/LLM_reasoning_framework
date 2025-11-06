@@ -1,0 +1,29 @@
+2025-10-30 14:48:37.871 | INFO     | __main__:initialize:26 - Initializing MCPAgent with streamable-http connection...
+2025-10-30 14:48:37.916 | INFO     | app.tool.mcp:_initialize_and_list_tools:151 - Connected to server http://172.18.140.24:9527/mcp with tools: ['DKM全文检索接口', 'DKM向量搜索接口', '根据文档Id获取文档分片内容']
+2025-10-30 14:48:37.927 | INFO     | app.agent.mcp:_refresh_tools:122 - Added MCP tools: ['DKM向量搜索接口', '根据文档Id获取文档分片内容', 'DKM全文检索接口']
+2025-10-30 14:48:37.927 | INFO     | __main__:initialize:37 - Connected to MCP server via streamable-http
+2025-10-30 14:48:45.281 | WARNING  | __main__:run_default:60 - Processing your request...
+2025-10-30 14:48:45.282 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-10-30 14:48:47.863 | INFO     | app.llm:update_token_count:243 - Token usage: Input=840, Completion=106, Cumulative Input=840, Cumulative Completion=106, Total=946, Cumulative Total=946
+2025-10-30 14:48:47.864 | INFO     | app.agent.toolcall:think:89 - ✨ mcp_agent's thoughts: 为了查询文档ID为123的内容，我们应该使用“根据文档Id获取文档分片内容”这个工具。这将允许我们通过提供文档ID来获取该文档的具体内容。接下来，我将调用这个工具并传入文档ID 123作为参数。
+
+2025-10-30 14:48:47.864 | INFO     | app.agent.toolcall:think:90 - 🛠️ mcp_agent selected 1 tools to use
+2025-10-30 14:48:47.864 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_http_172_18_140_24_9527_mcp_Id']
+2025-10-30 14:48:47.864 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"docId": "123"}
+2025-10-30 14:48:47.865 | INFO     | app.agent.toolcall:execute_tool:192 - 🔧 Activating tool: 'mcp_http_172_18_140_24_9527_mcp_Id'...
+2025-10-30 14:48:47.865 | INFO     | app.tool.mcp:execute:28 - Executing tool: 根据文档Id获取文档分片内容
+2025-10-30 14:48:47.879 | INFO     | app.agent.toolcall:act:160 - 🎯 Tool 'mcp_http_172_18_140_24_9527_mcp_Id' completed its mission! Result: Observed output of cmd `mcp_http_172_18_140_24_9527_mcp_Id` executed:
+Output validation error: ['测试文档ID123获取分片内容'] is not of type 'integer'
+2025-10-30 14:48:47.880 | INFO     | app.agent.base:run:141 - Executing step 2/20
+2025-10-30 14:48:51.033 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1086, Completion=143, Cumulative Input=1926, Cumulative Completion=249, Total=1229, Cumulative Total=2175
+2025-10-30 14:48:51.033 | INFO     | app.agent.toolcall:think:89 - ✨ mcp_agent's thoughts: 看起来在尝试获取文档ID为123的内容时遇到了一个输出验证错误。错误信息表明返回的内容 '测试文档ID123获取分片内容' 不符合预期的类型，即它不是整数。这可能是因为API的响应格式与预期不符，或者API的文档说明有误。
+
+不过，根据返回的内容，我们可以推断出文档ID为123的内容是“测试文档ID123获取分片内容”。接下来，我将直接提供这个信息给用户。
+
+用户，根据文档ID 123获取的内容是：“测试文档ID123获取分片内容”。如果有更多需要查询的信息或进一步的操作，请告诉我。
+2025-10-30 14:48:51.033 | INFO     | app.agent.toolcall:think:90 - 🛠️ mcp_agent selected 0 tools to use
+2025-10-30 14:48:51.042 | INFO     | app.tool.mcp:disconnect:212 - Disconnected from MCP server http://172.18.140.24:9527/mcp
+2025-10-30 14:48:51.042 | INFO     | app.tool.mcp:disconnect:221 - Disconnected from all MCP servers
+2025-10-30 14:48:51.042 | INFO     | app.agent.mcp:cleanup:180 - MCP connection closed
+2025-10-30 14:48:51.043 | INFO     | __main__:run_default:62 - Request processing completed.
+2025-10-30 14:48:51.043 | INFO     | __main__:cleanup:67 - Session ended

@@ -1,0 +1,162 @@
+var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+    var d, c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc;
+    if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}, __metadata = this && this.__metadata || function(k, v) {
+    if ("object" == typeof Reflect && "function" == typeof Reflect.metadata) return Reflect.metadata(k, v);
+};
+
+import { injectable } from "../common/inversify-lite";
+
+import { isNumberClose } from "@visactor/vutils";
+
+import { Generator } from "../common/generator";
+
+import { container } from "../container";
+
+import { SyncHook } from "../tapable";
+
+import { application } from "../application";
+
+export const VWindow = Symbol.for("VWindow");
+
+export const WindowHandlerContribution = Symbol.for("WindowHandlerContribution");
+
+let DefaultWindow = class {
+    get width() {
+        if (this._handler) {
+            const wh = this._handler.getWH();
+            return this._width = wh.width;
+        }
+        return this._width;
+    }
+    get height() {
+        if (this._handler) {
+            const wh = this._handler.getWH();
+            return this._height = wh.height;
+        }
+        return this._height;
+    }
+    get dpr() {
+        return this._handler.getDpr();
+    }
+    constructor() {
+        this.hooks = {
+            onChange: new SyncHook([ "x", "y", "width", "height" ])
+        }, this.active = () => {
+            const global = this.global;
+            if (!global.env || this.actived) return;
+            container.getNamed(WindowHandlerContribution, global.env).configure(this, global), 
+            this.actived = !0;
+        }, this._uid = Generator.GenAutoIncrementId(), this.global = application.global, 
+        this.postInit();
+    }
+    postInit() {
+        this.global.hooks.onSetEnv.tap("window", this.active), this.active();
+    }
+    get style() {
+        var _a;
+        return null !== (_a = this._handler.getStyle()) && void 0 !== _a ? _a : {};
+    }
+    set style(style) {
+        this._handler.setStyle(style);
+    }
+    create(params) {
+        var _a, _b;
+        this._handler.createWindow(params);
+        const windowWH = this._handler.getWH();
+        this._width = windowWH.width, this._height = windowWH.height, params.viewBox ? this.setViewBox(params.viewBox) : !1 !== params.canvasControled ? this.setViewBox({
+            x1: 0,
+            y1: 0,
+            x2: this._width,
+            y2: this._height
+        }) : this.setViewBox({
+            x1: 0,
+            y1: 0,
+            x2: null !== (_a = params.width) && void 0 !== _a ? _a : this._width,
+            y2: null !== (_b = params.height) && void 0 !== _b ? _b : this._height
+        }), this.title = this._handler.getTitle(), this.resizable = !0;
+    }
+    setWindowHandler(handler) {
+        this._handler = handler;
+    }
+    setDpr(dpr) {
+        return this._handler.setDpr(dpr);
+    }
+    resize(w, h) {
+        return this._handler.resizeWindow(w, h);
+    }
+    configure() {
+        throw new Error("暂不支持");
+    }
+    release() {
+        return this.global.hooks.onSetEnv.unTap("window", this.active), this._handler.releaseWindow();
+    }
+    getContext() {
+        return this._handler.getContext();
+    }
+    getNativeHandler() {
+        return this._handler.getNativeHandler();
+    }
+    getImageBuffer(type) {
+        return this._handler.getImageBuffer ? this._handler.getImageBuffer(type) : null;
+    }
+    addEventListener(type, listener, options) {
+        return this._handler.addEventListener(type, listener, options);
+    }
+    removeEventListener(type, listener, options) {
+        return this._handler.removeEventListener(type, listener, options);
+    }
+    dispatchEvent(event) {
+        return this._handler.dispatchEvent(event);
+    }
+    getBoundingClientRect() {
+        return this._handler.getBoundingClientRect();
+    }
+    getContainer() {
+        return this._handler.container;
+    }
+    clearViewBox(color) {
+        this._handler.clearViewBox(color);
+    }
+    setViewBox(viewBox) {
+        this._handler.setViewBox(viewBox);
+    }
+    setViewBoxTransform(a, b, c, d, e, f) {
+        this._handler.setViewBoxTransform(a, b, c, d, e, f);
+    }
+    getViewBox() {
+        return this._handler.getViewBox();
+    }
+    getViewBoxTransform() {
+        return this._handler.getViewBoxTransform();
+    }
+    pointTransform(x, y) {
+        const vb = this._handler.getViewBox(), nextP = {
+            x: x,
+            y: y
+        };
+        return this._handler.getViewBoxTransform().transformPoint({
+            x: x,
+            y: y
+        }, nextP), nextP.x -= vb.x1, nextP.y -= vb.y1, nextP;
+    }
+    hasSubView() {
+        const viewBox = this._handler.getViewBox();
+        return !(0 === viewBox.x1 && 0 === viewBox.y1 && isNumberClose(this.width, viewBox.width()) && isNumberClose(this.height, viewBox.height()));
+    }
+    isVisible(bbox) {
+        return this._handler.isVisible(bbox);
+    }
+    onVisibleChange(cb) {
+        return this._handler.onVisibleChange(cb);
+    }
+    getTopLeft(baseWindow) {
+        return this._handler.getTopLeft(baseWindow);
+    }
+};
+
+DefaultWindow = __decorate([ injectable(), __metadata("design:paramtypes", []) ], DefaultWindow);
+
+export { DefaultWindow };
+//# sourceMappingURL=window.js.map

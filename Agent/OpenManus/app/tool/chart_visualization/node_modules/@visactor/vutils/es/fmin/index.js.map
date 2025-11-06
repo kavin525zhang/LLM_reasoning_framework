@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/fmin/index.ts"],"names":[],"mappings":"AAAA,cAAc,SAAS,CAAC;AACxB,cAAc,eAAe,CAAC;AAC9B,cAAc,sBAAsB,CAAC","file":"index.js","sourcesContent":["export * from './blas1';\nexport * from './nelder-mead';\nexport * from './conjugate-gradient';\n"]}

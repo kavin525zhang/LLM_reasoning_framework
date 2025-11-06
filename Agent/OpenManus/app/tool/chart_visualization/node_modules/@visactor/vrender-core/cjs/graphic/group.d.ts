@@ -1,0 +1,86 @@
+import type { IAABBBounds, Matrix } from '@visactor/vutils';
+import type { IStage, GraphicAttributeMap, INode, IGraphic, ITheme, IThemeSpec, ILayer, GraphicType } from '../interface';
+import type { IGroup, IGroupGraphicAttribute } from '../interface/graphic/group';
+import { Graphic } from './graphic';
+import { IContainPointMode } from '../common/enums';
+export declare enum GroupUpdateAABBBoundsMode {
+    LESS_GROUP = 0,
+    MORE_GROUP = 1
+}
+export declare class Group extends Graphic<IGroupGraphicAttribute> implements IGroup {
+    type: GraphicType;
+    parent: any;
+    isContainer: boolean;
+    _childUpdateTag: number;
+    theme?: ITheme;
+    static NOWORK_ANIMATE_ATTR: {
+        strokeSeg: number;
+        boundsPadding: number;
+        pickMode: number;
+        boundsMode: number;
+        customPickShape: number;
+        pickable: number;
+        childrenPickable: number;
+        visible: number;
+        zIndex: number;
+        layout: number;
+        keepDirIn3d: number;
+        globalZIndex: number;
+        outerBorder: number;
+        innerBorder: number;
+        lineDash: number;
+        lineCap: number;
+        lineJoin: number;
+        miterLimit: number;
+        strokeBoundsBuffer: number;
+        scaleCenter: number;
+        anchor: number;
+        anchor3d: number;
+        postMatrix: number;
+        backgroundMode: number;
+        background: number;
+        texture: number;
+        cursor: number;
+        html: number;
+    };
+    constructor(params: IGroupGraphicAttribute);
+    setMode(mode: '2d' | '3d'): void;
+    set3dMode(): void;
+    set2dMode(): void;
+    setTheme(t: IThemeSpec): void;
+    createTheme(): void;
+    visibleAll(visible: boolean): void;
+    hideAll(): void;
+    showAll(): void;
+    containsPoint(x: number, y: number, mode: IContainPointMode): boolean;
+    shouldUpdateAABBBounds(): boolean;
+    protected tryUpdateAABBBounds(): IAABBBounds;
+    protected doUpdateLocalMatrix(): void;
+    getGraphicTheme(): Required<IGroupGraphicAttribute>;
+    protected updateAABBBounds(attribute: IGroupGraphicAttribute, groupTheme: Required<IGroupGraphicAttribute>, aabbBounds: IAABBBounds): import("@visactor/vutils").IBounds;
+    protected doUpdateAABBBounds(): IAABBBounds;
+    protected clearUpdateBoundTag(): void;
+    addUpdateBoundTag(): void;
+    addChildUpdateBoundTag(): void;
+    getTheme(): import("../interface").IFullThemeSpec;
+    incrementalAppendChild(node: INode): INode | null;
+    incrementalClearChild(): void;
+    protected _updateChildToStage(child: IGraphic): IGraphic<Partial<import("../interface").IGraphicAttribute>>;
+    appendChild(node: INode, addStage?: boolean): INode | null;
+    insertBefore(newNode: INode, referenceNode: INode): INode | null;
+    insertAfter(newNode: INode, referenceNode: INode): INode | null;
+    insertInto(newNode: INode, idx: number): INode | null;
+    removeChild(child: IGraphic): IGraphic;
+    removeAllChild(deep?: boolean): void;
+    setStage(stage?: IStage, layer?: ILayer): void;
+    addUpdatePositionTag(): void;
+    addUpdateGlobalPositionTag(): void;
+    protected tryUpdateGlobalTransMatrix(clearTag?: boolean): Matrix;
+    shouldUpdateGlobalMatrix(): boolean;
+    private _getChildByName;
+    createOrUpdateChild<T extends keyof GraphicAttributeMap>(graphicName: string, attributes: GraphicAttributeMap[T], graphicType: T): INode;
+    clone(): Group;
+    getNoWorkAnimateAttr(): Record<string, number>;
+    release(all?: boolean): void;
+}
+export declare function createGroup(attributes: IGroupGraphicAttribute): IGroup;

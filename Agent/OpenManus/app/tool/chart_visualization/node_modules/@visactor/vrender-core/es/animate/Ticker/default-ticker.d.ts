@@ -1,0 +1,40 @@
+import { EventEmitter } from '@visactor/vutils';
+import type { ITickHandler, ITimeline, ITicker } from '../../interface';
+import type { TickerMode } from './type';
+import { STATUS } from './type';
+export declare class DefaultTicker extends EventEmitter implements ITicker {
+    protected interval: number;
+    protected tickerHandler: ITickHandler;
+    protected _mode: TickerMode;
+    protected status: STATUS;
+    protected lastFrameTime: number;
+    protected tickCounts: number;
+    protected timelines: ITimeline[];
+    autoStop: boolean;
+    set mode(m: TickerMode);
+    get mode(): TickerMode;
+    constructor(timelines?: ITimeline[]);
+    init(): void;
+    addTimeline(timeline: ITimeline): void;
+    remTimeline(timeline: ITimeline): void;
+    getTimelines(): ITimeline[];
+    protected initHandler(): ITickHandler | null;
+    protected setupTickHandler(): boolean;
+    setInterval(interval: number): void;
+    getInterval(): number;
+    setFPS(fps: number): void;
+    getFPS(): number;
+    tick(interval: number): void;
+    tickTo(t: number): void;
+    pause(): boolean;
+    resume(): boolean;
+    ifCanStop(): boolean;
+    start(force?: boolean): boolean;
+    stop(): void;
+    protected handleTick: (handler: ITickHandler, params?: {
+        once?: boolean;
+    }) => void;
+    protected _handlerTick: () => void;
+    release(): void;
+    trySyncTickStatus(): void;
+}

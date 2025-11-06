@@ -60,6 +60,10 @@ class MCPAgent(ToolCallAgent):
             if not server_url:
                 raise ValueError("Server URL is required for SSE connection")
             await self.mcp_clients.connect_sse(server_url=server_url)
+        elif self.connection_type == "streamable-http":
+            if not server_url:
+                raise ValueError("Server URL is required for Streamable-http connection")
+            await self.mcp_clients.connect_streamable_http(server_url=server_url)
         elif self.connection_type == "stdio":
             if not command:
                 raise ValueError("Command is required for stdio connection")

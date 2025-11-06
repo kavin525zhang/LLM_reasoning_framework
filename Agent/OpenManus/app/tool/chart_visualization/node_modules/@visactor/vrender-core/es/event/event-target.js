@@ -1,0 +1,15 @@
+import { FederatedEvent, CustomEvent } from "./federated-event";
+
+export const EventTarget = {
+    dispatchEvent(e) {
+        var _a;
+        if (!(e instanceof FederatedEvent)) throw new Error("DisplayObject cannot propagate events outside of the Federated Events API");
+        return e.defaultPrevented = !1, e.path = [], e.detailPath && (e.detailPath = []), 
+        e.target = this, null === (_a = null == e ? void 0 : e.manager) || void 0 === _a || _a.dispatchEvent(e), 
+        !e.defaultPrevented;
+    },
+    emit(eventName, object) {
+        return this.dispatchEvent(new CustomEvent(eventName, object));
+    }
+};
+//# sourceMappingURL=event-target.js.map

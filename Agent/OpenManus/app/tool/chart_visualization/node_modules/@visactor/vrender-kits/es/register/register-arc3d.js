@@ -1,0 +1,16 @@
+import { arc3dModule, container, registerArc3dGraphic, registerDirectionalLight, registerOrthoCamera } from "@visactor/vrender-core";
+
+import { browser } from "./env";
+
+import { arc3dCanvasPickModule } from "../picker/contributions/canvas-picker/arc3d-module";
+
+function _registerArc3d() {
+    _registerArc3d.__loaded || (_registerArc3d.__loaded = !0, registerArc3dGraphic(), 
+    registerDirectionalLight(), registerOrthoCamera(), container.load(arc3dModule), 
+    container.load(arc3dCanvasPickModule));
+}
+
+_registerArc3d.__loaded = !1;
+
+export const registerArc3d = _registerArc3d;
+//# sourceMappingURL=register-arc3d.js.map

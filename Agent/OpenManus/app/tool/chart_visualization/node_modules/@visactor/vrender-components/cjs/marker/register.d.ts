@@ -1,0 +1,5 @@
+export declare function loadMarkLineComponent(): void;
+export declare function loadMarkArcLineComponent(): void;
+export declare function loadMarkAreaComponent(): void;
+export declare function loadMarkArcAreaComponent(): void;
+export declare function loadMarkPointComponent(): void;

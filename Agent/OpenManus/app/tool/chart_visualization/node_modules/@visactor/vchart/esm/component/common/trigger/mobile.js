@@ -1,0 +1,22 @@
+export class MobileTrigger {
+    constructor() {
+        this._lastScale = 0;
+    }
+    clearZoom() {
+        this._lastScale = 0;
+    }
+    parserZoomEvent(event) {
+        const scale = event.scale;
+        if (0 === this._lastScale) return this._lastScale = scale, event;
+        event.zoomDelta = scale / this._lastScale;
+        const center = event.center;
+        return event.zoomX = center.x, event.zoomY = center.y, this._lastScale = scale, 
+        event;
+    }
+    parserScrollEvent(event) {
+        return event;
+    }
+    clearScroll() {}
+    clearDrag() {}
+}
+//# sourceMappingURL=mobile.js.map

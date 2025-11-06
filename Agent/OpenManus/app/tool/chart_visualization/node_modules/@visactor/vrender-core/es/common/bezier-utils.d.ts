@@ -1,0 +1,8 @@
+import type { IPointLike, IPoint } from '@visactor/vutils';
+export declare function snapLength(xArr: number[], yArr: number[]): number;
+export declare function cubicLength(p0: IPointLike, p1: IPointLike, p2: IPointLike, p3: IPointLike, iterationCount: number): number;
+export declare function cubicCalc(p0: number, p1: number, p2: number, p3: number, t: number): number;
+export declare function cubicPointAt(p0: IPointLike, p1: IPointLike, p2: IPointLike, p3: IPointLike, t: number): IPoint;
+export declare function quadCalc(p0: number, p1: number, p2: number, t: number): number;
+export declare function quadPointAt(p0: IPointLike, p1: IPointLike, p2: IPointLike, t: number): IPoint;
+export declare function quadLength(p0: IPointLike, p1: IPointLike, p2: IPointLike, iterationCount: number): number;

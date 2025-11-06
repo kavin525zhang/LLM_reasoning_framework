@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/component/marker/mark-point/index.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;AAAA,yDAAuC;AACvC,qDAAmC;AACnC,mDAAiC;AACjC,8CAA4B","file":"index.js","sourcesContent":["export * from './cartesian-mark-point';\nexport * from './polar-mark-point';\nexport * from './geo-mark-point';\nexport * from './interface';\n"]}

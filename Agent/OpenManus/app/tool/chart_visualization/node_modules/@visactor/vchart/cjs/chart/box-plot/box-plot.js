@@ -1,0 +1,24 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.registerBoxplotChart = exports.BoxPlotChart = void 0;
+
+const type_1 = require("../../series/interface/type"), box_plot_1 = require("../../series/box-plot/box-plot"), factory_1 = require("../../core/factory"), box_plot_transformer_1 = require("./box-plot-transformer"), base_1 = require("../base");
+
+class BoxPlotChart extends base_1.BaseChart {
+    constructor() {
+        super(...arguments), this.transformerConstructor = box_plot_transformer_1.BoxPlotChartSpecTransformer, 
+        this.type = "boxPlot", this.seriesType = type_1.SeriesTypeEnum.boxPlot;
+    }
+}
+
+exports.BoxPlotChart = BoxPlotChart, BoxPlotChart.type = "boxPlot", BoxPlotChart.seriesType = type_1.SeriesTypeEnum.boxPlot, 
+BoxPlotChart.transformerConstructor = box_plot_transformer_1.BoxPlotChartSpecTransformer;
+
+const registerBoxplotChart = () => {
+    (0, box_plot_1.registerBoxplotSeries)(), factory_1.Factory.registerChart(BoxPlotChart.type, BoxPlotChart);
+};
+
+exports.registerBoxplotChart = registerBoxplotChart;
+//# sourceMappingURL=box-plot.js.map

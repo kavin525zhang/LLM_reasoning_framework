@@ -1,0 +1,27 @@
+import { Factory } from "./../core/factory";
+
+import { BaseMark } from "./base/base-mark";
+
+import { registerRectGraphic } from "@visactor/vgrammar-core";
+
+import { registerVGrammarRectAnimation } from "../animation/config";
+
+export class RectMark extends BaseMark {
+    constructor() {
+        super(...arguments), this.type = RectMark.type;
+    }
+    _getDefaultStyle() {
+        return Object.assign(Object.assign({}, super._getDefaultStyle()), {
+            width: void 0,
+            height: void 0,
+            lineWidth: 0
+        });
+    }
+}
+
+RectMark.type = "rect";
+
+export const registerRectMark = () => {
+    Factory.registerMark(RectMark.type, RectMark), registerRectGraphic(), registerVGrammarRectAnimation();
+};
+//# sourceMappingURL=rect.js.map

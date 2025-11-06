@@ -1,0 +1,16 @@
+import { container, pyramid3dModule, registerDirectionalLight, registerOrthoCamera, registerPyramid3dGraphic } from "@visactor/vrender-core";
+
+import { browser } from "./env";
+
+import { pyramid3dCanvasPickModule } from "../picker/contributions/canvas-picker/pyramid3d-module";
+
+function _registerPyramid3d() {
+    _registerPyramid3d.__loaded || (_registerPyramid3d.__loaded = !0, registerPyramid3dGraphic(), 
+    registerDirectionalLight(), registerOrthoCamera(), container.load(pyramid3dModule), 
+    container.load(pyramid3dCanvasPickModule));
+}
+
+_registerPyramid3d.__loaded = !1;
+
+export const registerPyramid3d = _registerPyramid3d;
+//# sourceMappingURL=register-pyramid3d.js.map

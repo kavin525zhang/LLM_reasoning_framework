@@ -1,0 +1,3 @@
+import type { BaseSingleEncodeSpec, IElement, MarkElementItem } from '../../types';
+export declare function invokeEncoderToItems(element: IElement, items: MarkElementItem[], encoder: BaseSingleEncodeSpec, parameters: any, onlyFullEncodeFirst?: boolean): void;
+export declare function invokeEncoder(encoder: BaseSingleEncodeSpec, datum: any, element: IElement, parameters: any): any;

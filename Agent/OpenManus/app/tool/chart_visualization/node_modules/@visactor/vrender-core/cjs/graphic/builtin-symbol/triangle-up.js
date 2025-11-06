@@ -1,0 +1,29 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.TriangleUpSymbol = exports.trianglUpOffset = void 0;
+
+const base_1 = require("./base");
+
+function trianglUpOffset(ctx, r, x, y, offset = 0) {
+    return ctx.moveTo(x + r + 2 * offset, r + y + offset), ctx.lineTo(x - r - 2 * offset, r + y + offset), 
+    ctx.lineTo(x, y - r - 2 * offset), ctx.closePath(), !0;
+}
+
+exports.trianglUpOffset = trianglUpOffset;
+
+class TriangleUpSymbol extends base_1.BaseSymbol {
+    constructor() {
+        super(...arguments), this.type = "triangleUp", this.pathStr = "M0.5,0.5 L-0.5,0.5 L0,-0.5 Z";
+    }
+    draw(ctx, size, x, y) {
+        return trianglUpOffset(ctx, this.parseSize(size) / 2, x, y);
+    }
+    drawOffset(ctx, size, x, y, offset) {
+        return trianglUpOffset(ctx, this.parseSize(size) / 2, x, y, offset);
+    }
+}
+
+exports.TriangleUpSymbol = TriangleUpSymbol, exports.default = new TriangleUpSymbol;
+//# sourceMappingURL=triangle-up.js.map

@@ -1,0 +1,33 @@
+import { registerPie3dSeries } from "../../../series/pie/3d/pie-3d";
+
+import { SeriesTypeEnum } from "../../../series/interface/type";
+
+import { BasePieChart } from "../base/base";
+
+import { Factory } from "../../../core/factory";
+
+import { BasePieChartSpecTransformer } from "../base";
+
+import { register3DPlugin } from "../../../plugin/other";
+
+export class Pie3dChartSpecTransformer extends BasePieChartSpecTransformer {
+    transformSpec(spec) {
+        super.transformSpec(spec), spec.series.forEach((s => {
+            "pie3d" === s.type && (s.angle3d = spec.angle3d);
+        }));
+    }
+}
+
+export class Pie3dChart extends BasePieChart {
+    constructor() {
+        super(...arguments), this.transformerConstructor = Pie3dChartSpecTransformer, this.type = "pie3d", 
+        this.seriesType = SeriesTypeEnum.pie3d;
+    }
+}
+
+Pie3dChart.type = "pie3d", Pie3dChart.seriesType = SeriesTypeEnum.pie3d, Pie3dChart.transformerConstructor = Pie3dChartSpecTransformer;
+
+export const registerPie3dChart = () => {
+    register3DPlugin(), registerPie3dSeries(), Factory.registerChart(Pie3dChart.type, Pie3dChart);
+};
+//# sourceMappingURL=pie-3d.js.map

@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.sse import sse_client
 from mcp.client.stdio import stdio_client
+from mcp.client.streamable_http import streamablehttp_client
 from mcp.types import ListToolsResult, TextContent
 
 from app.logger import logger
@@ -58,12 +59,37 @@ class MCPClients(ToolCollection):
         if server_id in self.sessions:
             await self.disconnect(server_id)
 
+        # 若代码中途抛出异常，普通async with难以保证资源释放，AsyncExitStack可统一处理
         exit_stack = AsyncExitStack()
         self.exit_stacks[server_id] = exit_stack
 
         streams_context = sse_client(url=server_url)
         streams = await exit_stack.enter_async_context(streams_context)
         session = await exit_stack.enter_async_context(ClientSession(*streams))
+        self.sessions[server_id] = session
+
+        await self._initialize_and_list_tools(server_id)
+
+    async def connect_streamable_http(self, server_url: str, server_id: str = "") -> None:
+        """Connect to an MCP server using Streamable http transport."""
+        if not server_url:
+            raise ValueError("Server URL is required.")
+
+        server_id = server_id or server_url
+
+        # Always ensure clean disconnection before new connection
+        if server_id in self.sessions:
+            await self.disconnect(server_id)
+
+        exit_stack = AsyncExitStack()
+        self.exit_stacks[server_id] = exit_stack
+
+        # Connect to the server using streamable HTTP
+        streamable_transport = await exit_stack.enter_async_context(
+            streamablehttp_client(server_url)
+        )
+        read_stream, write_stream, _ = streamable_transport
+        session = await exit_stack.enter_async_context(ClientSession(read_stream, write_stream))
         self.sessions[server_id] = session
 
         await self._initialize_and_list_tools(server_id)

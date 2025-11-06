@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/event/index.ts"],"names":[],"mappings":"AAAA,cAAc,SAAS,CAAC;AACxB,cAAc,UAAU,CAAC;AACzB,OAAO,EAAE,yBAAyB,EAAE,qBAAqB,EAAE,MAAM,yBAAyB,CAAC","file":"index.js","sourcesContent":["export * from './event';\nexport * from './events';\nexport { getCartesianDimensionInfo, getPolarDimensionInfo } from './events/dimension/util';\n"]}

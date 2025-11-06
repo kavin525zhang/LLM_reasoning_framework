@@ -1,0 +1,31 @@
+import { PolarChartSpecTransformer } from "../polar-transformer";
+
+export class RoseLikeChartSpecTransformer extends PolarChartSpecTransformer {
+    needAxes() {
+        return !0;
+    }
+    _getDefaultSeriesSpec(spec) {
+        const series = super._getDefaultSeriesSpec(spec);
+        return series.categoryField = spec.categoryField || spec.angleField, series.valueField = spec.valueField || spec.radiusField, 
+        series;
+    }
+    transformSpec(spec) {
+        var _a;
+        if (super.transformSpec(spec), this.needAxes()) {
+            spec.axes || (spec.axes = []);
+            const haxAxes = {
+                radius: !1,
+                angle: !1
+            };
+            (null !== (_a = spec.axes) && void 0 !== _a ? _a : []).forEach((axis => {
+                const {orient: orient} = axis;
+                "radius" === orient && (haxAxes.radius = !0), "angle" === orient && (haxAxes.angle = !0);
+            })), haxAxes.angle || spec.axes.push({
+                orient: "angle"
+            }), haxAxes.radius || spec.axes.push({
+                orient: "radius"
+            });
+        }
+    }
+}
+//# sourceMappingURL=rose-like-transformer.js.map

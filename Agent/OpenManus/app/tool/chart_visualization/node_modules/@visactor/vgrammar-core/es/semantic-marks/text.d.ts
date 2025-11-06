@@ -1,0 +1,10 @@
+import { GrammarMarkType } from '../graph/enums';
+import type { MarkSpec } from '../types';
+import { Mark } from '../view/mark';
+export declare class Text extends Mark {
+    static markType: GrammarMarkType;
+    markType: GrammarMarkType.text;
+    protected spec: MarkSpec;
+    addGraphicItem(initAttrs: any, groupKey?: string): any;
+    release(): void;
+}

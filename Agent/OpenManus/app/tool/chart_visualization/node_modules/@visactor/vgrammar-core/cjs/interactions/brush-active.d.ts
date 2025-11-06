@@ -1,0 +1,20 @@
+import type { IPolygon } from '@visactor/vrender-core';
+import type { BrushActiveOptions, IView } from '../types';
+import { BrushBase } from './brush-base';
+import { type IBounds } from '@visactor/vutils';
+export declare class BrushActive extends BrushBase<BrushActiveOptions> {
+    static type: string;
+    type: string;
+    static defaultOptions: BrushActiveOptions;
+    constructor(view: IView, option?: BrushActiveOptions);
+    getStartState(): string;
+    handleBrushUpdate: (event: {
+        type: string;
+        detail: {
+            operateMask: IPolygon;
+            operatedMaskAABBBounds: {
+                [name: string]: IBounds;
+            };
+        };
+    }) => void;
+}

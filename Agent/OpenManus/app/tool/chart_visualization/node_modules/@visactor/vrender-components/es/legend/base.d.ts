@@ -1,0 +1,15 @@
+import type { IGroup } from '@visactor/vrender-core';
+import { AbstractComponent } from '../core/base';
+import { Tag } from '../tag';
+import type { LegendBaseAttributes } from './type';
+export declare abstract class LegendBase<T extends LegendBaseAttributes> extends AbstractComponent<Required<T>> {
+    name: string;
+    protected _innerView: IGroup;
+    protected _title: Tag | null;
+    protected _parsedPadding: number[];
+    render(): void;
+    protected abstract _renderContent(): void;
+    protected abstract _bindEvents(): void;
+    private _renderTitle;
+    private _adjustLayout;
+}

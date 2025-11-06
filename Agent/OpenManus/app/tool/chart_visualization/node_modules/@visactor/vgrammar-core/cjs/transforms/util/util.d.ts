@@ -1,0 +1,5 @@
+import type { FieldGetterFunction } from '@visactor/vgrammar-util';
+export declare function fieldNames(fields: string[] | FieldGetterFunction[], as?: string[]): string[];
+export declare function partition(data?: any[], groupBy?: FieldGetterFunction[], field?: FieldGetterFunction): any[];
+export declare function sum(arr: any[]): any;
+export declare function average(arr: any[]): number;

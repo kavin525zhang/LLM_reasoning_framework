@@ -1,0 +1,147 @@
+var __decorate = this && this.__decorate || function(decorators, target, key, desc) {
+    var d, c = arguments.length, r = c < 3 ? target : null === desc ? desc = Object.getOwnPropertyDescriptor(target, key) : desc;
+    if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}, __metadata = this && this.__metadata || function(k, v) {
+    if ("object" == typeof Reflect && "function" == typeof Reflect.metadata) return Reflect.metadata(k, v);
+}, __param = this && this.__param || function(paramIndex, decorator) {
+    return function(target, key) {
+        decorator(target, key, paramIndex);
+    };
+};
+
+import { abs, atan2, cos, epsilon, min, sin, pi2, isBoolean } from "@visactor/vutils";
+
+import { inject, injectable, named } from "../../../common/inversify-lite";
+
+import { getTheme } from "../../../graphic/theme";
+
+import { parseStroke } from "../../../common/utils";
+
+import { ContributionProvider } from "../../../common/contribution-provider";
+
+import { calculateArcCornerRadius } from "../render/utils";
+
+import { cornerTangents, drawArcPath, fillVisible } from "./utils";
+
+import { getConicGradientAt } from "../../../canvas/conical-gradient";
+
+import { ArcRenderContribution } from "./contributions/constants";
+
+import { ARC_NUMBER_TYPE } from "../../../graphic/constants";
+
+import { BaseRender } from "./base-render";
+
+import { defaultArcBackgroundRenderContribution, defaultArcRenderContribution, defaultArcTextureRenderContribution } from "./contributions";
+
+let DefaultCanvasArcRender = class extends BaseRender {
+    constructor(arcRenderContribitions) {
+        super(), this.arcRenderContribitions = arcRenderContribitions, this.numberType = ARC_NUMBER_TYPE, 
+        this.builtinContributions = [ defaultArcRenderContribution, defaultArcBackgroundRenderContribution, defaultArcTextureRenderContribution ], 
+        this.init(arcRenderContribitions);
+    }
+    drawArcTailCapPath(arc, context, cx, cy, outerRadius, innerRadius, _sa, _ea) {
+        const capAngle = _ea - _sa, data = arc.getParsedAngle(), startAngle = data.startAngle;
+        let endAngle = data.endAngle;
+        endAngle = _ea;
+        abs(endAngle - startAngle);
+        const clockwise = endAngle > startAngle;
+        let collapsedToLine = !1;
+        if (outerRadius < innerRadius) {
+            const temp = outerRadius;
+            outerRadius = innerRadius, innerRadius = temp;
+        }
+        const {outerDeltaAngle: outerDeltaAngle, xors: xors, yors: yors, xirs: xirs, yirs: yirs, limitedOcr: limitedOcr, outerCornerRadiusStart: outerCornerRadiusStart, outerCornerRadiusEnd: outerCornerRadiusEnd, maxOuterCornerRadius: maxOuterCornerRadius, xore: xore, yore: yore, xire: xire, yire: yire, limitedIcr: limitedIcr, innerDeltaAngle: innerDeltaAngle, innerStartAngle: innerStartAngle, innerCornerRadiusStart: innerCornerRadiusStart, innerCornerRadiusEnd: innerCornerRadiusEnd, maxInnerCornerRadius: maxInnerCornerRadius} = calculateArcCornerRadius(arc, startAngle, endAngle, innerRadius, outerRadius);
+        if (limitedOcr > epsilon) {
+            const cornerRadiusStart = min(outerCornerRadiusStart, limitedOcr), cornerRadiusEnd = min(outerCornerRadiusEnd, limitedOcr), t0 = cornerTangents(xirs, yirs, xors, yors, outerRadius, cornerRadiusStart, Number(clockwise)), t1 = cornerTangents(xore, yore, xire, yire, outerRadius, cornerRadiusEnd, Number(clockwise));
+            if (limitedOcr < maxOuterCornerRadius && cornerRadiusStart === cornerRadiusEnd) context.moveTo(cx + t0.cx + t0.x01, cy + t0.cy + t0.y01), 
+            context.arc(cx + t0.cx, cy + t0.cy, limitedOcr, atan2(t0.y01, t0.x01), atan2(t1.y01, t1.x01), !clockwise); else {
+                const a1 = endAngle - capAngle - .03, a2 = atan2(t1.y11, t1.x11);
+                context.arc(cx, cy, outerRadius, a1, a2, !clockwise), cornerRadiusEnd > 0 && context.arc(cx + t1.cx, cy + t1.cy, cornerRadiusEnd, atan2(t1.y11, t1.x11), atan2(t1.y01, t1.x01), !clockwise);
+            }
+        } else context.moveTo(cx + xors, cy + yors);
+        if (!(innerRadius > epsilon) || innerDeltaAngle < .001) context.lineTo(cx + xire, cy + yire), 
+        collapsedToLine = !0; else if (limitedIcr > epsilon) {
+            const cornerRadiusStart = min(innerCornerRadiusStart, limitedIcr), cornerRadiusEnd = min(innerCornerRadiusEnd, limitedIcr), t0 = cornerTangents(xire, yire, xore, yore, innerRadius, -cornerRadiusEnd, Number(clockwise)), t1 = cornerTangents(xors, yors, xirs, yirs, innerRadius, -cornerRadiusStart, Number(clockwise));
+            if (context.lineTo(cx + t0.cx + t0.x01, cy + t0.cy + t0.y01), limitedIcr < maxInnerCornerRadius && cornerRadiusStart === cornerRadiusEnd) {
+                const arcEndAngle = atan2(t1.y01, t1.x01);
+                context.arc(cx + t0.cx, cy + t0.cy, limitedIcr, atan2(t0.y01, t0.x01), arcEndAngle, !clockwise);
+            } else {
+                cornerRadiusEnd > 0 && context.arc(cx + t0.cx, cy + t0.cy, cornerRadiusEnd, atan2(t0.y01, t0.x01), atan2(t0.y11, t0.x11), !clockwise);
+                const a1 = atan2(t0.cy + t0.y11, t0.cx + t0.x11), a2 = endAngle - capAngle - .03;
+                context.arc(cx, cy, innerRadius, a1, a2, clockwise);
+            }
+        } else context.lineTo(cx + innerRadius * cos(innerStartAngle), cy + innerRadius * sin(innerStartAngle));
+        return collapsedToLine;
+    }
+    drawShape(arc, context, x, y, drawContext, params, fillCb, strokeCb) {
+        const arcAttribute = getTheme(arc, null == params ? void 0 : params.theme).arc, {fill: fill = arcAttribute.fill, stroke: stroke = arcAttribute.stroke, x: originX = arcAttribute.x, y: originY = arcAttribute.y, fillStrokeOrder: fillStrokeOrder = arcAttribute.fillStrokeOrder} = arc.attribute, data = this.valid(arc, arcAttribute, fillCb, strokeCb);
+        if (!data) return;
+        const {fVisible: fVisible, sVisible: sVisible, doFill: doFill, doStroke: doStroke} = data, {outerPadding: outerPadding = arcAttribute.outerPadding, innerPadding: innerPadding = arcAttribute.innerPadding, cap: cap = arcAttribute.cap, forceShowCap: forceShowCap = arcAttribute.forceShowCap} = arc.attribute;
+        let {outerRadius: outerRadius = arcAttribute.outerRadius, innerRadius: innerRadius = arcAttribute.innerRadius} = arc.attribute;
+        outerRadius += outerPadding, innerRadius -= innerPadding;
+        let conicalOffset = 0;
+        const tempChangeConicalColor = (isBoolean(cap) && cap || cap[0]) && "conical" === fill.gradient;
+        if (tempChangeConicalColor) {
+            const {sc: sc, startAngle: startAngle, endAngle: endAngle} = arc.getParsedAngle();
+            abs(endAngle - startAngle) < pi2 - epsilon && (conicalOffset = sc || 0, fill.startAngle -= conicalOffset, 
+            fill.endAngle -= conicalOffset);
+        }
+        let beforeRenderContribitionsRuned = !1;
+        const {isFullStroke: isFullStroke, stroke: arrayStroke} = parseStroke(stroke);
+        if (doFill || isFullStroke) {
+            context.beginPath(), drawArcPath(arc, context, x, y, outerRadius, innerRadius), 
+            beforeRenderContribitionsRuned = !0, context.setShadowBlendStyle && context.setShadowBlendStyle(arc, arc.attribute, arcAttribute), 
+            this.beforeRenderStep(arc, context, x, y, doFill, doStroke, fVisible, sVisible, arcAttribute, drawContext, fillCb, strokeCb);
+            const _runFill = () => {
+                doFill && (fillCb ? fillCb(context, arc.attribute, arcAttribute) : fVisible && (context.setCommonStyle(arc, arc.attribute, originX - x, originY - y, arcAttribute), 
+                context.fill()));
+            }, _runStroke = () => {
+                doStroke && isFullStroke && (strokeCb ? strokeCb(context, arc.attribute, arcAttribute) : sVisible && (context.setStrokeStyle(arc, arc.attribute, originX - x, originY - y, arcAttribute), 
+                context.stroke()));
+            };
+            fillStrokeOrder ? (_runStroke(), _runFill()) : (_runFill(), _runStroke());
+        }
+        if (!isFullStroke && doStroke) {
+            context.beginPath();
+            drawArcPath(arc, context, x, y, outerRadius, innerRadius, arrayStroke);
+            beforeRenderContribitionsRuned || this.beforeRenderStep(arc, context, x, y, doFill, doStroke, fVisible, sVisible, arcAttribute, drawContext, fillCb, strokeCb), 
+            strokeCb ? strokeCb(context, arc.attribute, arcAttribute) : sVisible && (context.setStrokeStyle(arc, arc.attribute, x, y, arcAttribute), 
+            context.stroke());
+        }
+        if ((isBoolean(cap) && cap || cap[1]) && forceShowCap) {
+            const {startAngle: sa, endAngle: ea} = arc.getParsedAngle();
+            if (abs(ea - sa) >= pi2 - epsilon) {
+                context.beginPath();
+                const capAngle = Math.abs(outerRadius - innerRadius) / 2 / outerRadius, {endAngle: endAngle = arcAttribute.endAngle, fill: fill = arcAttribute.fill} = arc.attribute, startAngle = endAngle;
+                this.drawArcTailCapPath(arc, context, x, y, outerRadius, innerRadius, startAngle, startAngle + capAngle), 
+                beforeRenderContribitionsRuned || this.beforeRenderStep(arc, context, x, y, doFill, doStroke, fVisible, sVisible, arcAttribute, drawContext, fillCb, strokeCb);
+                const _runFill = () => {
+                    if (doFill) {
+                        const color = fill;
+                        if ("conical" === color.gradient) {
+                            const lastColor = getConicGradientAt(0, 0, endAngle, color);
+                            fillCb || fillVisible && (context.setCommonStyle(arc, arc.attribute, x, y, arcAttribute), 
+                            context.fillStyle = lastColor, context.fill());
+                        }
+                    }
+                }, _runStroke = () => {
+                    doStroke && (strokeCb || sVisible && (context.setStrokeStyle(arc, arc.attribute, x, y, arcAttribute), 
+                    context.stroke()));
+                };
+                _runFill(), _runStroke();
+            }
+        }
+        this.afterRenderStep(arc, context, x, y, doFill, doStroke, fVisible, sVisible, arcAttribute, drawContext, fillCb, strokeCb), 
+        tempChangeConicalColor && (fill.startAngle += conicalOffset, fill.endAngle += conicalOffset);
+    }
+    draw(arc, renderService, drawContext, params) {
+        const arcAttribute = getTheme(arc, null == params ? void 0 : params.theme).arc;
+        this._draw(arc, arcAttribute, !1, drawContext, params);
+    }
+};
+
+DefaultCanvasArcRender = __decorate([ injectable(), __param(0, inject(ContributionProvider)), __param(0, named(ArcRenderContribution)), __metadata("design:paramtypes", [ Object ]) ], DefaultCanvasArcRender);
+
+export { DefaultCanvasArcRender };
+//# sourceMappingURL=arc-render.js.map

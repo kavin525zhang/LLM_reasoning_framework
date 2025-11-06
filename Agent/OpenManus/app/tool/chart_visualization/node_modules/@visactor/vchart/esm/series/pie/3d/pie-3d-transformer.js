@@ -1,0 +1,8 @@
+import { PieSeriesSpecTransformer } from "../pie-transformer";
+
+export class Pie3dSeriesSpecTransformer extends PieSeriesSpecTransformer {
+    _transformLabelSpec(spec) {
+        this._addMarkLabelSpec(spec, "pie3d");
+    }
+}
+//# sourceMappingURL=pie-3d-transformer.js.map

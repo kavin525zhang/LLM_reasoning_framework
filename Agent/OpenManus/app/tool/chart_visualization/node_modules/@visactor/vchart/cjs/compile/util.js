@@ -1,0 +1,39 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.toRenderMode = void 0;
+
+const common_1 = require("../typings/spec/common");
+
+function toRenderMode(mode) {
+    switch (mode) {
+      case common_1.RenderModeEnum["desktop-browser"]:
+      case common_1.RenderModeEnum["mobile-browser"]:
+        return "browser";
+
+      case common_1.RenderModeEnum.node:
+      case common_1.RenderModeEnum.worker:
+        return "node";
+
+      case common_1.RenderModeEnum.miniApp:
+      case common_1.RenderModeEnum["desktop-miniApp"]:
+        return "feishu";
+
+      case common_1.RenderModeEnum.lynx:
+        return "lynx";
+
+      case common_1.RenderModeEnum.wx:
+        return "wx";
+
+      case common_1.RenderModeEnum.tt:
+        return "tt";
+
+      case common_1.RenderModeEnum.harmony:
+        return "harmony";
+    }
+    return "browser";
+}
+
+exports.toRenderMode = toRenderMode;
+//# sourceMappingURL=util.js.map

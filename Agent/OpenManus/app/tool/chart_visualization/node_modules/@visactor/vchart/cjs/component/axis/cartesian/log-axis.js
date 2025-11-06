@@ -1,0 +1,36 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.registerCartesianLogAxis = exports.CartesianLogAxis = void 0;
+
+const linear_axis_1 = require("./linear-axis"), type_1 = require("../../interface/type"), linear_axis_mixin_1 = require("../mixin/linear-axis-mixin"), vscale_1 = require("@visactor/vscale"), vutils_1 = require("@visactor/vutils"), factory_1 = require("../../../core/factory"), base_axis_1 = require("../base-axis"), vgrammar_core_1 = require("@visactor/vgrammar-core"), vrender_components_1 = require("@visactor/vrender-components"), register_1 = require("../../../data/register");
+
+class CartesianLogAxis extends linear_axis_1.CartesianLinearAxis {
+    constructor() {
+        super(...arguments), this.type = type_1.ComponentTypeEnum.cartesianLogAxis, this._zero = !1, 
+        this._scale = new vscale_1.LogScale;
+    }
+    initScales() {
+        var _a;
+        super.initScales(), this._scale.base(null !== (_a = this._spec.base) && void 0 !== _a ? _a : 10), 
+        this._scale.clamp(!0, null, !1);
+    }
+    registerTicksTransform() {
+        const name = `${this.type}-ticks`;
+        return (0, register_1.registerDataSetInstanceTransform)(this._option.dataSet, name, vrender_components_1.continuousTicks), 
+        name;
+    }
+    transformScaleDomain() {}
+}
+
+exports.CartesianLogAxis = CartesianLogAxis, CartesianLogAxis.type = type_1.ComponentTypeEnum.cartesianLogAxis, 
+CartesianLogAxis.specKey = "axes", (0, vutils_1.mixin)(CartesianLogAxis, linear_axis_mixin_1.LinearAxisMixin);
+
+const registerCartesianLogAxis = () => {
+    (0, vgrammar_core_1.registerLineAxis)(), (0, vgrammar_core_1.registerLineGrid)(), 
+    (0, base_axis_1.registerAxis)(), factory_1.Factory.registerComponent(CartesianLogAxis.type, CartesianLogAxis);
+};
+
+exports.registerCartesianLogAxis = registerCartesianLogAxis;
+//# sourceMappingURL=log-axis.js.map

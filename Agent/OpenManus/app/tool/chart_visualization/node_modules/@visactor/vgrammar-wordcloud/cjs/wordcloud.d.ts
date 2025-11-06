@@ -1,0 +1,47 @@
+import type { TagItemAttribute } from './interface';
+export type FieldOption = {
+    field: string;
+};
+export type CallbackOption = (datum: any) => any;
+export type AsType = {
+    x: string;
+    y: string;
+    z: string;
+    fontFamily: string;
+    fontSize: string;
+    fontStyle: string;
+    fontWeight: string;
+    angle: string;
+};
+export declare const transform: (options: {
+    size?: [
+        number,
+        number
+    ];
+    fontFamily?: FieldOption | TagItemAttribute<string>;
+    fontStyle?: FieldOption | TagItemAttribute<string>;
+    fontWeight?: FieldOption | TagItemAttribute<string>;
+    fontSize?: FieldOption | TagItemAttribute<number>;
+    fontSizeRange?: [
+        number,
+        number
+    ];
+    rotate?: FieldOption | TagItemAttribute<number | number[]>;
+    text: FieldOption | CallbackOption | string;
+    spiral?: string;
+    padding?: FieldOption | TagItemAttribute<number>;
+    shape?: string;
+    shrink?: boolean;
+    enlarge?: boolean;
+    clip?: boolean;
+    minFontSize?: number;
+    randomVisible?: boolean;
+    as?: AsType;
+    layoutType?: string;
+    progressiveTime?: number;
+    progressiveStep?: number;
+    depth_3d?: number;
+    postProjection?: string;
+    dataIndexKey?: string;
+    repeatFill?: boolean;
+}, upstreamData: any[]) => any;

@@ -1,0 +1,24 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.registerSunburstChart = exports.SunburstChart = void 0;
+
+const sunburst_1 = require("./../../series/sunburst/sunburst"), type_1 = require("../../series/interface/type"), base_chart_1 = require("../base/base-chart"), factory_1 = require("../../core/factory"), sunburst_transformer_1 = require("./sunburst-transformer");
+
+class SunburstChart extends base_chart_1.BaseChart {
+    constructor() {
+        super(...arguments), this.transformerConstructor = sunburst_transformer_1.SunburstChartSpecTransformer, 
+        this.type = "sunburst", this.seriesType = type_1.SeriesTypeEnum.sunburst;
+    }
+}
+
+exports.SunburstChart = SunburstChart, SunburstChart.type = "sunburst", SunburstChart.seriesType = type_1.SeriesTypeEnum.sunburst, 
+SunburstChart.transformerConstructor = sunburst_transformer_1.SunburstChartSpecTransformer;
+
+const registerSunburstChart = () => {
+    (0, sunburst_1.registerSunBurstSeries)(), factory_1.Factory.registerChart(SunburstChart.type, SunburstChart);
+};
+
+exports.registerSunburstChart = registerSunburstChart;
+//# sourceMappingURL=sunburst.js.map

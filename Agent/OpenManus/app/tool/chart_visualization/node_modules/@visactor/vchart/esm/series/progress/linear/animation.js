@@ -1,0 +1,38 @@
+import { Factory } from "../../../core/factory";
+
+function LinearProgressGrowOption(params) {
+    return () => "vertical" === params.direction ? {
+        orient: "negative"
+    } : {
+        orient: "positive"
+    };
+}
+
+const Appear_Grow = params => ({
+    type: "horizontal" === params.direction ? "growWidthIn" : "growHeightIn",
+    options: LinearProgressGrowOption(params)
+});
+
+export const linearProgressDisappear = params => ({
+    type: "horizontal" === params.direction ? "growWidthOut" : "growHeightOut",
+    options: LinearProgressGrowOption(params)
+});
+
+export const Appear_FadeIn = {
+    type: "fadeIn"
+};
+
+export function linearProgressPresetAnimation(params, preset) {
+    return !1 === preset ? {} : "fadeIn" === preset ? Appear_FadeIn : Appear_Grow(params);
+}
+
+export const registerLinearProgressAnimation = () => {
+    Factory.registerAnimation("linearProgress", ((params, preset) => ({
+        appear: linearProgressPresetAnimation(params, preset),
+        enter: {
+            type: "grow"
+        },
+        disappear: linearProgressDisappear(params)
+    })));
+};
+//# sourceMappingURL=animation.js.map

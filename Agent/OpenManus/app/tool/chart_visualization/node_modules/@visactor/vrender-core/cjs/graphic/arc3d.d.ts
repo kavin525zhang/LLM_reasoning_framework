@@ -1,0 +1,42 @@
+import type { IAABBBounds } from '@visactor/vutils';
+import type { GraphicType, IArc3d, IArc3dGraphicAttribute } from '../interface';
+import { Arc } from './arc';
+export declare class Arc3d extends Arc implements IArc3d {
+    type: GraphicType;
+    attribute: IArc3dGraphicAttribute;
+    static NOWORK_ANIMATE_ATTR: {
+        strokeSeg: number;
+        boundsPadding: number;
+        pickMode: number;
+        boundsMode: number;
+        customPickShape: number;
+        pickable: number;
+        childrenPickable: number;
+        visible: number;
+        zIndex: number;
+        layout: number;
+        keepDirIn3d: number;
+        globalZIndex: number;
+        outerBorder: number;
+        innerBorder: number;
+        lineDash: number;
+        lineCap: number;
+        lineJoin: number;
+        miterLimit: number;
+        strokeBoundsBuffer: number;
+        scaleCenter: number;
+        anchor: number;
+        anchor3d: number;
+        postMatrix: number;
+        backgroundMode: number;
+        background: number;
+        texture: number;
+        cursor: number;
+        html: number;
+        cap: number;
+    };
+    constructor(params: IArc3dGraphicAttribute);
+    protected updateAABBBounds(attribute: IArc3dGraphicAttribute, arcTheme: Required<IArc3dGraphicAttribute>, aabbBounds: IAABBBounds): import("@visactor/vutils").IBounds;
+    getNoWorkAnimateAttr(): Record<string, number>;
+}
+export declare function createArc3d(attributes: IArc3dGraphicAttribute): IArc3d;

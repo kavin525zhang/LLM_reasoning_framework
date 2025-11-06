@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/switch/index.ts"],"names":[],"mappings":"AAAA,cAAc,UAAU,CAAC;AACzB,cAAc,QAAQ,CAAC","file":"index.js","sourcesContent":["export * from './switch';\nexport * from './type';\n"]}

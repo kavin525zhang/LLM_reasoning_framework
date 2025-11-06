@@ -1,0 +1,36 @@
+import { registerTextGraphic } from "@visactor/vgrammar-core";
+
+import { Factory } from "./../core/factory";
+
+import { TextMark } from "./text";
+
+export class LabelMark extends TextMark {
+    constructor() {
+        super(...arguments), this.skipEncode = !1;
+    }
+    getRule() {
+        return this._rule;
+    }
+    setRule(rule) {
+        this._rule = rule;
+    }
+    getTarget() {
+        return this._target;
+    }
+    setTarget(target) {
+        this._target = target, this._rule || this.setRule(target.type);
+    }
+    getComponent() {
+        return this._component;
+    }
+    setComponent(component) {
+        this._component = component;
+    }
+}
+
+LabelMark.type = "text", LabelMark.constructorType = "label";
+
+export const registerLabelMark = () => {
+    Factory.registerMark(LabelMark.constructorType, LabelMark), registerTextGraphic();
+};
+//# sourceMappingURL=label.js.map

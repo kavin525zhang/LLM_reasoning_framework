@@ -1,0 +1,35 @@
+2025-10-30 11:06:40.985 | INFO     | __main__:initialize:26 - Initializing MCPAgent with streamable-http connection...
+2025-10-30 11:06:41.034 | ERROR    | __main__:run_mcp:110 - eeee:  + Exception Group Traceback (most recent call last):
+  |   File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/run_mcp.py", line 98, in run_mcp
+  |     await runner.initialize(args.connection, args.server_url)
+  |   File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/run_mcp.py", line 35, in initialize
+  |     await self.agent.initialize(connection_type=connection_type, server_url=server_url)
+  |   File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/app/agent/mcp.py", line 66, in initialize
+  |     await self.mcp_clients.connect_sse(server_url=server_url)
+  |   File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/app/tool/mcp.py", line 65, in connect_sse
+  |     streams = await exit_stack.enter_async_context(streams_context)
+  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/contextlib.py", line 659, in enter_async_context
+  |     result = await _enter(cm)
+  |              ^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/contextlib.py", line 210, in __aenter__
+  |     return await anext(self.gen)
+  |            ^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/mcp/client/sse.py", line 43, in sse_client
+  |     async with anyio.create_task_group() as tg:
+  |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 781, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.12/site-packages/mcp/client/sse.py", line 53, in sse_client
+    |     event_source.response.raise_for_status()
+    |   File "/usr/local/lib/python3.12/site-packages/httpx/_models.py", line 829, in raise_for_status
+    |     raise HTTPStatusError(message, request=request, response=self)
+    | httpx.HTTPStatusError: Client error '400 Bad Request' for url 'http://172.18.140.24:9527/mcp'
+    | For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+    +------------------------------------
+
+2025-10-30 11:06:41.034 | ERROR    | __main__:run_mcp:111 - Error running MCPAgent: unhandled errors in a TaskGroup (1 sub-exception)
+2025-10-30 11:06:41.034 | INFO     | __main__:cleanup:67 - Session ended

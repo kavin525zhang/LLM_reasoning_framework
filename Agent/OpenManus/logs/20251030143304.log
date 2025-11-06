@@ -1,0 +1,15 @@
+2025-10-30 14:33:15.252 | INFO     | __main__:initialize:26 - Initializing MCPAgent with streamable-http connection...
+2025-10-30 14:33:15.263 | ERROR    | __main__:run_mcp:110 - eeee:Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/run_mcp.py", line 98, in run_mcp
+    await runner.initialize(args.connection, args.server_url)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/run_mcp.py", line 35, in initialize
+    await self.agent.initialize(connection_type=connection_type, server_url=server_url)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/app/agent/mcp.py", line 66, in initialize
+    await self.mcp_clients.connect_streamable_http(server_url=server_url)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/app/tool/mcp.py", line 89, in connect_streamable_http
+    streamablehttp_client(self.server_url)
+                          ^^^^^^^^^^^^^^^
+AttributeError: 'MCPClients' object has no attribute 'server_url'
+
+2025-10-30 14:33:15.264 | ERROR    | __main__:run_mcp:111 - Error running MCPAgent: 'MCPClients' object has no attribute 'server_url'
+2025-10-30 14:33:15.264 | INFO     | __main__:cleanup:67 - Session ended

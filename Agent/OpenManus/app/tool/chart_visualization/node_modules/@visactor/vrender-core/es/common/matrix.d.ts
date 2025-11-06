@@ -1,0 +1,13 @@
+import type { IMatrix, mat4, vec3 } from '@visactor/vutils';
+export declare function identityMat4(out: mat4): mat4;
+export declare function rotateX(out: mat4, a: mat4, rad: number): mat4;
+export declare function rotateY(out: mat4, a: mat4, rad: number): mat4;
+export declare function rotateZ(out: mat4, a: mat4, rad: number): mat4;
+export declare function translate(out: mat4, a: mat4, v: vec3): mat4;
+export declare function mat3Tomat4(out: mat4, b: IMatrix): void;
+export declare function multiplyMat4Mat3(out: mat4, a: mat4, b: IMatrix): mat4;
+export declare function scaleMat4(out: mat4, a: mat4, v: vec3): mat4;
+export declare function multiplyMat4Mat4(out: mat4, a: mat4, b: mat4): mat4;
+export declare function lookAt(out: mat4, eye: vec3, center: vec3, up: vec3): mat4;
+export declare function ortho(out: mat4, left: number, right: number, bottom: number, top: number, near: number, far: number): mat4;
+export declare function transformMat4(out: vec3, a: vec3, m: mat4): vec3;

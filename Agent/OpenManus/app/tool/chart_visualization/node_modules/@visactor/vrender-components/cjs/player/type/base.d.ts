@@ -1,0 +1,9 @@
+import type { IGroupGraphicAttribute } from '@visactor/vrender-core';
+export type Datum = any;
+export type BasePlayerAttributes = {
+    visible?: boolean;
+    data: Datum[];
+    dataIndex?: number;
+    disableTriggerEvent?: boolean;
+    loop?: boolean;
+} & IGroupGraphicAttribute;

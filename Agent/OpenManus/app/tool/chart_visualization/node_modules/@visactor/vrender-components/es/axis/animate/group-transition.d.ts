@@ -1,0 +1,10 @@
+import type { IGroup } from '@visactor/vrender-core';
+import { ACustomAnimate, AnimateMode } from '@visactor/vrender-core';
+export declare class GroupTransition extends ACustomAnimate<any> {
+    target: IGroup;
+    private _newElementAttrMap;
+    mode: AnimateMode;
+    onBind(): void;
+    onStart(): void;
+    onUpdate(end: boolean, ratio: number, out: Record<string, any>): void;
+}

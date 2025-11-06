@@ -1,0 +1,61 @@
+import { isEmpty, isFunction, last } from "@visactor/vutils";
+
+import { textIntersect as intersect, hasOverlap } from "../util";
+
+const methods = {
+    parity: function(items) {
+        return items.filter(((item, i) => i % 2 ? item.setAttribute("opacity", 0) : 1));
+    },
+    greedy: function(items, sep) {
+        let a;
+        return items.filter(((b, i) => i && intersect(a, b, sep) ? b.setAttribute("opacity", 0) : (a = b, 
+        1)));
+    }
+};
+
+function hasBounds(item) {
+    let bounds;
+    return bounds = item.OBBBounds.empty() ? item.AABBBounds : item.OBBBounds, bounds.width() > 1 && bounds.height() > 1;
+}
+
+function reset(items) {
+    return items.forEach((item => item.setAttribute("opacity", 1))), items;
+}
+
+function forceItemVisible(sourceItem, items, check, comparator, inverse = !1) {
+    if (check && !sourceItem.attribute.opacity) {
+        const remainLength = items.length;
+        if (remainLength > 1) {
+            sourceItem.setAttribute("opacity", 1);
+            for (let i = 0; i < remainLength; i++) {
+                const item = inverse ? items[remainLength - 1 - i] : items[i];
+                if (!comparator(item)) break;
+                item.setAttribute("opacity", 0);
+            }
+        }
+    }
+}
+
+export function autoHide(labels, config) {
+    if (isEmpty(labels)) return;
+    const source = labels.filter(hasBounds);
+    if (isEmpty(source)) return;
+    let items;
+    items = reset(source);
+    const {method: method = "parity", separation: sep = 0} = config, reduce = isFunction(method) ? method : methods[method] || methods.parity;
+    if (items.length >= 3 && hasOverlap(items, sep)) {
+        do {
+            items = reduce(items, sep);
+        } while (items.length >= 3 && hasOverlap(items, sep));
+        const shouldCheck = (length, visibility, checkLength = !0) => checkLength && length < 3 || visibility, checkFirst = shouldCheck(items.length, config.firstVisible, !1);
+        let checkLast = shouldCheck(items.length, config.lastVisible);
+        const firstSourceItem = source[0], lastSourceItem = last(source);
+        intersect(firstSourceItem, lastSourceItem, sep) && checkFirst && checkLast && (lastSourceItem.setAttribute("opacity", 0), 
+        checkLast = !1), forceItemVisible(firstSourceItem, items, checkFirst, (item => intersect(item, firstSourceItem, sep))), 
+        forceItemVisible(lastSourceItem, items, checkLast, (item => intersect(item, lastSourceItem, sep) || !(!checkFirst || item === firstSourceItem) && intersect(item, firstSourceItem, sep)), !0);
+    }
+    source.forEach((item => {
+        item.setAttribute("visible", !!item.attribute.opacity);
+    }));
+}
+//# sourceMappingURL=auto-hide.js.map

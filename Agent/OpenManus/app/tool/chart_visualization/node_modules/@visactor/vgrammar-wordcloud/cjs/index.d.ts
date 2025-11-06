@@ -1,0 +1,28 @@
+export declare const registerWordCloudTransforms: () => void;
+export declare const wordcloudTransform: (options: {
+    size?: [number, number];
+    fontFamily?: import("./interface").TagItemAttribute<string> | import("./wordcloud").FieldOption;
+    fontStyle?: import("./interface").TagItemAttribute<string> | import("./wordcloud").FieldOption;
+    fontWeight?: import("./interface").TagItemAttribute<string> | import("./wordcloud").FieldOption;
+    fontSize?: import("./interface").TagItemAttribute<number> | import("./wordcloud").FieldOption;
+    fontSizeRange?: [number, number];
+    rotate?: import("./wordcloud").FieldOption | import("./interface").TagItemAttribute<number | number[]>;
+    text: string | import("./wordcloud").FieldOption | import("./wordcloud").CallbackOption;
+    spiral?: string;
+    padding?: import("./interface").TagItemAttribute<number> | import("./wordcloud").FieldOption;
+    shape?: string;
+    shrink?: boolean;
+    enlarge?: boolean;
+    clip?: boolean;
+    minFontSize?: number;
+    randomVisible?: boolean;
+    as?: import("./wordcloud").AsType;
+    layoutType?: string;
+    progressiveTime?: number;
+    progressiveStep?: number;
+    depth_3d?: number;
+    postProjection?: string;
+    dataIndexKey?: string;
+    repeatFill?: boolean;
+}, upstreamData: any[]) => any;
+export { shapes } from '@visactor/vgrammar-util';

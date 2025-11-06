@@ -1,0 +1,41 @@
+import type { IProgressiveTransformResult } from '@visactor/vgrammar-core';
+import type { IBaseLayoutOptions, TagItemFunction, TagOutputItem } from './interface';
+export declare abstract class BaseLayout<T extends IBaseLayoutOptions> implements IProgressiveTransformResult {
+    static defaultOptions: Partial<IBaseLayoutOptions>;
+    options: Partial<T>;
+    shape: (theta: number) => number;
+    getTextFontWeight: TagItemFunction<string>;
+    getTextFontSize: TagItemFunction<number>;
+    getTextFontFamily: TagItemFunction<string>;
+    getText: TagItemFunction<string | number>;
+    getTextColor: TagItemFunction<string>;
+    getTextFontStyle: TagItemFunction<string>;
+    getTextRotate: TagItemFunction<number>;
+    outputCallback: (res: any[]) => any[];
+    escapeTime?: number;
+    result: TagOutputItem[];
+    data?: any[];
+    originalData?: any[];
+    currentStepIndex?: number;
+    progressiveIndex?: number;
+    progressiveResult?: TagOutputItem[];
+    drawnCount?: number;
+    isTryRepeatFill?: boolean;
+    failCount?: number;
+    constructor(options: Partial<T>);
+    canRepeat(): boolean;
+    exceedTime(): boolean;
+    progressiveRun(): TagOutputItem[];
+    abstract layoutWord(i: number): boolean;
+    abstract layout(data: any[], config: {
+        width: number;
+        height: number;
+        origin?: [number, number];
+        canvas?: HTMLCanvasElement;
+    }): any[];
+    initProgressive(): void;
+    output(): any[];
+    progressiveOutput(): any[];
+    unfinished(): boolean;
+    release(): void;
+}

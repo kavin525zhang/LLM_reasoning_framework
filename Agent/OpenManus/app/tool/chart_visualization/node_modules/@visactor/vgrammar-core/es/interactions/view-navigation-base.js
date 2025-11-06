@@ -1,0 +1,77 @@
+import { isArray, isFunction, isNil, isString } from "@visactor/vutils";
+
+import { BaseInteraction } from "./base";
+
+import { ComponentEnum, DataFilterRank, GrammarMarkType } from "../graph/enums";
+
+import { getScaleRangeRatio } from "../util/scale";
+
+export class ViewNavigationBase extends BaseInteraction {
+    constructor(view, options) {
+        super(view, options), this.options = options;
+    }
+    _parseLinkedComponent(option) {
+        if (!option) return null;
+        const comp = isString(option) ? this.view.getMarkById(option) : option;
+        return !comp || comp.markType !== GrammarMarkType.component || comp.componentType !== ComponentEnum.datazoom && comp.componentType !== ComponentEnum.scrollbar ? null : comp;
+    }
+    _initStateByDim(dim, linkedComponent, scale, dataTarget, rangeOptions) {
+        const comp = this._parseLinkedComponent(linkedComponent);
+        if (comp) return void (this._state[dim] = {
+            linkedComponent: comp
+        });
+        const scaleGrammar = isNil(scale) ? null : isString(scale) ? this.view.getScaleById(scale) : scale, dataGrammar = isNil(null == dataTarget ? void 0 : dataTarget.data) ? null : isString(dataTarget.data) ? this.view.getDataById(dataTarget.data) : dataTarget.data;
+        if (!scaleGrammar || !dataGrammar) return this._state[dim] = {
+            data: dataGrammar,
+            scale: scaleGrammar
+        }, void (isArray(rangeOptions) ? (this._state[dim].rangeFactor = rangeOptions, this._state[dim].initRangeFactor = rangeOptions) : isFunction(rangeOptions) ? this._state[dim].getCurrentRange = rangeOptions : scaleGrammar && scaleGrammar.getRangeFactor() && (this._state[dim].rangeFactor = scaleGrammar.getRangeFactor(), 
+        this._state[dim].initRangeFactor = scaleGrammar.getRangeFactor()));
+        dataGrammar.attach(scaleGrammar);
+        const filterByScale = isString(dataTarget.filter) ? (datum, filterValue) => {
+            const scale = scaleGrammar.getScale(), ratio = getScaleRangeRatio(scale, datum[dataTarget.filter]);
+            return ratio >= filterValue[0] && ratio <= filterValue[1];
+        } : dataTarget.filter, dataFilter = {
+            source: `${scaleGrammar.uid}`,
+            rank: DataFilterRank.normal,
+            filter: data => {
+                var _a, _b, _c, _d;
+                const filterValue = "x" === dim ? null === (_b = null === (_a = this._state) || void 0 === _a ? void 0 : _a.x) || void 0 === _b ? void 0 : _b.filterValue : null === (_d = null === (_c = this._state) || void 0 === _c ? void 0 : _c.y) || void 0 === _d ? void 0 : _d.filterValue;
+                if (!filterValue) return data;
+                const filteredData = data.filter((datum => filterByScale(datum, filterValue)));
+                return dataTarget.transform ? dataTarget.transform(filteredData, filterValue) : filteredData;
+            }
+        };
+        "x" === dim ? this._dataFilterX = dataFilter : this._dataFilterY = dataFilter, dataGrammar.addDataFilter(dataFilter), 
+        this._state[dim] = {
+            data: dataGrammar,
+            scale: scaleGrammar
+        };
+    }
+    _initGrammars() {
+        const {enableX: enableX, enableY: enableY, scaleX: scaleX, scaleY: scaleY, dataTargetX: dataTargetX, dataTargetY: dataTargetY, linkedComponentX: linkedComponentX, linkedComponentY: linkedComponentY, rangeX: rangeX, rangeY: rangeY} = this.options;
+        this._state = {}, !1 !== enableX && this._initStateByDim("x", linkedComponentX, scaleX, dataTargetX, rangeX), 
+        !1 !== enableY && this._initStateByDim("y", linkedComponentY, scaleY, dataTargetY, rangeY), 
+        this._inited = !0;
+    }
+    _updateLinkedComponent(comp, newRange) {
+        comp.componentType === ComponentEnum.datazoom ? comp.setStartEndValue(newRange[0], newRange[1]) : comp.setScrollStart(newRange[0]);
+    }
+    updateView(type, newRange, eventType, e) {
+        var _a, _b, _c, _d;
+        newRange && newRange.x && (null === (_b = null === (_a = this._state) || void 0 === _a ? void 0 : _a.x) || void 0 === _b ? void 0 : _b.linkedComponent) && this._updateLinkedComponent(this._state.x.linkedComponent, newRange.x), 
+        newRange && newRange.y && (null === (_d = null === (_c = this._state) || void 0 === _c ? void 0 : _c.y) || void 0 === _d ? void 0 : _d.linkedComponent) && this._updateLinkedComponent(this._state.y.linkedComponent, newRange.y), 
+        newRange && newRange.needUpdate && this.view.run(), this.dispatchEvent(type, {
+            viewRange: newRange,
+            event: e,
+            eventType: eventType
+        });
+    }
+    unbind() {
+        super.unbind(), this._state && Object.keys(this._state).forEach((dim => {
+            const {data: data, scale: scale} = this._state[dim];
+            data && scale ? (data.detach(scale), data.removeDataFilter("x" === dim ? this._dataFilterX : this._dataFilterY)) : scale && (scale.setRangeFactor(null), 
+            scale.commit());
+        })), this._state = null;
+    }
+}
+//# sourceMappingURL=view-navigation-base.js.map

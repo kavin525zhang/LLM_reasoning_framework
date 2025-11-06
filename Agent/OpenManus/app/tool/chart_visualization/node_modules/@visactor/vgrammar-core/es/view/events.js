@@ -1,0 +1,12 @@
+import { isObject } from "@visactor/vutils";
+
+export function prevent(eventConfig, type) {
+    const def = eventConfig.defaults, prevent = def.prevent, allow = def.allow;
+    return !1 !== prevent && !0 !== allow && (!0 === prevent || !1 === allow || (prevent ? prevent[type] : !!allow && !allow[type]));
+}
+
+export function permit(eventConfig, key, type) {
+    const rule = null == eventConfig ? void 0 : eventConfig[key];
+    return !(!1 === rule || isObject(rule) && !rule[type]);
+}
+//# sourceMappingURL=events.js.map

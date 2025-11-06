@@ -102,7 +102,6 @@ class ToolCallAgent(ReActAgent):
 
             # Handle different tool_choices modes
             # self.tool_choices: ToolChoice.AUTO
-            print("self.tool_choicessssssss:{}".format(self.tool_choices))
             if self.tool_choices == ToolChoice.NONE:
                 if tool_calls:
                     logger.warning(
@@ -175,7 +174,6 @@ class ToolCallAgent(ReActAgent):
 
     async def execute_tool(self, command: ToolCall) -> str:
         """Execute a single tool call with robust error handling"""
-        print("11111111111111:{}".format(command))
         if not command or not command.function or not command.function.name:
             return "Error: Invalid command format"
 

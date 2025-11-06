@@ -1,0 +1,31 @@
+import { RenderModeEnum } from "../typings/spec/common";
+
+export function toRenderMode(mode) {
+    switch (mode) {
+      case RenderModeEnum["desktop-browser"]:
+      case RenderModeEnum["mobile-browser"]:
+        return "browser";
+
+      case RenderModeEnum.node:
+      case RenderModeEnum.worker:
+        return "node";
+
+      case RenderModeEnum.miniApp:
+      case RenderModeEnum["desktop-miniApp"]:
+        return "feishu";
+
+      case RenderModeEnum.lynx:
+        return "lynx";
+
+      case RenderModeEnum.wx:
+        return "wx";
+
+      case RenderModeEnum.tt:
+        return "tt";
+
+      case RenderModeEnum.harmony:
+        return "harmony";
+    }
+    return "browser";
+}
+//# sourceMappingURL=util.js.map

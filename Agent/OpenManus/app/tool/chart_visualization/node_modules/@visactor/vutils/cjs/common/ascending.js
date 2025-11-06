@@ -1,0 +1,9 @@
+"use strict";
+
+function ascending(a, b) {
+    return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+}
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.ascending = void 0, exports.ascending = ascending;

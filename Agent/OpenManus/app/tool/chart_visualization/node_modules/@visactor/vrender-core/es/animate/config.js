@@ -1,0 +1,10 @@
+export const DefaultStateAnimateConfig = {
+    duration: 200,
+    easing: "cubicOut"
+};
+
+export const DefaultMorphingAnimateConfig = {
+    duration: 1e3,
+    easing: "quadInOut"
+};
+//# sourceMappingURL=config.js.map

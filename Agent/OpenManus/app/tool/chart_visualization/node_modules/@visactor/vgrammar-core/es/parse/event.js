@@ -1,0 +1,23 @@
+import { debounce, isNil, throttle } from "@visactor/vutils";
+
+import { isMarkType } from "../graph/util/graphic";
+
+import { EVENT_SOURCE_VIEW, EVENT_SOURCE_WINDOW, ID_PREFIX, NAME_PREFIX } from "../view/constants";
+
+export const generateFilterByMark = evtSpec => isNil(evtSpec.markId) ? isNil(evtSpec.markName) ? isNil(evtSpec.markType) ? () => !0 : el => el && el.mark.markType === evtSpec.markType : el => el && el.mark.name() === evtSpec.markName : el => el && el.mark.id() === evtSpec.markId;
+
+export const parseHandler = (callback, config) => config && config.debounce ? debounce(callback, config.debounce) : config && config.throttle ? throttle(callback, config.throttle) : callback;
+
+const JOIN_SYMBOL = ":";
+
+export const parseEventSelector = (selector, source = EVENT_SOURCE_VIEW) => {
+    const spec = {}, splitArr = selector.split(":");
+    if (2 === splitArr.length) {
+        const [space, eventType] = splitArr;
+        space[0] === ID_PREFIX ? (spec.markId = space.slice(1), spec.source = source) : space[0] === NAME_PREFIX ? (spec.markName = space.slice(1), 
+        spec.source = source) : isMarkType(space) ? (spec.markType = space, spec.source = source) : spec.source = space === EVENT_SOURCE_WINDOW ? EVENT_SOURCE_WINDOW : source, 
+        spec.type = eventType;
+    } else 1 === splitArr.length && (spec.type = selector, spec.source = source);
+    return spec;
+};
+//# sourceMappingURL=event.js.map

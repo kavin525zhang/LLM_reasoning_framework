@@ -1,0 +1,44 @@
+import type { IAABBBounds } from '@visactor/vutils';
+import type { GraphicType, IPyramid3d, IPyramid3dGraphicAttribute } from '../interface';
+import type { IFace3d } from '../interface/graphic/face3d';
+import { Polygon } from './polygon';
+export declare class Pyramid3d extends Polygon implements IPyramid3d {
+    type: GraphicType;
+    attribute: IPyramid3dGraphicAttribute;
+    static NOWORK_ANIMATE_ATTR: {
+        strokeSeg: number;
+        boundsPadding: number;
+        pickMode: number;
+        boundsMode: number;
+        customPickShape: number;
+        pickable: number;
+        childrenPickable: number;
+        visible: number;
+        zIndex: number;
+        layout: number;
+        keepDirIn3d: number;
+        globalZIndex: number;
+        outerBorder: number;
+        innerBorder: number;
+        lineDash: number;
+        lineCap: number;
+        lineJoin: number;
+        miterLimit: number;
+        strokeBoundsBuffer: number;
+        scaleCenter: number;
+        anchor: number;
+        anchor3d: number;
+        postMatrix: number;
+        backgroundMode: number;
+        background: number;
+        texture: number;
+        cursor: number;
+        html: number;
+    };
+    constructor(params: IPyramid3dGraphicAttribute);
+    protected updateAABBBounds(attribute: IPyramid3dGraphicAttribute, polygonTheme: Required<IPyramid3dGraphicAttribute>, aabbBounds: IAABBBounds): import("@visactor/vutils").IBounds;
+    findFace(): IFace3d;
+    protected _isValid(): boolean;
+    getNoWorkAnimateAttr(): Record<string, number>;
+}
+export declare function createPyramid3d(attributes: IPyramid3dGraphicAttribute): IPyramid3d;

@@ -1,0 +1,33 @@
+2025-10-30 11:12:29.462 | INFO     | __main__:initialize:26 - Initializing MCPAgent with sse connection...
+2025-10-30 11:12:29.531 | INFO     | app.tool.mcp:_initialize_and_list_tools:124 - Connected to server http://172.18.140.24:9527/sse with tools: ['DKM全文检索接口', 'DKM向量搜索接口', '根据文档Id获取文档分片内容']
+2025-10-30 11:12:29.542 | INFO     | app.agent.mcp:_refresh_tools:122 - Added MCP tools: ['根据文档Id获取文档分片内容', 'DKM向量搜索接口', 'DKM全文检索接口']
+2025-10-30 11:12:29.542 | INFO     | __main__:initialize:37 - Connected to MCP server via sse
+2025-10-30 11:12:33.798 | WARNING  | __main__:run_default:60 - Processing your request...
+2025-10-30 11:12:33.798 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-10-30 11:12:36.955 | INFO     | app.llm:update_token_count:243 - Token usage: Input=843, Completion=140, Cumulative Input=843, Cumulative Completion=140, Total=983, Cumulative Total=983
+2025-10-30 11:12:36.956 | INFO     | app.agent.toolcall:think:89 - ✨ mcp_agent's thoughts: 为了搜索“小炒肉的经典做法”，我们应该使用向量搜索接口。这将帮助我们找到与查询最相关的文档或信息。现在，我将调用DKM向量搜索接口来执行此操作。
+
+调用的工具将是 `mcp_http_172_18_140_24_9527_sse_DKM`，并提供查询参数 "小炒肉的经典做法"。
+
+2025-10-30 11:12:36.956 | INFO     | app.agent.toolcall:think:90 - 🛠️ mcp_agent selected 1 tools to use
+2025-10-30 11:12:36.956 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_http_172_18_140_24_9527_sse_DKM']
+2025-10-30 11:12:36.956 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "小炒肉的经典做法"}
+2025-10-30 11:12:36.957 | INFO     | app.agent.toolcall:execute_tool:192 - 🔧 Activating tool: 'mcp_http_172_18_140_24_9527_sse_DKM'...
+2025-10-30 11:12:36.957 | INFO     | app.tool.mcp:execute:27 - Executing tool: DKM向量搜索接口
+2025-10-30 11:12:36.976 | INFO     | app.agent.toolcall:act:160 - 🎯 Tool 'mcp_http_172_18_140_24_9527_sse_DKM' completed its mission! Result: Observed output of cmd `mcp_http_172_18_140_24_9527_sse_DKM` executed:
+["测试小炒肉的经典做法向量搜索"]
+2025-10-30 11:12:36.976 | INFO     | app.agent.base:run:141 - Executing step 2/20
+2025-10-30 11:12:40.560 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1112, Completion=172, Cumulative Input=1955, Cumulative Completion=312, Total=1284, Cumulative Total=2267
+2025-10-30 11:12:40.561 | INFO     | app.agent.toolcall:think:89 - ✨ mcp_agent's thoughts: 向量搜索返回了结果 "测试小炒肉的经典做法向量搜索"。这似乎是一个测试结果，而不是实际的文档ID或内容。为了获取更具体的信息，我们需要进一步确认这是否是正确的文档ID，或者是否需要再次执行搜索以获得准确的文档ID。
+
+然而，假设这是文档ID，我们可以使用 `mcp_http_172_18_140_24_9527_sse_Id` 工具来获取文档的具体内容。接下来，我将尝试使用这个工具来获取文档内容。
+
+调用的工具将是 `mcp_http_172_18_140_24_9527_sse_Id`，并提供参数 "测试小炒肉的经典做法向量搜索" 作为文档ID。
+
+
+2025-10-30 11:12:40.561 | INFO     | app.agent.toolcall:think:90 - 🛠️ mcp_agent selected 0 tools to use
+2025-10-30 11:12:40.562 | INFO     | app.tool.mcp:disconnect:185 - Disconnected from MCP server http://172.18.140.24:9527/sse
+2025-10-30 11:12:40.562 | INFO     | app.tool.mcp:disconnect:194 - Disconnected from all MCP servers
+2025-10-30 11:12:40.562 | INFO     | app.agent.mcp:cleanup:180 - MCP connection closed
+2025-10-30 11:12:40.563 | INFO     | __main__:run_default:62 - Request processing completed.
+2025-10-30 11:12:40.563 | INFO     | __main__:cleanup:67 - Session ended

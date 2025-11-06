@@ -1,0 +1,33 @@
+import type { IRichText, IRichTextCharacter, IRichTextGraphicAttribute } from '../../interface';
+export declare function getDefaultCharacterConfig(attribute: IRichTextGraphicAttribute): any;
+export declare function findConfigIndexByCursorIdx(textConfig: IRichTextCharacter[], cursorIndex: number): number;
+export declare function findCursorIdxByConfigIndex(textConfig: IRichTextCharacter[], configIndex: number): number;
+export declare class EditModule {
+    container: HTMLElement;
+    textAreaDom: HTMLTextAreaElement;
+    currRt: IRichText;
+    isComposing: boolean;
+    composingConfigIdx: number;
+    cursorIndex: number;
+    selectionStartCursorIdx: number;
+    onInputCbList: Array<(text: string, isComposing: boolean, cursorIdx: number, rt: IRichText) => void>;
+    onChangeCbList: Array<(text: string, isComposing: boolean, cursorIdx: number, rt: IRichText) => void>;
+    onFocusInList: Array<() => void>;
+    onFocusOutList: Array<() => void>;
+    focusOutTimer: number;
+    constructor(container?: HTMLElement);
+    onInput(cb: (text: string, isComposing: boolean, cursorIdx: number, rt: IRichText) => void): void;
+    onChange(cb: (text: string, isComposing: boolean, cursorIdx: number, rt: IRichText) => void): void;
+    onFocusIn(cb: () => void): void;
+    onFocusOut(cb: () => void): void;
+    applyStyle(textAreaDom: HTMLTextAreaElement): void;
+    handleFocusIn: () => void;
+    handleFocusOut: () => void;
+    handleKeyDown: (e: KeyboardEvent) => void;
+    handleCompositionStart: () => void;
+    handleCompositionEnd: () => void;
+    parseCompositionStr(configIdx: number): any;
+    handleInput: (ev: any) => void;
+    moveTo(x: number, y: number, rt: IRichText, cursorIndex: number, selectionStartCursorIdx: number): void;
+    release(): void;
+}

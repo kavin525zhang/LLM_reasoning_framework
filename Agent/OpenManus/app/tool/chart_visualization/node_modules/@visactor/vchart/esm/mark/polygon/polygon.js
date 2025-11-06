@@ -1,0 +1,25 @@
+import { Factory } from "./../../core/factory";
+
+import { BasePolygonMark } from "./base-polygon";
+
+import { registerPolygonGraphic } from "@visactor/vgrammar-core";
+
+import { registerVGrammarPolygonAnimation } from "../../animation/config";
+
+export class PolygonMark extends BasePolygonMark {
+    constructor() {
+        super(...arguments), this.type = PolygonMark.type;
+    }
+    _getDefaultStyle() {
+        return Object.assign(Object.assign({}, super._getDefaultStyle()), {
+            lineWidth: 0
+        });
+    }
+}
+
+PolygonMark.type = "polygon";
+
+export const registerPolygonMark = () => {
+    Factory.registerMark(PolygonMark.type, PolygonMark), registerPolygonGraphic(), registerVGrammarPolygonAnimation();
+};
+//# sourceMappingURL=polygon.js.map

@@ -1,0 +1,17 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: !0
+}), exports.boxPlot = void 0, exports.boxPlot = {
+    boxPlot: {
+        style: {
+            lineWidth: 1
+        }
+    },
+    label: {
+        style: {
+            lineWidth: 2
+        }
+    }
+};
+//# sourceMappingURL=box-plot.js.map
