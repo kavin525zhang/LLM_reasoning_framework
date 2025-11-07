@@ -1,11 +1,13 @@
 import sys
+import os
+sys.path.append(os.getcwd())
 sys.path.append("../")
 import torch
 import gradio as gr
 from mllm.soda_mllm import mllm_openai, mllm_IXC2
 from web_search.utils import search, preprocess_search_results, merge_snippet
 from web_search.utils import bing_search 
-import os
+
 import uuid
 os.environ["no_proxy"] = "127.0.0.1,localhost"
 os.environ["GRADIO_TEMP_DIR"] = "./database"

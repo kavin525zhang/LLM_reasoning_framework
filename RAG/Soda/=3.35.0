@@ -1,0 +1,13 @@
+正在读取软件包列表...
+正在分析软件包的依赖关系树...
+正在读取状态信息...
+建议安装：
+  sqlite3-doc
+下列【新】软件包将被安装：
+  sqlite3
+升级了 0 个软件包，新安装了 1 个软件包，要卸载 0 个软件包，有 125 个软件包未被升级。
+需要下载 860 kB 的归档。
+解压缩后会消耗 2,803 kB 的额外空间。
+忽略:1 http://mirrors.aliyun.com/ubuntu focal-security/main amd64 sqlite3 amd64 3.31.1-4ubuntu0.7
+错误:1 http://mirrors.aliyun.com/ubuntu focal-security/main amd64 sqlite3 amd64 3.31.1-4ubuntu0.7
+  403  Forbidden [IP: 114.232.93.212 80]

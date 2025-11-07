@@ -13,3 +13,4 @@
 * [chunk分块实践篇](https://juejin.cn/post/7507192967069876265)
 * [PIKE-RAG](https://github.com/microsoft/PIKE-RAG)
 * [Soda](https://github.com/Liuziyu77/Soda/)
+* [ragflow](https://github.com/infiniflow/ragflow)
