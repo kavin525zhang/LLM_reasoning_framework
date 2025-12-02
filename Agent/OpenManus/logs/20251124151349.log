@@ -1,0 +1,6 @@
+2025-11-24 15:13:55.758 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server bing with tools: ['百度搜索']
+2025-11-24 15:13:55.758 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server bing at http://172.18.140.24:9527/mcp
+2025-11-24 15:14:01.178 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server exa with tools: ['web_search_exa', 'get_code_context_exa']
+2025-11-24 15:14:01.178 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server exa using command npx
+2025-11-24 15:14:32.706 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-24 15:14:32.707 | INFO     | app.agent.base:run:141 - Executing step 1/20

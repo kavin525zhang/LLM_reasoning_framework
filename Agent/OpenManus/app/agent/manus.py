@@ -26,7 +26,7 @@ class Manus(ToolCallAgent):
     next_step_prompt: str = NEXT_STEP_PROMPT
 
     max_observe: int = 10000
-    max_steps: int = 20
+    max_steps: int = 3
 
     # MCP clients for remote tool access
     mcp_clients: MCPClients = Field(default_factory=MCPClients)
@@ -70,11 +70,15 @@ class Manus(ToolCallAgent):
     async def initialize_mcp_servers(self) -> None:
         """Initialize connections to configured MCP servers."""
         # config.mcp_config.servers: {}
+        print("config.mcp_config.servers:{}".format(config.mcp_config.servers))
         for server_id, server_config in config.mcp_config.servers.items():
             try:
-                if server_config.type == "sse":
+                if server_config.type in ["sse", "streamable-http"]:
                     if server_config.url:
-                        await self.connect_mcp_server(server_config.url, server_id)
+                        await self.connect_mcp_server(server_config.url, 
+                                                      server_id,
+                                                      connection_type = server_config.type,
+                                                      )
                         logger.info(
                             f"Connected to MCP server {server_id} at {server_config.url}"
                         )
@@ -83,7 +87,7 @@ class Manus(ToolCallAgent):
                         await self.connect_mcp_server(
                             server_config.command,
                             server_id,
-                            use_stdio=True,
+                            connection_type = "stdio",
                             stdio_args=server_config.args,
                         )
                         logger.info(
@@ -96,14 +100,18 @@ class Manus(ToolCallAgent):
         self,
         server_url: str,
         server_id: str = "",
+        connection_type: Optional[str] = None,
         use_stdio: bool = False,
         stdio_args: List[str] = None,
     ) -> None:
         """Connect to an MCP server and add its tools."""
-        if use_stdio:
+        if connection_type == "stdio":
             await self.mcp_clients.connect_stdio(
                 server_url, stdio_args or [], server_id
             )
+            self.connected_servers[server_id or server_url] = server_url
+        elif connection_type == "streamable-http":
+            await self.mcp_clients.connect_streamable_http(server_url=server_url, server_id=server_id)
             self.connected_servers[server_id or server_url] = server_url
         else:
             await self.mcp_clients.connect_sse(server_url, server_id)

@@ -1,3 +1,0 @@
-2025-10-30 10:33:47.661 | INFO     | __main__:initialize:25 - Initializing MCPAgent with streamable-http connection...
-2025-10-30 10:33:47.689 | ERROR    | __main__:run_mcp:109 - Error running MCPAgent: unhandled errors in a TaskGroup (1 sub-exception)
-2025-10-30 10:33:47.689 | INFO     | __main__:cleanup:66 - Session ended

@@ -1,0 +1,307 @@
+2025-11-21 16:02:47.688 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server exa with tools: ['web_search_exa', 'get_code_context_exa']
+2025-11-21 16:02:47.688 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server exa using command npx
+2025-11-21 16:06:16.753 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server webresearch with tools: ['search_google', 'visit_page', 'take_screenshot']
+2025-11-21 16:06:16.754 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server webresearch using command npx
+2025-11-21 16:31:40.679 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-21 16:31:40.691 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-11-21 16:31:45.164 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1876, Completion=193, Cumulative Input=1876, Cumulative Completion=193, Total=2069, Cumulative Total=2069
+2025-11-21 16:31:45.173 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 为了了解新能源汽车未来五年的发展前景，我们可以从以下几个方面进行研究：
+
+1. **市场趋势**：了解当前新能源汽车市场的增长情况，以及未来五年的预测。
+2. **政策支持**：分析政府对新能源汽车的政策支持，包括补贴、税收优惠等。
+3. **技术创新**：探讨电池技术、充电基础设施等领域的最新进展。
+4. **消费者接受度**：了解消费者对新能源汽车的态度和购买意愿。
+
+首先，我们可以通过网络搜索来获取这些方面的最新信息。接下来，我将使用 `mcp_exa_web_search_exa` 工具来搜索相关信息。
+
+2025-11-21 16:31:45.175 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-11-21 16:31:45.175 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_exa_web_search_exa']
+2025-11-21 16:31:45.177 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "新能源汽车未来五年的发展前景", "numResults": 8, "livecrawl": "preferred", "type": "deep", "contextMaxCharacters": 10000}
+2025-11-21 16:31:45.180 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_exa_web_search_exa'...
+2025-11-21 16:31:45.182 | INFO     | app.tool.mcp:execute:28 - Executing tool: web_search_exa
+2025-11-21 16:32:05.774 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'mcp_exa_web_search_exa' completed its mission! Result: Observed output of cmd `mcp_exa_web_search_exa` executed:
+Title: “得用户者得天下”！2025年新能源车渗透率或超60%，智能出行是未来3至5年竞争高地 | 每经网
+Author: 
+Published Date: 2025-11-19T00:00:00.000Z
+URL: https://www.nbd.com.cn/articles/2025-11-19/414916…
+Text: - [每经网首页](https://www.nbd.com.cn) 丨
+- [宏观](https://economy.nbd.com.cn) 丨
+- [金融](https://finance.nbd.com.cn) 丨
+- [公司](https://industry.nbd.com.cn) 丨
+- [视频](https://www.nbd.com.cn/video/) 丨
+- [券商](https://stocks.nbd.com.cn) 丨
+- [IPO](https://www.nbd.com.cn/kechuang/) 丨
+- [基金](https://money.nbd.com.cn) 丨
+- [汽车](https://auto.nbd.com.cn) 丨
+- [房产](https://www.nbd.com.cn/fangchan/) 丨
+- [新文化](https://movie.nbd.com.cn) 丨
+- [未来商业](https://tmt.nbd.com.cn) 丨
+- [文创通](https://tfcci.nbd.com.cn/) 丨
+- [城市](https://cd.nbd.com.cn) 丨
+- [每经商学院](https://www.nbd.com.cn/corp/nbdCollege/dist/index.html#/)
+
+[要闻](https://www.nbd.com.cn/columns/3/)
+
+[每经网首页](https://www.nbd.com.cn)
+>
+[要闻](https://www.nbd.com.cn/columns/3/)
+>
+正文
+
+# “得用户者得天下”！2025年新能源车渗透率或超60%，智能出行是未来3至5年竞争高地
+
+2025-11-20 12:23:47
+
+《2025中国新能源汽车用户需求趋势研究》报告显示，今年新能源汽车市场渗透率预计突破60%，用户决策逻辑产生质变，从“政策依赖”转向“价值驱动”，关注性价比、安全与智能。用户购车动机、过程、偏好三维度重构，需求从“基础焦虑”升维至“品质追求”。展望2026年，市场竞争加剧，企业需平衡多方因素，引领行业高质量发展。
+
+每经记者｜刘曦    每经编辑｜余婷婷
+
+2025年，中国新能源汽车产业迎来历史性拐点。卓思天成（即北京卓思天成数据咨询股份有限公司）日前发布的《2025中国新能源汽车用户需求趋势研究》报告（以下简称《报告》）显示，2025年，新能源汽车保有量有望超过3800万辆，在汽车总保有量中占
+
+Title: “十五五”中国汽车迎核心窗口期——记第二十届中国经济论坛平行论坛--经济·科技--人民网
+Author: 2546
+Published Date: 2025-11-19T00:00:00.000Z
+URL: http://finance.people.com.cn/n1/2025/1119/c1004-4…
+Text: _打开_
+
+- [首页](http://www.people.com.cn)
+- 党政
+
+
+- [党网 · 时政](http://cpc.people.com.cn/)
+- [人事](http://renshi.people.com.cn/)
+- [反腐](http://fanfu.people.com.cn/)
+- [理论](http://theory.people.com.cn/)
+- [党史](http://dangshi.people.com.cn/)
+- [党建](http://dangjian.people.com.cn/)
+
+- 要闻
+
+
+- [经济 · 科技](http://finance.people.com.cn/)
+- [社会 · 法治](http://society.people.com.cn/)
+- [文旅 · 体育](http://ent.people.com.cn/)
+- [健康 · 生活](http://health.people.com.cn/)
+- [国际](http://world.people.com.cn/)
+- [军事](http://military.people.com.cn/)
+- [大湾区](http://gba.people.cn/)
+- [台湾](http://tw.people.com.cn/)
+- [教育](http://edu.people.com.cn/)
+- [科普](http://kpzg.people.com.cn/)
+
+- 观点
+
+
+- [人民网评](http://opinion.people.com.cn/GB/223228/index.html)
+- [三评](http://opinion.people.com.cn/GB/8213/420650/index.html)
+- [人民财评](http://opinion.people.com.cn/GB/427456/index.html)
+- [人民热评](http://opinion.people.com.cn/GB/436867/index.html)
+- [人民艺起评](http://opinion.people.com.cn/GB/437948/index.html)
+- [人民体谈](http://opinion.people.com.cn/GB/427456/437949/index.html)
+
+- 互动
+
+
+- [领导留言板](http://liuyan.people.com.cn/
+
+Title: 2026-2032年中国新能源汽车行业发展潜力预测及投资风险评估报告_华经情报网_华经产业研究院
+Author: 
+Published Date: 2025-11-14T00:00:00.000Z
+URL: https://m.huaon.com/channel/jingpin/machine/11116…
+Text: 1. [首页](https://m.huaon.com/)
+2. [研究报告](https://m.huaon.com/channel/report)
+3. [精品报告](https://m.huaon.com/channel/jingpin)
+4. [机械设备](https://m.huaon.com/channel/jingpin/machine)
+
+[新能源汽车](https://m.huaon.com/tag/xinnaiyuanqiche)
+
+分享：
+
+复制链接
+
+# 2026-2032年中国新能源汽车行业发展潜力预测及投资风险评估报告
+
+发布时间：2025-10-11
+
+¥ **9000** ~~¥12000~~
+
+- 报告编号1111626
+- 出品单位华经产业研究院
+- 订购电话400-700-0142　010-80392465
+- 客服邮箱kf@huaon.com
+- 资料下载[下载订购协议](https://cdn.huaon.com/%E5%8D%8E%E7%BB%8F%E6%83%85%E6%8A%A5%E7%BD%91%E4%BA%A7%E5%93%81%E8%AE%A2%E8%B4%AD%E5%8D%95.docx) [下载PDF目录](https://www.huaon.com/pdf/16/26/1111626.pdf)
+- 交付方式
+电子版纸介版电子+纸介版
+
+
+立即订购 [个性化定制](https://m.huaon.com/consult/custom.html)在线咨询
+
+- [报告目录](https://m.huaon.com/m.huaon.com#report_contents)
+- [研究方法](https://m.huaon.com/m.huaon.com#report_method)
+- [数据来源](https://m.huaon.com/m.huaon.com#report_data)
+
+[下载订购协议](https://cdn.huaon.com/%E5%8D%8E%E7%BB%8F%E6%83%85%E6%8A%A5%E7%BD%91%E4%BA%A7%E5%93%81%E8%AE%A2%E8%B4%AD%E5%8D%95.docx) [订购流程](https://m.huaon.com/about#%E8%AE%A2%E8%B4%AD%E6%B5%81%E7%A8%8B)
+
+《2026-2032年中国新能源汽车行业发展潜力预测及投资风险评估报告》由华经产业研究院
+
+Title: 【图】一文读懂中国汽车未来5-15年_汽车之家
+Author: 
+Published Date: 2025-11-17T02:31:42.000Z
+URL: https://m.autohome.com.cn/news/202510/1310006.html
+Text: 彭斐 原创 · 0浏览 · 2025-10-27 17:50 · 北京 [汽车之家 行业]市场占比超过46%，市场增速达35%，以上是今年前三季度我国新能源汽车取得的成绩。 
+ 如果你细品一下，过去短短三年，从2020年那会儿，新能源车还是个“小透明”，年销量不到140万，渗透率才5.4%，结果呢？“提前三年”就把“2025年渗透率20%”这个目标给KO了！更狠的是，2024年直接干到接近1300万辆，渗透率冲破40%大关！ 
+ 跟其他国家一比，我国在新能源车这件事上，那是妥妥的“J人”，计划狂魔+超强执行力！目标清晰，指哪打哪。 
+ 如今，站在汽车产业变革的关键十字路口，汽车工程学会近日甩出了一份重量级“宝典”——《节能与新能源汽车技术路线图3.0》，为我们描绘了未来15年中国汽车产业的蓝图。 
+ 这份路线图，必须划重点！还记得2016年、2020年的1.0和2.0版本吗？那会儿，我们更多是 “好学生”姿态，紧盯着国际大佬，努力“对标”，生怕掉队。但！今时不同往日了！在新能源和智能网联这两大赛道，我们已经华丽转身，从“追赶者”变成了“引领者”！ 
+ 因为没有对标了，所以这份技术路线图难度可想而知，据说是汇聚了2000多位行业专家，整整肝了一年半。 
+ 本期《车市物语》，我们就将目光集中在这份“宝典”上，只要读懂它，我们就能知道未来15年，中国汽车产业如何前进，消费者应该怎么买车，企业又该如何创新。 
+ 一、新能源汽车全面占领市场 
+ 中国汽车工程学会理事长张进华预判，今年，我国新能源汽车渗透率会突破45%，全球应该也会超过20%。 
+ 
+ 路线图3.0说了，未来5-15年，新能源车不止是主流，而是要“全面占领”C位！ 
+ 不过，路线图也给了个挺有意思的预判：内燃机这位“老戏骨”不会立刻“杀青”，但角色要大变！未来它不再是“独挑大梁”的纯燃油车了，而是化身“配角”，主要在混动、插混、增程里发光发热。预计到2040年，带内燃机的这类车还能占到 三分之一左右 的份额。至于 纯内燃机2030年后就成“稀有物种”了，到了2035年，传统能源乘用车基本实现“全员混动化”！ 
+ 
+ 路线图预判，随着电池技术成本不断突破、充电便利性不断提升，到2040年，新能源乘用车渗透率将超过85%，其中，纯电和插混的比例大概是8：2。 
+ 
+ 燃料电池车呢？路线图也没忘，但它的主战场是在重型商用车领域。预计到2040年，保有量能达到 400万辆。 
+ 说到电池，未来最大的看点和悬念，绝对是固态电池，国内现在的液态电池技术，是妥妥领先全球的。但海外友商正在疯狂加码固态电池想“弯道超车”，比如日本资金
+
+Title: 2026年中国新能源汽车行业产业链、重点企业分析及投资战略
+Author: 网易
+Published Date: 2025-11-21T03:39:53.000Z
+URL: https://www.163.com/dy/article/KESSAQM505563K26.h…
+Text: [网易首页](https://www.163.com/)
+
+[应用](https://www.163.com/#f=topnav)
+
+- [_网易新闻_](https://m.163.com/newsapp/#f=topnav)
+- [_网易公开课_](https://open.163.com/#f=topnav)
+- [_网易红彩_](https://hongcai.163.com/?from=pcsy-button)
+- [_网易严选_](https://u.163.com/aosoutbdbd8)
+- [_邮箱大师_](https://mail.163.com/client/dl.html?from=mail46)
+- [_网易云课堂_](https://study.163.com/client/download.htm?from=163app&utm_source=163.com&utm_medium=web_app&utm_campaign=business)
+
+_快速导航_
+
+- ### [新闻](https://news.163.com)
+
+- [国内](https://news.163.com/domestic)
+- [国际](https://news.163.com/world)
+- [王三三](https://news.163.com/special/wangsansanhome/)
+
+- ### [体育](https://sports.163.com)
+
+- [NBA](https://sports.163.com/nba)
+- [CBA](https://sports.163.com/cba)
+- [综合](https://sports.163.com/allsports)
+- [中超](https://sports.163.com/zc)
+- [国际足球](https://sports.163.com/world)
+- [英超](https://sports.163.com/yc)
+- [西甲](https://sports.163.com/xj)
+- [意甲](https://sports.163.com/yj)
+
+- ### [娱乐](https://ent.163.com)
+
+- [明星](https://ent.163.com/star)
+- [电影](https://ent.163.com/movie)
+- [电视](https://ent.163.com/tv)
+- [音乐](https://ent.163.com/m
+
+Title: 
+Author: SPDBI Research
+Published Date: 2024-12-11T00:00:00.000Z
+URL: https://www.spdbi.com/getfile/index/action/images…
+Text: 浦银国际研究 
+主题研究 | 新能源汽车行业
+本研究报告由浦银国际证券有限公司分析师编制，请仔细阅读本报告最后部分的分析师披露、商业关系披露及免责声明。
+新能源汽车行业 2025 年展望：绿能
+浪潮、出海领航、智驾未来
+ 预计 2025 年中国新能源乘用车销量达 1,578 万辆，对应渗透率 53.7%，
+维持加速上扬趋势：我们预计 2025 年中国新能源车乘用车销量将从
+2024 年的 1,234 万辆成长到 1,578 万辆，同比增长 28%。虽然 2025 年
+增速或不及 2024 年的 37%，但是销量相比 2024 年预计增长 344 万辆。
+我们预计 2025 年的渗透率将达到 53.7%，增长 8.7 个百分点。渗透率加
+速上扬是我们几年以来对于新能源车行业的基本判断。在此基础上，我
+们预期蔚来、小鹏、理想、零跑这四家新势力 2025 年的新能源车销量
+将分别达到 40.2 万、40.0 万、70.0 万、49.0 万辆（图表 87），同比均将
+大幅成长，份额也会有所提升。零跑汽车和小鹏汽车是我们在新能源汽
+车行业的首选，主要考虑到这两家车企受益于新车销量和海外增长的确
+定性较高。而蔚来汽车、理想汽车也有望享受新车型带来的增量。我们
+重申上述四家新能源车企的“买入”评级。
+ 中国新能源车企海外布局加速，出口销量大幅成长：中国制造的新能源
+车在海外的认可度持续提升，虽然近期受到欧洲关税和需求扰动的负面
+影响，但自主品牌的插混车型出口到海外发展中国家的势头依然迅猛。
+伴随着中国新能源车的规模优势和市场扩张需求，中国制造新能源产品
+越来越多地走出国门，海外认可度持续提升。今年 1-11 月，中国新能源
+乘用车出口累计销量同比增长 16%。中国新能源车在技术水平和产品竞
+争力上，特别是智能驾驶相关的探索方面仍领先于海外的大部分传统车
+企，海外市场的突破有望为车企带来新的销量贡献和盈利来源。自主车
+企和新势力都在寻求加速出海，逐步将自身产品推广至海外市场。今年
+以来，比亚迪、零跑、小鹏的海外销量初见规模。
+ 车企加速布局智能化，积极寻求新突破：根据高工智能汽车数据，2024
+年 9 月中国市场新车 NOA 前装交付量突破 20 万辆，再次创造记录。随
+着技术的进步，智能驾驶也在持续推进降本，包括规模扩大带来的硬件
+制造成本下降等，都有望推动渗透率进一步提升。各家车企智驾版车型
+的销售占比也在逐渐爬升。小米 SU7 Max 的车型占比达到 43.17%。理
+想 L6 的 AD Max 版本销售比例从之前的 18%-19%提升到近期的 25%-
+30%。小鹏 11 月发布的 P7+，
+
+Title: 新能源汽车行业市场现状及未来发展趋势预测 - singautotech｜SINGAUTO｜新亚科技
+Author: singautotech
+Published Date: 2023-12-19T08:45:05.000Z
+URL: https://www.singautotech.com/?p=87&lang=zh
+Text: [跳到内容](https://www.singautotech.com/www.singautotech.com#content)
+
+Menu
+
+# 新能源汽车行业市场现状及未来发展趋势预测
+
+由于我国新能源车企生产技术与辅助驾驶技术不断升级创新，产品国际竞争力明显增强，越来越受到海外消费者青睐，我国车企纷纷加大海外市场拓展力度。近年来，我国新能源汽车出口规模大幅增长，2022年全年我国共出口67.9万辆新能源汽车，同比增长1.2倍，占汽车总出口量的21.8%，较2021年提升了6.4个百分点。
+
+新能源汽车出口规模大幅扩张拉动整个汽车出口量创新高，2022年汽车出口量为311.1万辆，成功超过德国，成为仅次于日本的全球第二大汽车出口国。从出口均价来看，根据中国海关数据：中国纯电动乘用车出口均价由2018年的0.08万美元/辆一路上涨至2022年的2.12万美元/辆，除人民币对欧元汇率升值较快外，还受益于中国自主新能源汽车品牌技术与产品性能的提升，拉动中国纯电动汽车出口均价提升，有利于扩大市场规模，带动中国汽车业转型升级。‍
+
+1\. **海外新能源汽车发展空间巨大，为我国新能源汽车出海提供了肥沃土壤‍**
+
+自工业革命以来，全球经济发展迅速，但也存在着石油等不可再生能源面临提早枯竭、生态环境保护压力日趋增大等问题，目前能源和环境问题已成为制约世界经济和社会可持续发展的两个突出问题。为缓解能源与环境危机，各国纷纷将节能减排、绿色发展作为国家战略，开始加大力度发展新能源。新能源汽车是用能端电能替代的重要形式，实现了电能对石油的替代，对实现碳中和具有重要意义，目前发展新能源汽车已成为全球各国共识。近年来，新能源汽车已成为全球汽车产业 转型发展的主要方向和促进世界经济持续增长的重要引擎。2022年全球新能源汽车销量突破千万辆，达1082.4万吨，同比增长61.6%，其中纯电动汽车销量占比74%，插电混动汽车占比25.7%。在全球“碳达峰、碳中和” 及多地宣布禁售燃油车背景下，未来全球新能源汽车产业将保持高速发展态势，预计2025年销量将突破2500万辆。海外新能源汽车产业发展空间巨大，为我国新能源汽车出海提供了良好的机遇，近几年我国新能源车企为提升国际市场份额，纷纷加快出海步伐。
+
+近年来，在政策大力支持与企业持续加大研发、营销力度下，我国新能源汽车产业发展十分迅速，渗透率快速提升，从2015年以来，我国一直是全球最大的新能源汽车市场。尤其是2021年以来，受益于政策支持、行业技术水平大幅提升、产品矩阵逐步丰富等因素，
+
+Title: “十四五”五年跃迁：中国汽车以正向设计重塑竞争力
+Author: 
+Published Date: 2025-10-28T08:38:00.000Z
+URL: https://www.stcn.com/article/detail/3415713.html
+Text: 
+ 10月20日至23日，党的二十届四中全会召开，审议通过了《中共中央关于制定国民经济和社会发展第十五个五年规划的建议》，明确了未来5年中国经济社会发展的“路线图”。这一时间节点的到来，意味着“十四五”即将画上句号。 今年是“十四五”规划的收官之年。5年来，中国汽车产业发展取得了新的重大成就。这从国新办近期举行的“高质量完成‘十四五’规划”系列主题新闻发布会上披露的一系列数据中可见一斑：“十四五”期间，我国新能源汽车产量从2020年的140万辆左右跃升到2024年的1300多万辆，销量亦实现同期增长，市场规模大概翻了三番多。新能源汽车的销售占比从2020年的5.4%提升到40.9%；行业企业加大投入，攻克了一批技术难题，显著提升了产品的质量性能。譬如，纯电动乘用车平均续驶里程接近500公里，动力电池单体成本降低了30%，但寿命提高了40%，充电速率也提升了3倍多，具备组合辅助驾驶功能的乘用车新车占比从2020年的16.2%提升到今年上半年的62.1%。 “十四五”时期，哪些因素促成了中国汽车产业的快速发展？有哪些经验值得借鉴？新的五年计划启动在即，面对复杂多变的外部环境和国内市场消费不振的内部压力，中国汽车产业应如何走出低价无序竞争，实现质的提升？临近年底，业内外对上述问题的关注热度持续提升。 跃升与爆发尤为明显 “十四五”时期，中国汽车产业的爆发是显而易见的，这种爆发也体现在高端化的大力开拓上。 “‘十四五’这5年，中国汽车总量在持续增长，年销量从2023年的3009万辆、2024年的3143万辆，至今年的预计3400多万辆，连续创下历史新高。新能源汽车的爆发也是在最近这5年。2020年，我国新能源汽车的销量仅约136万辆，而2025年全年销量规模预计将达到1650万辆。5年时间，中国品牌乘用车市占率从2020年6月的30%左右增长至目前的约70%；汽车出口亦实现里程碑式突破，出口量从过去十几年长期徘徊的百万辆级别，自2021年起一路攀升至去年的580多万辆，今年预计可能接近700万辆。”针对“十四五”时期中国汽车产业交出的答卷，中国汽车工业协会（以下简称“中汽协”）专务副秘书长许海东对《中国经营报》记者如是表示。 “‘十四五’时期，中国汽车产业的爆发是显而易见的，这种爆发也体现在高端化的大力开拓上。”许海东补充道。 这是一个较为明显的变化。在“十四五”期间，中国汽车产业不再仅仅追求产量、规模，而是重点向技术含量更高、品牌价值更强、智能网联转型力度更深、产业链更
+2025-11-21 16:32:05.775 | INFO     | app.agent.base:run:141 - Executing step 2/20
+2025-11-21 16:32:16.934 | INFO     | app.llm:update_token_count:243 - Token usage: Input=7622, Completion=518, Cumulative Input=9498, Cumulative Completion=711, Total=8140, Cumulative Total=10209
+2025-11-21 16:32:16.934 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 根据网络搜索的结果，我们可以总结出新能源汽车未来五年的发展前景如下：
+
+1. **市场渗透率持续提升**：
+   - 据《2025中国新能源汽车用户需求趋势研究》报告，2025年新能源汽车市场渗透率预计突破60%。
+   - 中国汽车工程学会预测，2025年新能源汽车渗透率将突破45%，全球渗透率将超过20%。
+   - 浦银国际研究预计，2025年中国新能源乘用车销量将达到1578万辆，渗透率达到53.7%。
+
+2. **技术创新与智能化**：
+   - 电池技术不断进步，成本降低，续航里程提升。预计到2040年，新能源乘用车渗透率将超过85%，其中纯电和插混的比例约为8:2。
+   - 智能驾驶技术快速发展，NOA（Navigate on Autopilot）前装交付量持续增长，智能驾驶功能的渗透率将进一步提升。
+
+3. **政策支持**：
+   - 政府继续加大对新能源汽车的政策支持，包括补贴、税收优惠等，推动新能源汽车市场的发展。
+   - 《节能与新能源汽车技术路线图3.0》为未来15年中国汽车产业的发展提供了明确的指导，强调新能源和智能网联技术的发展。
+
+4. **消费者接受度提高**：
+   - 消费者对新能源汽车的接受度逐渐提高，购车动机从“政策依赖”转向“价值驱动”，更加关注性价比、安全与智能。
+   - 随着充电基础设施的完善，消费者对新能源汽车的“基础焦虑”逐渐转变为对“品质追求”。
+
+5. **国际市场拓展**：
+   - 中国新能源汽车在国际市场的认可度持续提升，出口量大幅增长。2022年，中国新能源汽车出口量达到67.9万辆，同比增长1.2倍。
+   - 中国新能源车企纷纷加快出海步伐，拓展海外市场，提升国际市场份额。
+
+综上所述，新能源汽车在未来五年内将继续保持高速增长，市场渗透率将进一步提升，技术创新和智能化将成为主要驱动力，政策支持和消费者接受度的提高也将为行业发展提供有力支撑。同时，中国新能源汽车在国际市场的表现也将更加亮眼。
+
+接下来，我们可以进一步探讨具体的市场趋势、政策支持、技术创新和消费者接受度等方面的内容，或者针对某个具体方面进行更深入的研究。您有什么具体的问题或需要进一步了解的内容吗？
+2025-11-21 16:32:16.934 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 0 tools to use
+2025-11-21 16:32:16.953 | WARNING  | app.tool.mcp:disconnect:194 - Cancel scope error during disconnect from exa, continuing with cleanup: Attempted to exit a cancel scope that isn't the current tasks's current cancel scope
+2025-11-21 16:32:16.953 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server exa
+2025-11-21 16:32:16.972 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server webresearch
+2025-11-21 16:32:16.972 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers

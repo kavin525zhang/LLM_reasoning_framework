@@ -1,0 +1,2 @@
+2025-11-21 15:55:05.522 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server exa with tools: ['web_search_exa', 'get_code_context_exa']
+2025-11-21 15:55:05.524 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server exa using command npx

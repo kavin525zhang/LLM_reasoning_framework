@@ -1,0 +1,2 @@
+2025-11-21 10:57:36.980 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server localtool with tools: ['全文检索接口']
+2025-11-21 10:57:36.980 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server localtool at http://172.18.140.24:9527/mcp

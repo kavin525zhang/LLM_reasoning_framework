@@ -1,0 +1,44 @@
+2025-11-24 16:39:53.859 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server baidu with tools: ['百度搜索']
+2025-11-24 16:39:53.859 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server baidu at http://172.18.140.24:9527/mcp
+2025-11-24 16:39:56.803 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-24 16:39:56.803 | INFO     | app.agent.base:run:141 - Executing step 1/3
+2025-11-24 16:39:59.241 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1157, Completion=97, Cumulative Input=1157, Cumulative Completion=97, Total=1254, Cumulative Total=1254
+2025-11-24 16:39:59.241 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 为了了解新能源汽车未来五年的发展前景，我们可以从几个方面入手：市场趋势、政策支持、技术创新和消费者接受度。我将使用百度搜索引擎来获取最新的信息和分析报告。这将帮助我们更好地理解新能源汽车行业的未来发展方向。
+
+现在，我将使用 `mcp_baidu` 工具进行网络搜索。
+
+2025-11-24 16:39:59.242 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-11-24 16:39:59.242 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_baidu']
+2025-11-24 16:39:59.242 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "新能源汽车未来五年的发展前景"}
+2025-11-24 16:39:59.242 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_baidu'...
+2025-11-24 16:39:59.243 | INFO     | app.tool.mcp:execute:28 - Executing tool: 百度搜索
+2025-11-24 16:40:01.752 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'mcp_baidu' completed its mission! Result: Observed output of cmd `mcp_baidu` executed:
+{"search_metadata":{"id":"04abe4190a3d4e5ab31644d04daa829c","status":"Success","created_at":"2025-11-24T16:40:06.080078+08:00","processed_at":"2025-11-24T16:40:08.570735+08:00","search_url":"https://www.baidu.com/s?wd=%E6%96%B0%E8%83%BD%E6%BA%90%E6%B1%BD%E8%BD%A6%E6%9C%AA%E6%9D%A5%E4%BA%94%E5%B9%B4%E7%9A%84%E5%8F%91%E5%B1%95%E5%89%8D%E6%99%AF&oq=%E6%96%B0%E8%83%BD%E6%BA%90%E6%B1%BD%E8%BD%A6%E6%9C%AA%E6%9D%A5%E4%BA%94%E5%B9%B4%E7%9A%84%E5%8F%91%E5%B1%95%E5%89%8D%E6%99%AF&f=10&pn=0&rn=10&ie=UTF-8","total_time_taken":2.490657},"search_parameters":{"q":"新能源汽车未来五年的发展前景","engine":"baidu","device":"desktop","f":10,"encoding":"UTF-8","rt":5,"rn":10,"pn":0,"loc":"cn"},"search_information":{"total_results":0,"query_displayed":"新能源汽车未来五年的发展前景"},"organic_results":[{"position":1,"title":"增长5倍,新能源车改变出行格局","snippet":"增长5倍, 新能源车 改变出行格局 2025年8月20日 国家 发展 改革委近日发布数据显示,2024年,全国 新能源汽车 保有量达到3140万辆,比“十三五”末增长5倍多。 这一对比折射出中国 新能源汽车 产业 5年 来的跨越式 发展 ——从年产百万辆,到成为全球首个年产突破1000万辆的国家,如今,中国 新能源汽车 保有量、产销量及充电桩数量均稳居全球首位。 新能源汽车 产业正以势不可挡的态势重塑出行格 央视网  播报  暂停","link":"https://auto.cctv.com/2025/08/20/ARTIn1PRvT1NJuwhBPFylu9C250820.shtml","is_special":false},{"position":2,"title":"中国新能源汽车未来五年发展趋势:挑战、机遇与行业演变- 知乎","snippet":"中国 新能源汽车未来五年发展 趋势: 挑战、机遇与行业演变 - 知乎 2025年1月1日 根据《2024年全球电动汽车市场前景与技术创新》报告, 固态电池的商业化进程可能比预期的要快,未来五年内,预计固态电池的市场占比将达到10%左右 ,逐步替代现有的锂电池,解决当前锂电池技术面临的瓶颈问题。 2. 智能化与自动驾驶 除了电池,智能化和自动驾驶技术将是未来五年新能源汽车的另一关键发展方向。从车载操作系统到... 知乎  播报  暂停","link":"https://zhuanlan.zhihu.com/p/15802750643","is_special":false},{"position":3,"title":"2025年新能源汽车销量将达1650万,车企如何赢得 “下半场” ?","snippet":"2025年 新能源汽车 销量将达1650万,车企如何赢得 “下半场” ? 2025年5月14日 战略报告指出, 全球核心汽车市场进入饱和期,我国汽车市场亦进入存量竞争时代,但新能源汽车市场仍处于高速发展阶段 。2025年新能源汽车销量(含出口)预计达1650万辆,增速保持30%,国内市场渗透率突破55%。2030年中国新能源渗透率将超过70%。 中国电动汽车百人会副秘书长师建华指出,新能源消费市场正经历结构性变革,增换购需求... 汽车之家  播报  暂停","link":"https://www.autohome.com.cn/article?id=JkUWm0M51vI=","is_special":false},{"position":4,"title":"【新能源汽车行业发展见证中国制造新成长】-国家发展和改革委员会","snippet":"【 新能源汽车 行业 发展 见证中国制造新成长】-国家发展和改革委员会 2024年3月15日 未来需从扩大产业领先优势,促进消费增长,提升国际影响力入手,支持智能网联新能源汽车的发展 。 扩大新能源汽车产业领先优势,保持我国新能源汽车产业持续健康可控发展。一是持续加强关键核心技术攻关。围绕新能源与智能网联整车及关键零部件等领域,加强前瞻引领性专利布局,加快超高性能车规级AI芯片、工业软件等核心技术攻关。 国家发展和改革委员会  播报  暂停","link":"https://www.ndrc.gov.cn/wsdwhfz/202403/t20240315_1364969.html","is_special":false},{"position":5,"title":"2025年新能源汽车行业发展前景:转型加速与机遇挑战并存_财富号...","snippet":"2025年 新能源汽车 行业 发展前景 :转型加速与机遇挑战并存_财富号... 2025年3月31日 2025年 新能源汽车 行业发展前景广阔,但也面临着诸多挑战。随着电动化与智能化的深度融合、产业链整合与协同发展、国际化布局与市场竞争以及商业模式创新与服务升级等趋势的不断发展,新能源汽车产业将迎来更加广阔 的发展前景 。同时,面对市场竞争激烈、国际贸易壁垒和产业链整合难度等挑战,新能源汽车企业需要不断提升产品质量... 东方财富网  播报  暂停","link":"https://caifuhao.eastmoney.com/news/20250331135651571896860","is_special":false}],"pagination":{"current":1,"next":""},"serpapi_pagination":{"current":1}}
+2025-11-24 16:40:01.752 | INFO     | app.agent.base:run:141 - Executing step 2/3
+2025-11-24 16:40:09.503 | INFO     | app.llm:update_token_count:243 - Token usage: Input=2893, Completion=367, Cumulative Input=4050, Cumulative Completion=464, Total=3260, Cumulative Total=4514
+2025-11-24 16:40:09.503 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 根据百度搜索的结果，我们可以从以下几个方面了解新能源汽车未来五年的发展前景：
+
+1. **市场增长**：根据国家发展改革委的数据，2024年全国新能源汽车保有量达到3140万辆，比“十三五”末增长5倍多。预计到2025年，新能源汽车销量（含出口）将达到1650万辆，增速保持30%，国内市场渗透率突破55%。到2030年，中国新能源汽车的市场渗透率将超过70%。
+
+2. **技术创新**：固态电池的商业化进程可能比预期的要快，未来五年内，预计固态电池的市场占比将达到10%左右，逐步替代现有的锂电池，解决当前锂电池技术面临的瓶颈问题。此外，智能化和自动驾驶技术将是未来五年新能源汽车的另一关键发展方向。
+
+3. **政策支持**：国家发展改革委指出，未来需要从扩大产业领先优势、促进消费增长、提升国际影响力入手，支持智能网联新能源汽车的发展。这包括持续加强关键核心技术攻关，围绕新能源与智能网联整车及关键零部件等领域，加快超高性能车规级AI芯片、工业软件等核心技术攻关。
+
+4. **市场挑战**：新能源汽车行业虽然发展前景广阔，但也面临着市场竞争激烈、国际贸易壁垒和产业链整合难度等挑战。企业需要不断提升产品质量，加强技术创新，以应对这些挑战。
+
+综上所述，新能源汽车在未来五年内将继续保持高速增长，技术创新和政策支持将为其发展提供强大动力。同时，企业需要关注市场挑战，不断提升自身竞争力。
+
+如果您需要更详细的信息或有其他问题，请告诉我，我将继续为您提供帮助。
+
+接下来，我们可以进一步探讨新能源汽车的具体技术趋势、政策细节或市场策略。您对哪个方面感兴趣？
+
+2025-11-24 16:40:09.503 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 0 tools to use
+2025-11-24 16:40:09.503 | INFO     | app.agent.base:run:141 - Executing step 3/3
+2025-11-24 16:40:11.033 | INFO     | app.llm:update_token_count:243 - Token usage: Input=3343, Completion=50, Cumulative Input=7393, Cumulative Completion=514, Total=3393, Cumulative Total=7907
+2025-11-24 16:40:11.034 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 好的，我们可以进一步探讨新能源汽车的具体技术趋势、政策细节或市场策略。请告诉我您对哪个方面感兴趣，以便我为您提供更详细的信息。
+
+如果您对多个方面都感兴趣，也可以告诉我，我会尽量全面地为您提供相关信息。
+2025-11-24 16:40:11.034 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 0 tools to use
+2025-11-24 16:40:11.046 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server baidu
+2025-11-24 16:40:11.047 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers
+2025-11-24 16:40:11.047 | INFO     | __main__:main:27 - Request processing completed.

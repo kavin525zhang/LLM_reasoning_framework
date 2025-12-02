@@ -1,0 +1,1184 @@
+2025-11-24 18:16:51,387 - lightrag - INFO - Created new empty graph
+2025-11-24 18:16:58,963 - lightrag - INFO - Process 51451 KV load full_docs with 0 records
+2025-11-24 18:16:58,963 - lightrag - INFO - Process 51451 KV load text_chunks with 0 records
+2025-11-24 18:16:58,964 - lightrag - INFO - Process 51451 KV load llm_response_cache with 0 records
+2025-11-24 18:16:58,964 - lightrag - INFO - Process 51451 doc status load doc_status with 0 records
+2025-11-24 18:16:58,968 - lightrag - INFO - Stored 21 new unique documents
+2025-11-24 18:16:58,969 - lightrag - INFO - Storage Initialization completed!
+2025-11-24 18:16:58,969 - lightrag - INFO - Processing 21 document(s)
+2025-11-24 18:16:58,970 - lightrag - INFO - Extracting stage 1/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/18
+2025-11-24 18:16:58,970 - lightrag - INFO - Processing d-id: doc-cd2291b29e3be29150d8f1b26d5d5892
+2025-11-24 18:16:58,975 - lightrag - INFO - Extracting stage 2/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/5
+2025-11-24 18:16:58,976 - lightrag - INFO - Processing d-id: doc-16ced952c4110501665d61cb92c34c50
+2025-11-24 18:16:58,985 - lightrag - INFO - limit_async: 16 new workers initialized
+2025-11-24 18:16:58,986 - lightrag - INFO - limit_async: 4 new workers initialized
+2025-11-24 18:16:59,359 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,360 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,361 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,361 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,362 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,364 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,365 - lightrag - ERROR - Failed to extract document 2/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/5
+2025-11-24 18:16:59,366 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,367 - lightrag - INFO - Extracting stage 3/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/19
+2025-11-24 18:16:59,367 - lightrag - INFO - Processing d-id: doc-7333ff3fed6a153f655fdcd76d01dde9
+2025-11-24 18:16:59,370 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,370 - lightrag - ERROR - Failed to extract document 1/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/18
+2025-11-24 18:16:59,373 - lightrag - INFO - Extracting stage 4/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/20
+2025-11-24 18:16:59,373 - lightrag - INFO - Processing d-id: doc-b51b224519c238abaef15ec86d7605af
+2025-11-24 18:16:59,478 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,479 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,479 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,479 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,479 - lightrag - ERROR - Failed to extract document 4/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/20
+2025-11-24 18:16:59,481 - lightrag - INFO - Extracting stage 5/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/36
+2025-11-24 18:16:59,481 - lightrag - INFO - Processing d-id: doc-5fb28611b243a5a6b993b4f7e617afd7
+2025-11-24 18:16:59,490 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,490 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,526 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,530 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,531 - lightrag - ERROR - Failed to extract document 3/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/19
+2025-11-24 18:16:59,533 - lightrag - INFO - Extracting stage 6/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/27
+2025-11-24 18:16:59,533 - lightrag - INFO - Processing d-id: doc-50786474ede472c74fae90692f84cdd7
+2025-11-24 18:16:59,602 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,602 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,603 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,603 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,604 - lightrag - ERROR - Failed to extract document 5/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/36
+2025-11-24 18:16:59,605 - lightrag - INFO - Extracting stage 7/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/14
+2025-11-24 18:16:59,606 - lightrag - INFO - Processing d-id: doc-886f7996fbba08e04f816aef85c9b2d3
+2025-11-24 18:16:59,644 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,645 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,645 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,645 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,645 - lightrag - ERROR - Failed to extract document 6/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/27
+2025-11-24 18:16:59,647 - lightrag - INFO - Extracting stage 8/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/30
+2025-11-24 18:16:59,647 - lightrag - INFO - Processing d-id: doc-90aaf03af646f3697d29cf931f652012
+2025-11-24 18:16:59,708 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,708 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,708 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,709 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,709 - lightrag - ERROR - Failed to extract document 7/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/14
+2025-11-24 18:16:59,710 - lightrag - INFO - Extracting stage 9/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/1
+2025-11-24 18:16:59,710 - lightrag - INFO - Processing d-id: doc-a7469e4819e78caec9835fd9e343017f
+2025-11-24 18:16:59,873 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,874 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,877 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,886 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,886 - lightrag - ERROR - Failed to extract document 8/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/30
+2025-11-24 18:16:59,889 - lightrag - INFO - Extracting stage 10/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/23
+2025-11-24 18:16:59,889 - lightrag - INFO - Processing d-id: doc-30a6c4adf759b089170e0350bb73909f
+2025-11-24 18:16:59,938 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,938 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,949 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,950 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,950 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,951 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:16:59,951 - lightrag - ERROR - Failed to extract document 9/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/1
+2025-11-24 18:16:59,953 - lightrag - INFO - Extracting stage 11/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/26
+2025-11-24 18:16:59,953 - lightrag - INFO - Processing d-id: doc-ba86f5699f2808b9cf8e2517374e5c62
+2025-11-24 18:16:59,957 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,957 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,958 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:16:59,958 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,008 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,008 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,008 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,009 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,009 - lightrag - ERROR - Failed to extract document 10/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/23
+2025-11-24 18:17:00,010 - lightrag - INFO - Extracting stage 12/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/33
+2025-11-24 18:17:00,010 - lightrag - INFO - Processing d-id: doc-a7be8de18d1dc080189412e92821fb83
+2025-11-24 18:17:00,042 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,042 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,042 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,043 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,043 - lightrag - ERROR - Failed to extract document 11/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/26
+2025-11-24 18:17:00,045 - lightrag - INFO - Extracting stage 13/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/29
+2025-11-24 18:17:00,045 - lightrag - INFO - Processing d-id: doc-5aa1b78077c6bdbbc3739224af0aad2e
+2025-11-24 18:17:00,091 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,092 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,092 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,092 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,093 - lightrag - ERROR - Failed to extract document 12/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/33
+2025-11-24 18:17:00,094 - lightrag - INFO - Extracting stage 14/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/15
+2025-11-24 18:17:00,094 - lightrag - INFO - Processing d-id: doc-39cafa0e4ea315754ced910c655afbb3
+2025-11-24 18:17:00,105 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,130 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,132 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,133 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,133 - lightrag - ERROR - Failed to extract document 13/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/29
+2025-11-24 18:17:00,136 - lightrag - INFO - Extracting stage 15/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/10
+2025-11-24 18:17:00,136 - lightrag - INFO - Processing d-id: doc-2c3405c8ee49d090cf7928bbf5f2ee30
+2025-11-24 18:17:00,184 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,185 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,185 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,185 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,185 - lightrag - ERROR - Failed to extract document 14/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/15
+2025-11-24 18:17:00,187 - lightrag - INFO - Extracting stage 16/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/24
+2025-11-24 18:17:00,187 - lightrag - INFO - Processing d-id: doc-06dc2ed32856beefa9de2905d19bafca
+2025-11-24 18:17:00,218 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,218 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,219 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,219 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,219 - lightrag - ERROR - Failed to extract document 15/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/10
+2025-11-24 18:17:00,220 - lightrag - INFO - Extracting stage 17/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/13
+2025-11-24 18:17:00,220 - lightrag - INFO - Processing d-id: doc-c34718527d809b1b6ac759db8cd304ab
+2025-11-24 18:17:00,267 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,268 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,269 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,269 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,269 - lightrag - ERROR - Failed to extract document 16/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/24
+2025-11-24 18:17:00,270 - lightrag - INFO - Extracting stage 18/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/3
+2025-11-24 18:17:00,271 - lightrag - INFO - Processing d-id: doc-a4d6339170502666a9801a87b377d23e
+2025-11-24 18:17:00,274 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,298 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,300 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,300 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,301 - lightrag - ERROR - Failed to extract document 17/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/13
+2025-11-24 18:17:00,302 - lightrag - INFO - Extracting stage 19/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/21
+2025-11-24 18:17:00,303 - lightrag - INFO - Processing d-id: doc-3ea91af7f947665f2a685663323cabda
+2025-11-24 18:17:00,353 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,353 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,353 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,353 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,353 - lightrag - ERROR - Failed to extract document 18/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/3
+2025-11-24 18:17:00,355 - lightrag - INFO - Extracting stage 20/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/8
+2025-11-24 18:17:00,355 - lightrag - INFO - Processing d-id: doc-5c8d14574d1eecc70bd85d5bec1466fa
+2025-11-24 18:17:00,358 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,359 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,383 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,384 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,385 - lightrag - ERROR - Failed to extract document 19/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/21
+2025-11-24 18:17:00,387 - lightrag - INFO - Extracting stage 21/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/34
+2025-11-24 18:17:00,387 - lightrag - INFO - Processing d-id: doc-bd8ccccc42e445d702adf342f5a475a9
+2025-11-24 18:17:00,435 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,436 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,436 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,436 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,436 - lightrag - ERROR - Failed to extract document 20/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/8
+2025-11-24 18:17:00,439 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,439 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,440 - lightrag - ERROR - Failed to extract entities and relationships: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,440 - lightrag - ERROR - Traceback (most recent call last):
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1003, in process_document
+    await asyncio.gather(*tasks)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1201, in _process_entity_relation_graph
+    raise e
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/lightrag.py", line 1187, in _process_entity_relation_graph
+    chunk_results = await extract_entities(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 854, in extract_entities
+    raise task.exception()
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 830, in _process_with_semaphore
+    return await _process_single_content(chunk)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/operate.py", line 755, in _process_single_content
+    final_result = await use_llm_func_with_cache(
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 1582, in use_llm_func_with_cache
+    res: str = await use_llm_func(input_text, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 585, in wait_func
+    return await future
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/utils.py", line 369, in worker
+    result = await func(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 342, in openai_complete
+    return await openai_complete_if_cache(
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 142, in async_wrapped
+    return await fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 58, in __call__
+    do = await self.iter(retry_state=retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 110, in iter
+    result = await action(retry_state)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 78, in inner
+    return fn(*args, **kwargs)
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 390, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/usr/local/lib/python3.10/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/home/transwarp/.local/lib/python3.10/site-packages/tenacity/_asyncio.py", line 61, in __call__
+    result = await fn(*args, **kwargs)
+  File "/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/RAG/LightRAG/lightrag/llm/openai.py", line 189, in openai_complete_if_cache
+    response = await openai_async_client.chat.completions.create(
+  File "/usr/local/lib/python3.10/site-packages/openai/resources/chat/completions/completions.py", line 2454, in create
+    return await self._post(
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1787, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+  File "/usr/local/lib/python3.10/site-packages/openai/_base_client.py", line 1587, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.NotFoundError: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+
+2025-11-24 18:17:00,440 - lightrag - ERROR - Failed to extract document 21/21: 茂名市农业农村局：2024茂名荔枝白皮书.pdf/34
+2025-11-24 18:17:00,442 - lightrag - INFO - Document processing pipeline completed
+2025-11-24 18:17:00,459 - lightrag - INFO - Vector query: 5 chunks, top_k: 60
+2025-11-24 18:17:00,494 - lightrag - ERROR - OpenAI API Call Failed,
+Model: /mnt/disk2/yr/Qwen2.5-72B-Instruct,
+Params: {'stream': False}, Got: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,494 - lightrag - ERROR - limit_async: Error in decorated function: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/yr/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-11-24 18:17:00,555 - lightrag - INFO - Creating a new event loop in main thread.

@@ -1,4 +1,9 @@
 import os
+import sys
+sys.path.append(os.getcwd())
+os.environ["OPENAI_API_KEY"] = "EMPTY"
+
+import json
 import asyncio
 import logging
 import logging.config
@@ -127,17 +132,23 @@ async def main():
         rag = await initialize_rag()
 
         # Test embedding function
-        test_text = ["This is a test string for embedding."]
-        embedding = await rag.embedding_func(test_text)
-        embedding_dim = embedding.shape[1]
-        print("\n=======================")
-        print("Test embedding function")
-        print("========================")
-        print(f"Test dict: {test_text}")
-        print(f"Detected embedding dimension: {embedding_dim}\n\n")
+        # test_text = ["This is a test string for embedding."]
+        # embedding = await rag.embedding_func(test_text)
+        # embedding_dim = embedding.shape[1]
+        # print("\n=======================")
+        # print("Test embedding function")
+        # print("========================")
+        # print(f"Test dict: {test_text}")
+        # print(f"Detected embedding dimension: {embedding_dim}\n\n")
 
-        with open("./book.txt", "r", encoding="utf-8") as f:
-            await rag.ainsert(f.read())
+        # with open("./book.txt", "r", encoding="utf-8") as f:
+        #     await rag.ainsert(f.read())
+
+        doc_list = json.load(open("./doc_single.json", "r", encoding="utf-8"))
+        # doc_list = [doc for doc in doc_list if doc.get("doc_type", "") == "PDF"]
+        print(len(doc_list))
+        await rag.ainsert([doc["text"] for doc in doc_list],
+                          file_paths=["{}/{}".format(doc["doc_name"], doc.get("pages", "1")) for doc in doc_list])
 
         # Perform naive search
         print("\n=====================")

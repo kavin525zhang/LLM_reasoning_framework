@@ -335,6 +335,10 @@ async def openai_complete(
     if keyword_extraction:
         kwargs["response_format"] = "json"
     model_name = kwargs["hashing_kv"].global_config["llm_model_name"]
+    # 测试
+    model_name = "/mnt/disk2/yr/Qwen2.5-72B-Instruct"
+    kwargs["base_url"] = "http://172.17.124.34:9528/v1"
+    kwargs["api_key"] = "EMPTY"
     return await openai_complete_if_cache(
         model_name,
         prompt,
@@ -477,7 +481,7 @@ async def bge_embed(
     result = []
     try:
         res = session.post(
-            "http://172.17.120.200:8003/embedding",
+            "http://172.18.140.12:8004/embedding",
             json={"text": texts, "type": model},
             timeout=60
         )

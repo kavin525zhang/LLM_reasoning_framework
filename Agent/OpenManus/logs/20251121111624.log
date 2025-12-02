@@ -1,0 +1,35 @@
+2025-11-21 11:16:42.642 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server localtool with tools: ['全文检索接口']
+2025-11-21 11:16:42.643 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server localtool at http://172.18.140.24:9527/mcp
+2025-11-21 11:16:42.779 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server playwright with tools: ['browser_close', 'browser_resize', 'browser_console_messages', 'browser_handle_dialog', 'browser_evaluate', 'browser_file_upload', 'browser_fill_form', 'browser_install', 'browser_press_key', 'browser_type', 'browser_navigate', 'browser_navigate_back', 'browser_network_requests', 'browser_run_code', 'browser_take_screenshot', 'browser_snapshot', 'browser_click', 'browser_drag', 'browser_hover', 'browser_select_option', 'browser_tabs', 'browser_wait_for']
+2025-11-21 11:16:42.780 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server playwright at http://localhost:9528/mcp
+2025-11-21 11:17:02.187 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-21 11:17:02.187 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-11-21 11:17:05.309 | INFO     | app.llm:update_token_count:243 - Token usage: Input=4235, Completion=119, Cumulative Input=4235, Cumulative Completion=119, Total=4354, Cumulative Total=4354
+2025-11-21 11:17:05.310 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 为了评估星环科技的市场前景，我们可以从几个方面入手：行业趋势、公司技术优势、市场占有率、竞争对手分析以及财务状况等。首先，我将通过网络搜索来获取星环科技的最新信息和行业动态。接下来，我将使用浏览器工具来访问相关网站和新闻报道，以收集更详细的数据。
+
+现在，我将开始进行网络搜索。
+
+2025-11-21 11:17:05.311 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-11-21 11:17:05.311 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_playwright_browser_navigate']
+2025-11-21 11:17:05.311 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"url": "https://www.google.com/search?q=星环科技+市场前景"}
+2025-11-21 11:17:05.313 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_playwright_browser_navigate'...
+2025-11-21 11:17:05.314 | INFO     | app.tool.mcp:execute:28 - Executing tool: browser_navigate
+2025-11-21 11:18:07.267 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'mcp_playwright_browser_navigate' completed its mission! Result: Observed output of cmd `mcp_playwright_browser_navigate` executed:
+### Result
+TimeoutError: page.goto: Timeout 60000ms exceeded.
+Call log:
+[2m  - navigating to "https://www.google.com/search?q=%E6%98%9F%E7%8E%AF%E7%A7%91%E6%8A%80+%E5%B8%82%E5%9C%BA%E5%89%8D%E6%99%AF", waiting until "domcontentloaded"[22m
+
+
+2025-11-21 11:18:07.268 | INFO     | app.agent.base:run:141 - Executing step 2/20
+2025-11-21 11:18:09.234 | INFO     | app.llm:update_token_count:243 - Token usage: Input=4577, Completion=63, Cumulative Input=8812, Cumulative Completion=182, Total=4640, Cumulative Total=8994
+2025-11-21 11:18:09.235 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 看来在尝试访问Google搜索时遇到了超时问题。这可能是由于网络连接问题或访问限制。作为替代方案，我们可以尝试使用其他搜索引擎或直接访问星环科技的官方网站来获取相关信息。
+
+接下来，我将尝试使用Bing搜索引擎来获取星环科技的市场前景信息。
+
+
+2025-11-21 11:18:09.235 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 0 tools to use
+2025-11-21 11:18:09.239 | WARNING  | app.tool.mcp:disconnect:194 - Cancel scope error during disconnect from localtool, continuing with cleanup: Attempted to exit a cancel scope that isn't the current tasks's current cancel scope
+2025-11-21 11:18:09.239 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server localtool
+2025-11-21 11:18:09.241 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server playwright
+2025-11-21 11:18:09.241 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers

@@ -1,5 +1,0 @@
-2025-10-30 14:35:31.873 | INFO     | __main__:initialize:26 - Initializing MCPAgent with streamable-http connection...
-2025-10-30 14:35:31.904 | ERROR    | app.tool.mcp:disconnect:213 - Error disconnecting from server http://172.18.140.24:9527/mcp: unhandled errors in a TaskGroup (1 sub-exception)
-2025-10-30 14:35:31.904 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers
-2025-10-30 14:35:31.904 | INFO     | app.agent.mcp:cleanup:180 - MCP connection closed
-2025-10-30 14:35:31.904 | INFO     | __main__:cleanup:67 - Session ended

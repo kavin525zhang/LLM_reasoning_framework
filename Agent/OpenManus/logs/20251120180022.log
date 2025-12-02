@@ -1,0 +1,37 @@
+2025-11-20 18:00:36.275 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server localtool with tools: ['全文检索接口', '向量搜索接口']
+2025-11-20 18:00:36.275 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server localtool at http://172.18.140.24:9527/mcp
+2025-11-20 18:00:49.956 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-20 18:00:49.956 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-11-20 18:00:51.650 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1157, Completion=61, Cumulative Input=1157, Cumulative Completion=61, Total=1218, Cumulative Total=1218
+2025-11-20 18:00:51.650 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 为了找到“农家小炒肉”的做法，我将使用向量搜索接口来检索相关信息。这将帮助我们找到与查询最相关的文档或段落。
+
+2025-11-20 18:00:51.651 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-11-20 18:00:51.651 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_localtool']
+2025-11-20 18:00:51.651 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "农家小炒肉的做法"}
+2025-11-20 18:00:51.652 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_localtool'...
+2025-11-20 18:00:51.652 | INFO     | app.tool.mcp:execute:28 - Executing tool: 向量搜索接口
+2025-11-20 18:00:51.671 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'mcp_localtool' completed its mission! Result: Observed output of cmd `mcp_localtool` executed:
+🍲家常小炒肉，美味又下饭！
+🥩想要品尝一道简单又美味的家常菜吗？试试小炒肉吧！🍛
+
+🌶️食材：五花肉、螺丝椒、豆豉、姜、蒜。
+
+🔥烹饪步骤：
+1️⃣ 油热后加入姜片，倒入五花肉煸炒出油脂。
+2️⃣ 倒入豆豉和蒜末，炒出香味。
+3️⃣ 倒入切好的辣椒，快速翻炒至断生。
+4️⃣ 加入一勺生抽、半勺老抽、一勺蚝油和适量的盐，翻炒均匀，让食材充分吸收调料的味道。
+2025-11-20 18:00:51.671 | INFO     | app.agent.base:run:141 - Executing step 2/20
+2025-11-20 18:00:54.502 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1482, Completion=124, Cumulative Input=2639, Cumulative Completion=185, Total=1606, Cumulative Total=2824
+2025-11-20 18:00:54.503 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 我找到了一份“农家小炒肉”的做法，以下是详细的烹饪步骤：
+
+1. 油热后加入姜片，倒入五花肉煸炒出油脂。
+2. 倒入豆豉和蒜末，炒出香味。
+3. 倒入切好的辣椒，快速翻炒至断生。
+4. 加入一勺生抽、半勺老抽、一勺蚝油和适量的盐，翻炒均匀，让食材充分吸收调料的味道。
+
+希望这些信息对您有所帮助。如果您需要更详细的说明或有其他问题，请随时告诉我。
+2025-11-20 18:00:54.503 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 0 tools to use
+2025-11-20 18:00:54.511 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server localtool
+2025-11-20 18:00:54.511 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers
+2025-11-20 18:00:54.511 | INFO     | __main__:main:27 - Request processing completed.

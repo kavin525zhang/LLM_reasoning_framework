@@ -1,0 +1,18 @@
+2025-11-24 15:15:36.393 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server bing with tools: ['百度搜索']
+2025-11-24 15:15:36.393 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server bing at http://172.18.140.24:9527/mcp
+2025-11-24 15:15:49.684 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-24 15:15:49.685 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-11-24 15:30:51.022 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Request timed out.
+2025-11-24 15:30:51.023 | ERROR    | app.llm:ask_tool:763 - API error: Request timed out.
+2025-11-24 15:36:29.468 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Connection error.
+2025-11-24 15:36:29.468 | ERROR    | app.llm:ask_tool:763 - API error: Connection error.
+2025-11-24 15:36:32.385 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Connection error.
+2025-11-24 15:36:32.386 | ERROR    | app.llm:ask_tool:763 - API error: Connection error.
+2025-11-24 15:36:37.336 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Connection error.
+2025-11-24 15:36:37.336 | ERROR    | app.llm:ask_tool:763 - API error: Connection error.
+2025-11-24 15:36:46.523 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Connection error.
+2025-11-24 15:36:46.524 | ERROR    | app.llm:ask_tool:763 - API error: Connection error.
+2025-11-24 15:36:56.172 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Connection error.
+2025-11-24 15:36:56.172 | ERROR    | app.llm:ask_tool:763 - API error: Connection error.
+2025-11-24 15:36:56.184 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server bing
+2025-11-24 15:36:56.184 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers

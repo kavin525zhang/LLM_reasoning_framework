@@ -1,8 +1,7 @@
 from app.tool.base import BaseTool
 
 
-_TERMINATE_DESCRIPTION = """Terminate the interaction when the request is met OR if the assistant cannot proceed further with the task.
-When you have finished all the tasks, call this tool to end the work."""
+_TERMINATE_DESCRIPTION = """当请求得到满足或助手无法继续执行任务时，终止交互。完成所有任务后，调用此工具结束工作。"""
 
 
 class Terminate(BaseTool):

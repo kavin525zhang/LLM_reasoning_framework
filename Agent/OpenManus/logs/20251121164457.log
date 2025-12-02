@@ -1,0 +1,342 @@
+2025-11-21 16:45:17.209 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server exa with tools: ['web_search_exa', 'get_code_context_exa']
+2025-11-21 16:45:17.210 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server exa using command npx
+2025-11-21 16:45:21.006 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server webresearch with tools: ['search_google', 'visit_page', 'take_screenshot']
+2025-11-21 16:45:21.006 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server webresearch using command npx
+2025-11-21 16:45:38.040 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-21 16:45:38.048 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-11-21 16:45:42.401 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1876, Completion=193, Cumulative Input=1876, Cumulative Completion=193, Total=2069, Cumulative Total=2069
+2025-11-21 16:45:42.402 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 为了了解新能源汽车未来五年的发展前景，我们可以从以下几个方面进行研究：
+
+1. **市场趋势**：了解当前新能源汽车市场的增长情况，以及未来五年的预测。
+2. **政策支持**：分析政府对新能源汽车的政策支持，包括补贴、税收优惠等。
+3. **技术创新**：探讨电池技术、充电基础设施等领域的最新进展。
+4. **消费者接受度**：了解消费者对新能源汽车的态度和购买意愿。
+
+首先，我们可以通过网络搜索来获取这些方面的最新信息。接下来，我将使用 `mcp_exa_web_search_exa` 工具来搜索相关信息。
+
+2025-11-21 16:45:42.402 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-11-21 16:45:42.402 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_exa_web_search_exa']
+2025-11-21 16:45:42.403 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "新能源汽车未来五年的发展前景", "numResults": 8, "livecrawl": "preferred", "type": "deep", "contextMaxCharacters": 10000}
+2025-11-21 16:45:42.404 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_exa_web_search_exa'...
+2025-11-21 16:45:42.404 | INFO     | app.tool.mcp:execute:28 - Executing tool: web_search_exa
+2025-11-21 16:46:01.693 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'mcp_exa_web_search_exa' completed its mission! Result: Observed output of cmd `mcp_exa_web_search_exa` executed:
+Title: 【图】一文读懂中国汽车未来5-15年_汽车之家
+Author: 
+Published Date: 2025-11-21T16:45:46.000Z
+URL: https://m.autohome.com.cn/news/202510/1310006.html
+Text: 选择城市
+
+综合
+
+搜索
+
+更多
+
+登 录
+
+点赞
+
+评论
+
+收藏
+
+分享
+
+问编辑
+
+当前位置：
+
+一文读懂中国汽车未来5-15年
+
+彭斐
+
+原创 · 0浏览·2025-10-27 17:50 · 北京
+
+关注
+
+\[汽车之家 [行业](https://www.autohome.com.cn/hangye/)\]市场占比超过46%，市场增速达35%，以上是今年前三季度我国新能源汽车取得的成绩。
+
+如果你细品一下，过去短短三年，从2020年那会儿，新能源车还是个“小透明”，年销量不到140万，渗透率才5.4%，结果呢？“提前三年”就把“2025年渗透率20%”这个目标给KO了！更狠的是，2024年直接干到接近1300万辆，渗透率冲破40%大关！
+
+跟其他国家一比，我国在新能源车这件事上，那是妥妥的“J人”，计划狂魔+超强执行力！目标清晰，指哪打哪。
+
+如今，站在汽车产业变革的关键十字路口，汽车工程学会近日甩出了一份重量级“宝典”——《节能与新能源汽车技术路线图3.0》，为我们描绘了未来15年中国汽车产业的蓝图。
+
+[更多精彩视频，尽在汽车之家视频平台](http://v.autohome.com.cn)
+
+这份路线图，必须划重点！还记得2016年、2020年的1.0和2.0版本吗？那会儿，我们更多是 “好学生”姿态，紧盯着国际大佬，努力“对标”，生怕掉队。但！今时不同往日了！在新能源和智能网联这两大赛道，我们已经华丽转身，从“追赶者”变成了“引领者”！
+
+因为没有对标了，所以这份技术路线图难度可想而知，据说是汇聚了2000多位行业专家，整整肝了一年半。
+
+本期《车市物语》，我们就将目光集中在这份“宝典”上，只要读懂它，我们就能知道未来15年，中国汽车产业如何前进，消费者应该怎么买车，企业又该如何创新。
+
+**一、新能源汽车全面占领市场**
+
+中国汽车工程学会理事长张进华预判，今年，我国新能源汽车渗透率会突破45%，全球应该也会超过20%。
+
+路线图3.0说了，未来5-15年，新能源车不止是主流，而是要“全面占领”C位！
+
+不过，路线图也给了个挺有意思的预判：内燃机这位“老戏骨”不会立刻“杀青”，但角色要大变！未来它不再是“独挑大梁”的纯燃油车了，而是化身“配角”，主要在混动、插混、增程里发光发热。预计到2040年，带内燃机的这类车还能占到 三分之一左右 的份额。至于 纯内燃机2030年后就成“稀有物种”了，到了2035年，传统能源乘用车基本实现“全员混动化”！
+
+路线图预判，随着电池技术成本不断突破、充电便利性不断提升，到2040年，新能源乘用车渗透率将超过85%，其中，
+
+Title: “得用户者得天下”！2025年新能源车渗透率或超60%，智能出行是未来3至5年竞争高地
+Author: 
+Published Date: 2025-11-20T04:26:10.000Z
+URL: https://finance.sina.com.cn/roll/2025-11-20/doc-i…
+Text: - [新浪首页](http://www.sina.com.cn/)
+- [新闻](http://news.sina.com.cn/)
+- [体育](http://sports.sina.com.cn/)
+- [财经](http://finance.sina.com.cn/)
+- [娱乐](http://ent.sina.com.cn/)
+- [科技](http://tech.sina.com.cn/)
+- [博客](http://blog.sina.com.cn/)
+- [图片](http://photo.sina.com.cn/)
+- [专栏](http://zhuanlan.sina.com.cn/)
+- [更多](https://finance.sina.com.cn/finance.sina.com.cn)
+
+- [汽车](http://auto.sina.com.cn/) [教育](http://edu.sina.com.cn/) [时尚](http://fashion.sina.com.cn/) [女性](http://eladies.sina.com.cn/) [星座](http://astro.sina.com.cn/) [健康](http://health.sina.com.cn/)
+- [房产](http://www.leju.com/#source=pc_sina_dbdh1&source_ext=pc_sina) [历史](http://history.sina.com.cn/) [视频](http://video.sina.com.cn/) [收藏](http://collection.sina.com.cn/) [育儿](http://baby.sina.com.cn/) [读书](http://book.sina.com.cn/)
+- [佛学](http://fo.sina.com.cn/) [游戏](http://games.sina.com.cn/) [旅游](http://travel.sina.com.cn/) [邮箱](http://mail.sina.com.cn/) [导航](http://news.sina.com.cn/guide/)
+
+[移动客户端](https://finance.sina.com.cn/finance.sina.com.cn)
+
+- [新浪微博](http://m.sina.com.cn/m/weibo.shtml)
+- [新浪新闻](http://news.si
+
+Title: 2026-2032年中国新能源汽车行业发展潜力预测及投资风险评估报告_华经情报网_华经产业研究院
+Author: 
+Published Date: 2025-11-14T00:00:00.000Z
+URL: https://m.huaon.com/channel/jingpin/machine/11116…
+Text: 1. [首页](https://m.huaon.com/)
+2. [研究报告](https://m.huaon.com/channel/report)
+3. [精品报告](https://m.huaon.com/channel/jingpin)
+4. [机械设备](https://m.huaon.com/channel/jingpin/machine)
+
+[新能源汽车](https://m.huaon.com/tag/xinnaiyuanqiche)
+
+分享：
+
+复制链接
+
+# 2026-2032年中国新能源汽车行业发展潜力预测及投资风险评估报告
+
+发布时间：2025-10-11
+
+¥ **9000** ~~¥12000~~
+
+- 报告编号1111626
+- 出品单位华经产业研究院
+- 订购电话400-700-0142　010-80392465
+- 客服邮箱kf@huaon.com
+- 资料下载[下载订购协议](https://cdn.huaon.com/%E5%8D%8E%E7%BB%8F%E6%83%85%E6%8A%A5%E7%BD%91%E4%BA%A7%E5%93%81%E8%AE%A2%E8%B4%AD%E5%8D%95.docx) [下载PDF目录](https://www.huaon.com/pdf/16/26/1111626.pdf)
+- 交付方式
+电子版纸介版电子+纸介版
+
+
+立即订购 [个性化定制](https://m.huaon.com/consult/custom.html)在线咨询
+
+- [报告目录](https://m.huaon.com/m.huaon.com#report_contents)
+- [研究方法](https://m.huaon.com/m.huaon.com#report_method)
+- [数据来源](https://m.huaon.com/m.huaon.com#report_data)
+
+[下载订购协议](https://cdn.huaon.com/%E5%8D%8E%E7%BB%8F%E6%83%85%E6%8A%A5%E7%BD%91%E4%BA%A7%E5%93%81%E8%AE%A2%E8%B4%AD%E5%8D%95.docx) [订购流程](https://m.huaon.com/about#%E8%AE%A2%E8%B4%AD%E6%B5%81%E7%A8%8B)
+
+《2026-2032年中国新能源汽车行业发展潜力预测及投资风险评估报告》由华经产业研究院
+
+Title: 2025-2030中国新能源汽车市场发展趋势与未来战略规划研究报告.docx
+Author: 人人文库
+Published Date: 2025-10-09T05:54:26.000Z
+URL: https://m.renrendoc.com/paper/475592795.html
+Text: # 2025-2030中国新能源汽车市场发展趋势与未来战略规划研究报告
+
+上传人：陈\*\*\*
+
+认证信息
+
+认证类型：个人认证
+
+认证主体：陈\*\*（实名认证）
+
+IP属地：四川
+
+IP属地：四川上传时间：2025-10-09格式：DOCX页数：27大小：30.42KB积分：12__ 举报__ 版权申诉
+
+已阅读5页，还剩22页未读，继续免费阅读 __
+
+下载本文档
+
+版权说明：本文档由用户提供并上传，收益归属内容提供方，若内容存在侵权，请进行举报或认领
+
+### 文档简介
+
+2025-2030中国新能源汽车市场发展趋势与未来战略规划研究报告目录一、中国新能源汽车市场现状与趋势 31.市场规模与增长速度 3年新能源汽车销售量预测 3年市场规模及增长动力分析 42.用户需求与消费趋势 6消费者对新能源汽车的认知与接受度 6不同年龄段用户偏好分析 73.竞争格局与主要参与者 9国内外主要新能源汽车品牌市场份额 9关键竞争策略与差异化竞争分析 10二、技术发展趋势与创新点 121.电池技术进步 12高能量密度电池研发进展 12快充技术优化方案探讨 132.自动驾驶技术应用 15及以上自动驾驶功能普及情况预测 15传感器、算法等关键技术发展动态 163.智能网联技术整合 17车联网平台建设与服务创新 17数据驱动的个性化用户体验设计 18三、市场策略与投资方向 191.市场定位与目标客户群选择 19中高端市场策略优化建议 19公共交通、共享出行等细分市场开发策略 202.销售渠道与服务网络构建 21线上线下融合销售模式探索 21售后服务体系建设规划 223.政策环境适应性策略 24国家及地方政策影响分析 24风险防控机制建立及应对策略制定 25摘要2025年至2030年中国新能源汽车市场发展趋势与未来战略规划研究报告，揭示了在政策支持、技术创新、消费者接受度提升以及全球环保趋势推动下，中国新能源汽车市场将展现出强劲的增长势头。市场规模方面，预计到2030年，中国新能源汽车销量将突破1,500万辆，占全球新能源汽车市场份额的三分之一以上。数据表明，从2025年开始，新能源汽车销量年复合增长率有望达到15%，远超全球平均水平。在发展方向上，中国新能源汽车市场将重点聚焦于提升车辆性能、扩大产品线覆盖、优化充电基础设施布局以及加强自动驾驶技术的研发与应用。随着电池技术的不断进步和成本的持续下降，续航里程和充电效率将成为影响消费者选择的关键因素。预计到2030年，主流车型的平均续航里程将超过600公里，快充技术将使充电时间缩短至半小时以内。预测性规划中
+
+Title: 2026年中国新能源汽车行业产业链、重点企业分析及投资战略
+Author: 网易
+Published Date: 2025-11-21T03:39:53.000Z
+URL: https://www.163.com/dy/article/KESSAQM505563K26.h…
+Text: [网易首页](https://www.163.com/)
+
+[应用](https://www.163.com/#f=topnav)
+
+- [_网易新闻_](https://m.163.com/newsapp/#f=topnav)
+- [_网易公开课_](https://open.163.com/#f=topnav)
+- [_网易红彩_](https://hongcai.163.com/?from=pcsy-button)
+- [_网易严选_](https://u.163.com/aosoutbdbd8)
+- [_邮箱大师_](https://mail.163.com/client/dl.html?from=mail46)
+- [_网易云课堂_](https://study.163.com/client/download.htm?from=163app&utm_source=163.com&utm_medium=web_app&utm_campaign=business)
+
+_快速导航_
+
+- ### [新闻](https://news.163.com)
+
+- [国内](https://news.163.com/domestic)
+- [国际](https://news.163.com/world)
+- [王三三](https://news.163.com/special/wangsansanhome/)
+
+- ### [体育](https://sports.163.com)
+
+- [NBA](https://sports.163.com/nba)
+- [CBA](https://sports.163.com/cba)
+- [综合](https://sports.163.com/allsports)
+- [中超](https://sports.163.com/zc)
+- [国际足球](https://sports.163.com/world)
+- [英超](https://sports.163.com/yc)
+- [西甲](https://sports.163.com/xj)
+- [意甲](https://sports.163.com/yj)
+
+- ### [娱乐](https://ent.163.com)
+
+- [明星](https://ent.163.com/star)
+- [电影](https://ent.163.com/movie)
+- [电视](https://ent.163.com/tv)
+- [音乐](https://ent.163.com/m
+
+Title: 新能源汽车2025年有望再次“跑”出销量新高-新华网
+Author: 841
+Published Date: 2025-01-06T00:00:00.000Z
+URL: http://www.xinhuanet.com/auto/20250106/ee2d5da3ec…
+Text: # 新能源汽车2025年有望再次“跑”出销量新高
+
+2025-01-06 15:57:38
+来源：上海证券报
+
+2024年，中国新能源汽车行业多项数据刷新纪录；2025年，中国汽车行业新能源化的浪潮依然澎湃。近日，上海证券报记者采访获悉，伴随年初新一轮利好的集中释放，行业协会、研究机构、主流汽车企业等有关负责人都对2025年中国新能源汽车销量和渗透率提出了乐观预期和更高目标。与此同时，中国新能源汽车产品和产能出海的步伐并未停止，新年海外市场有望实现持续增长。
+
+**政策暖风频吹 新能源汽车销量和渗透率预期提升**
+
+近期，从中央到地方，关于新能源汽车的利好消息不断。
+
+财政部办公厅近日发布通知要求，新能源汽车可以满足实际使用需要的，年度公务用车采购总量中新能源汽车占比原则上不低于30%。对于路线相对固定、主要在城区行驶的公务用车，原则上100%采购新能源汽车。
+
+1月3日，国家发展改革委表示，在以旧换新活动中，超过60%的消费者选择购买新能源汽车，推动新能源乘用车市场渗透率连续6个月超过50%。2025年，将打好能耗双控收官战，研究综合评价考核办法。进一步健全财税、金融、投资、价格等政策和标准体系。
+
+上海市人民政府日前印发修订后的《上海市非营业性客车额度拍卖管理规定》，连缴一年社保或个税可拍牌，这一新规被业界视为是上海购车政策放宽的重要方式。
+
+多位业内专家对记者表示，虽然国际上目前对碳排放和新能源有不少杂音，但是中国对于发展新能源汽车的决心非常坚定，这将助力提升行业景气度和重点企业业绩向上。
+
+根据中国电动汽车百人会最新预测，乐观估计，2025年的中国新能源汽车销量将达1650万辆（含出口）左右，增速接近30%，渗透率超过50%，内需有望达到1500万辆，渗透率超过55%。
+
+“新能源汽车行业经过3年至4年的高速增长，渗透率已与油车平分天下。但任何行业的发展都不会一路狂奔，到一定阶段可能要平稳下来，慢慢进入成熟期。”中国电动汽车百人会副理事长兼秘书长张永伟分析，2025年以新能源汽车为代表的中国汽车整体市场将呈现“稳中有进”的趋势。
+
+张永伟认为，乘用车的新能源电动化已进入常态化发展，而商用车正进入快速爬坡期。新能源商用车在某些领域整个生命周期TCO（总拥有成本）较燃油车更有优势，所以新能源商用车渗透率会快速提升。
+
+电动汽车百人会预测，2025年国内新能源商用车销量将接近100万辆，增速达到80%，呈现井喷的态势。尤其是新能源重卡渗透率会快速增长，保守估计2025年销量将超过11万辆，渗透率突破20%。另外，城市物流配送市场也将呈现快速发展态势。
+
+高工
+
+Title: “十四五”五年跃迁：中国汽车以正向设计重塑竞争力
+Author: 
+Published Date: 2025-10-28T08:38:00.000Z
+URL: https://www.stcn.com/article/detail/3415713.html
+Text: 
+ 10月20日至23日，党的二十届四中全会召开，审议通过了《中共中央关于制定国民经济和社会发展第十五个五年规划的建议》，明确了未来5年中国经济社会发展的“路线图”。这一时间节点的到来，意味着“十四五”即将画上句号。 今年是“十四五”规划的收官之年。5年来，中国汽车产业发展取得了新的重大成就。这从国新办近期举行的“高质量完成‘十四五’规划”系列主题新闻发布会上披露的一系列数据中可见一斑：“十四五”期间，我国新能源汽车产量从2020年的140万辆左右跃升到2024年的1300多万辆，销量亦实现同期增长，市场规模大概翻了三番多。新能源汽车的销售占比从2020年的5.4%提升到40.9%；行业企业加大投入，攻克了一批技术难题，显著提升了产品的质量性能。譬如，纯电动乘用车平均续驶里程接近500公里，动力电池单体成本降低了30%，但寿命提高了40%，充电速率也提升了3倍多，具备组合辅助驾驶功能的乘用车新车占比从2020年的16.2%提升到今年上半年的62.1%。 “十四五”时期，哪些因素促成了中国汽车产业的快速发展？有哪些经验值得借鉴？新的五年计划启动在即，面对复杂多变的外部环境和国内市场消费不振的内部压力，中国汽车产业应如何走出低价无序竞争，实现质的提升？临近年底，业内外对上述问题的关注热度持续提升。 跃升与爆发尤为明显 “十四五”时期，中国汽车产业的爆发是显而易见的，这种爆发也体现在高端化的大力开拓上。 “‘十四五’这5年，中国汽车总量在持续增长，年销量从2023年的3009万辆、2024年的3143万辆，至今年的预计3400多万辆，连续创下历史新高。新能源汽车的爆发也是在最近这5年。2020年，我国新能源汽车的销量仅约136万辆，而2025年全年销量规模预计将达到1650万辆。5年时间，中国品牌乘用车市占率从2020年6月的30%左右增长至目前的约70%；汽车出口亦实现里程碑式突破，出口量从过去十几年长期徘徊的百万辆级别，自2021年起一路攀升至去年的580多万辆，今年预计可能接近700万辆。”针对“十四五”时期中国汽车产业交出的答卷，中国汽车工业协会（以下简称“中汽协”）专务副秘书长许海东对《中国经营报》记者如是表示。 “‘十四五’时期，中国汽车产业的爆发是显而易见的，这种爆发也体现在高端化的大力开拓上。”许海东补充道。 这是一个较为明显的变化。在“十四五”期间，中国汽车产业不再仅仅追求产量、规模，而是重点向技术含量更高、品牌价值更强、智能网联转型力度更深、产业链更完善的方向发展。 在这个过程中，自主品牌加快了高端化突破的步伐，通过技术、设计以及电动化、智能化提升抢占中高端市
+
+Title: 
+Author: SPDBI Research
+Published Date: 2024-12-11T00:00:00.000Z
+URL: https://www.spdbi.com/getfile/index/action/images…
+Text: 浦银国际研究 
+主题研究 | 新能源汽车行业
+本研究报告由浦银国际证券有限公司分析师编制，请仔细阅读本报告最后部分的分析师披露、商业关系披露及免责声明。
+新能源汽车行业 2025 年展望：绿能
+浪潮、出海领航、智驾未来
+ 预计 2025 年中国新能源乘用车销量达 1,578 万辆，对应渗透率 53.7%，
+维持加速上扬趋势：我们预计 2025 年中国新能源车乘用车销量将从
+2024 年的 1,234 万辆成长到 1,578 万辆，同比增长 28%。虽然 2025 年
+增速或不及 2024 年的 37%，但是销量相比 2024 年预计增长 344 万辆。
+我们预计 2025 年的渗透率将达到 53.7%，增长 8.7 个百分点。渗透率加
+速上扬是我们几年以来对于新能源车行业的基本判断。在此基础上，我
+们预期蔚来、小鹏、理想、零跑这四家新势力 2025 年的新能源车销量
+将分别达到 40.2 万、40.0 万、70.0 万、49.0 万辆（图表 87），同比均将
+大幅成长，份额也会有所提升。零跑汽车和小鹏汽车是我们在新能源汽
+车行业的首选，主要考虑到这两家车企受益于新车销量和海外增长的确
+定性较高。而蔚来汽车、理想汽车也有望享受新车型带来的增量。我们
+重申上述四家新能源车企的“买入”评级。
+ 中国新能源车企海外布局加速，出口销量大幅成长：中国制造的新能源
+车在海外的认可度持续提升，虽然近期受到欧洲关税和需求扰动的负面
+影响，但自主品牌的插混车型出口到海外发展中国家的势头依然迅猛。
+伴随着中国新能源车的规模优势和市场扩张需求，中国制造新能源产品
+越来越多地走出国门，海外认可度持续提升。今年 1-11 月，中国新能源
+乘用车出口累计销量同比增长 16%。中国新能源车在技术水平和产品竞
+争力上，特别是智能驾驶相关的探索方面仍领先于海外的大部分传统车
+企，海外市场的突破有望为车企带来新的销量贡献和盈利来源。自主车
+企和新势力都在寻求加速出海，逐步将自身产品推广至海外市场。今年
+以来，比亚迪、零跑、小鹏的海外销量初见规模。
+ 车企加速布局智能化，积极寻求新突破：根据高工智能汽车数据，2024
+年 9 月中国市场新车 NOA 前装交付量突破 20 万辆，再次创造记录。随
+着技术的进步，智能驾驶也在持续推进降本，包括规模扩大带来的硬件
+制造成本下降等，都有望推动渗透率进一步提升。各家车企智驾版车型
+的销售占比也在逐渐爬升。小米 SU7 Max 的车型占比达到 43.17%。理
+想 L6 的 
+2025-11-21 16:46:01.698 | INFO     | app.agent.base:run:141 - Executing step 2/20
+2025-11-21 16:46:12.883 | INFO     | app.llm:update_token_count:243 - Token usage: Input=7696, Completion=509, Cumulative Input=9572, Cumulative Completion=702, Total=8205, Cumulative Total=10274
+2025-11-21 16:46:12.884 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 根据网络搜索的结果，我们可以总结出新能源汽车未来五年的发展前景如下：
+
+1. **市场增长**：
+   - 中国新能源汽车市场在过去几年中取得了显著的增长，2024年销量接近1300万辆，渗透率超过40%。
+   - 预计到2025年，新能源汽车销量将达到1650万辆，渗透率超过50%。
+   - 到2030年，新能源汽车销量有望突破1500万辆，占全球新能源汽车市场份额的三分之一以上。
+
+2. **政策支持**：
+   - 政府继续出台多项政策支持新能源汽车的发展，包括公务用车采购新能源汽车的比例要求、购车政策放宽等。
+   - 国家发展改革委表示将进一步健全财税、金融、投资、价格等政策和标准体系，支持新能源汽车的发展。
+
+3. **技术创新**：
+   - 电池技术不断进步，成本持续下降，续航里程和充电效率显著提升。预计到2030年，主流车型的平均续航里程将超过600公里，快充技术将使充电时间缩短至半小时以内。
+   - 自动驾驶技术的应用也在加速，预计到2025年，具备L2及以上自动驾驶功能的新能源汽车将大幅增加。
+
+4. **消费者接受度**：
+   - 消费者对新能源汽车的认知和接受度不断提高，不同年龄段的用户对新能源汽车的偏好也在逐渐形成。
+   - 随着充电基础设施的不断完善，消费者的购买意愿将进一步增强。
+
+5. **市场策略与投资方向**：
+   - 企业将重点提升车辆性能、扩大产品线覆盖、优化充电基础设施布局以及加强自动驾驶技术的研发与应用。
+   - 中高端市场和细分市场（如公共交通、共享出行等）将成为企业重点开发的方向。
+
+6. **国际竞争力**：
+   - 中国新能源汽车在国际市场的认可度持续提升，出口销量大幅增长。比亚迪、零跑、小鹏等品牌在海外市场的表现尤为突出。
+   - 中国新能源车企加速海外布局，寻求新的销量贡献和盈利来源。
+
+综上所述，新能源汽车在未来五年内将继续保持强劲的增长势头，市场渗透率将进一步提高，技术创新和政策支持将为其发展提供有力保障。消费者接受度的提升和国际市场的拓展也将为新能源汽车的发展带来新的机遇。
+
+如果您需要更详细的信息或有其他问题，请告诉我，我们可以进一步探讨。
+2025-11-21 16:46:12.884 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 0 tools to use
+2025-11-21 16:46:12.885 | INFO     | app.agent.base:run:141 - Executing step 3/20
+2025-11-21 16:46:13.110 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:13.110 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:14.347 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:14.347 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:15.896 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:15.897 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:18.594 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:18.594 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:26.673 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:26.673 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:37.347 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:37.348 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 400 - {'object': 'error', 'message': "This model's maximum context length is 16384 tokens. However, you requested 16480 tokens (8288 in the messages, 8192 in the completion). Please reduce the length of the messages or completion.", 'type': 'BadRequestError', 'param': None, 'code': 400}
+2025-11-21 16:46:37.429 | WARNING  | app.tool.mcp:disconnect:194 - Cancel scope error during disconnect from exa, continuing with cleanup: Attempted to exit a cancel scope that isn't the current tasks's current cancel scope
+2025-11-21 16:46:37.430 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server exa
+2025-11-21 16:46:37.474 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server webresearch
+2025-11-21 16:46:37.475 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers

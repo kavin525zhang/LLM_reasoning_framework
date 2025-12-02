@@ -3,6 +3,7 @@ import threading
 import tomllib
 from pathlib import Path
 from typing import Dict, List, Optional
+import traceback
 
 from pydantic import BaseModel, Field
 
@@ -129,7 +130,8 @@ class DaytonaSettings(BaseModel):
 class MCPServerConfig(BaseModel):
     """Configuration for a single MCP server"""
 
-    type: str = Field(..., description="Server connection type (sse or stdio)")
+    # type: str = Field(..., description="Server connection type (sse or stdio)")
+    type: Optional[str] = Field(None, description="Server connection type (sse or stdio)")
     url: Optional[str] = Field(None, description="Server URL for SSE connections")
     command: Optional[str] = Field(None, description="Command for stdio connections")
     args: List[str] = Field(
@@ -162,14 +164,19 @@ class MCPSettings(BaseModel):
                 servers = {}
 
                 for server_id, server_config in data.get("mcpServers", {}).items():
+                    print("type:{}, url:{}, command:{}, args:{}".format(server_config.get("type"),
+                                                                        server_config.get("url"),
+                                                                        server_config.get("command"),
+                                                                        server_config.get("args")))
                     servers[server_id] = MCPServerConfig(
-                        type=server_config["type"],
+                        type=server_config.get("type"),
                         url=server_config.get("url"),
                         command=server_config.get("command"),
                         args=server_config.get("args", []),
                     )
                 return servers
         except Exception as e:
+            print("111111111111:{}".format(traceback.format_exc()))
             raise ValueError(f"Failed to load MCP server config: {e}")
 
 

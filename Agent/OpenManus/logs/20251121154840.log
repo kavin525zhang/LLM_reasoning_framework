@@ -1,0 +1,3 @@
+2025-11-21 15:48:59.232 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server exa with tools: ['web_search_exa', 'get_code_context_exa']
+2025-11-21 15:48:59.233 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server exa using command npx
+2025-11-21 15:48:59.297 | ERROR    | app.agent.manus:initialize_mcp_servers:97 - Failed to connect to MCP server arxiv-mcp-server: Connection closed

@@ -1,0 +1,21 @@
+2025-11-21 16:58:35.750 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server webresearch with tools: ['search_google', 'visit_page', 'take_screenshot']
+2025-11-21 16:58:35.751 | INFO     | app.agent.manus:initialize_mcp_servers:93 - Connected to MCP server webresearch using command npx
+2025-11-21 16:59:00.269 | WARNING  | __main__:main:25 - Processing your request...
+2025-11-21 16:59:00.276 | INFO     | app.agent.base:run:141 - Executing step 1/20
+2025-11-21 16:59:04.487 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1305, Completion=182, Cumulative Input=1305, Cumulative Completion=182, Total=1487, Cumulative Total=1487
+2025-11-21 16:59:04.487 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 为了了解新能源汽车未来五年的发展前景，我们可以从以下几个方面进行研究：
+
+1. **市场趋势**：了解当前新能源汽车市场的增长情况，以及未来五年的预测。
+2. **政策支持**：分析政府对新能源汽车行业的支持政策，包括补贴、税收优惠等。
+3. **技术创新**：探讨电池技术、充电基础设施等方面的最新进展。
+4. **消费者接受度**：了解消费者对新能源汽车的态度和购买意愿。
+
+首先，我们可以通过搜索引擎来获取一些关于新能源汽车未来五年发展前景的报告和文章。这将帮助我们快速获得市场趋势、政策支持、技术创新和消费者接受度等方面的信息。
+
+接下来，我将使用 `mcp_webresearch_search_google` 工具来搜索相关信息。
+
+2025-11-21 16:59:04.487 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-11-21 16:59:04.487 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_webresearch_search_google']
+2025-11-21 16:59:04.488 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "新能源汽车未来五年的发展前景"}
+2025-11-21 16:59:04.488 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_webresearch_search_google'...
+2025-11-21 16:59:04.489 | INFO     | app.tool.mcp:execute:28 - Executing tool: search_google
