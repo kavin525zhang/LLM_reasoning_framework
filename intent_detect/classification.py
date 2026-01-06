@@ -125,6 +125,7 @@ class IntentClassifier:
         """主分类函数"""
         # 预处理
         processed = self.preprocessor.preprocess(text)
+        print("processed:{}".format(processed))
         
         # 三级分类
         primary, secondary, confidence = self._three_level_classify(processed, context)

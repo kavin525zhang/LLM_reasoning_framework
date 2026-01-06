@@ -1,13 +1,15 @@
 import { LlmModelType } from '@/constants/knowledge';
 import { useSetModalState } from '@/hooks/common-hooks';
 
-import { useSelectLlmOptionsByModelType } from '@/hooks/llm-hooks';
 import { useFetchKnowledgeBaseConfiguration } from '@/hooks/use-knowledge-request';
-import { useSelectParserList } from '@/hooks/user-setting-hooks';
+import { useSelectLlmOptionsByModelType } from '@/hooks/use-llm-request';
+import { useSelectParserList } from '@/hooks/use-user-setting-request';
+import kbService from '@/services/knowledge-service';
 import { useIsFetching } from '@tanstack/react-query';
 import { pick } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { useParams, useSearchParams } from 'react-router';
 import { z } from 'zod';
 import { formSchema } from './form-schema';
 
@@ -35,7 +37,8 @@ export function useHasParsedDocument(isEdit?: boolean) {
 export const useFetchKnowledgeConfigurationOnMount = (
   form: UseFormReturn<z.infer<typeof formSchema>, any, undefined>,
 ) => {
-  const { data: knowledgeDetails } = useFetchKnowledgeBaseConfiguration();
+  const { data: knowledgeDetails, loading } =
+    useFetchKnowledgeBaseConfiguration();
 
   useEffect(() => {
     const parser_config = {
@@ -69,7 +72,7 @@ export const useFetchKnowledgeConfigurationOnMount = (
     form.reset(formValues);
   }, [form, knowledgeDetails]);
 
-  return knowledgeDetails;
+  return { knowledgeDetails, loading };
 };
 
 export const useSelectKnowledgeDetailsLoading = () =>
@@ -96,5 +99,24 @@ export const useRenameKnowledgeTag = () => {
     tagRenameVisible,
     hideTagRenameModal,
     showTagRenameModal: handleShowTagRenameModal,
+  };
+};
+
+export const useHandleKbEmbedding = () => {
+  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const knowledgeBaseId = searchParams.get('id') || id;
+  const handleChange = useCallback(
+    async ({ embed_id }: { embed_id: string }) => {
+      const res = await kbService.checkEmbedding({
+        kb_id: knowledgeBaseId,
+        embd_id: embed_id,
+      });
+      return res.data;
+    },
+    [knowledgeBaseId],
+  );
+  return {
+    handleChange,
   };
 };

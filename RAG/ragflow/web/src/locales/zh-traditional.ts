@@ -203,6 +203,9 @@ export default {
     },
     knowledgeConfiguration: {
       titleDescription: '在這裡更新您的知識庫詳細信息，尤其是切片方法。',
+      imageTableContextWindow: '影像與表格上下文視窗',
+      imageTableContextWindowTip:
+        '擷取影像與表格上下方的 N 個 token，為該 chunk 提供更豐富的背景上下文。',
       name: '知識庫名稱',
       photo: '知識庫圖片',
       photoTip: '你可以上傳4MB的文件',
@@ -544,6 +547,19 @@ export default {
       avatar: '头像',
       avatarTip: '這會在你的個人主頁展示',
       profileDescription: '在此更新您的照片和個人詳細信息。',
+      gitlabDescription:
+        '連接 GitLab，同步儲存庫、Issue、合併請求（MR）及相關文件內容。',
+      bedrockCredentialsHint:
+        '提示：Access Key / Secret Key 可留空，以啟用 AWS IAM 自動驗證。',
+      awsAuthModeAccessKeySecret: 'Access Key 和 Secret',
+      awsAuthModeIamRole: 'IAM Role',
+      awsAuthModeAssumeRole: 'Assume Role',
+      awsAccessKeyId: 'AWS Access Key ID',
+      awsSecretAccessKey: 'AWS Secret Access Key',
+      awsRoleArn: 'AWS Role ARN',
+      awsRoleArnMessage: '請輸入 AWS Role ARN',
+      awsAssumeRoleTip:
+        '選擇此模式後，EC2 執行個體將使用其既有的 IAM Role 存取 AWS 服務，無需額外憑證。',
       maxTokens: '最大token數',
       maxTokensMessage: '最大token數是必填項',
       maxTokensTip:
@@ -596,6 +612,8 @@ export default {
       tongyiBaseUrlTip:
         '中國用戶無需填寫或使用 https://dashscope.aliyuncs.com/compatible-mode/v1。國際用戶請使用 https://dashscope-intl.aliyuncs.com/compatible-mode/v1',
       tongyiBaseUrlPlaceholder: '（僅國際用戶，請參閱提示）',
+      minimaxBaseUrlTip: '僅國際用戶：使用 https://api.minimax.io/v1。',
+      minimaxBaseUrlPlaceholder: '（僅國際用戶填寫 https://api.minimax.io/v1）',
       modify: '修改',
       systemModelSettings: '設定預設模型',
       chatModel: '聊天模型',
@@ -708,6 +726,16 @@ export default {
       view: '查看',
       modelsToBeAddedTooltip:
         '若您的模型供應商未列於此處，但宣稱與 OpenAI 相容，可透過選擇「OpenAI-API-compatible」卡片來設定相關模型。',
+      dropboxDescription: '連接 Dropbox，同步指定帳號下的文件與文件夾。',
+      bitbucketDescription: '連接 Bitbucket，同步 PR 內容。',
+      zendeskDescription: '連接 Zendesk，同步工單、文章及其他內容。',
+      bitbucketTopWorkspaceTip:
+        '要索引的 Bitbucket 工作區（例如：https://bitbucket.org/atlassian/workspace 中的 "atlassian"）',
+      bitbucketWorkspaceTip: '此連接器將索引工作區下的所有倉庫。',
+      bitbucketRepositorySlugsTip:
+        '以英文逗號分隔的倉庫 slug，例如：repo-one,repo-two',
+      bitbucketProjectsTip: '以英文逗號分隔的項目鍵，例如：PROJ1,PROJ2',
+      connectorNameTip: '為連接器填寫一個有意義的名稱',
     },
     message: {
       registered: '註冊成功',
@@ -847,15 +875,31 @@ export default {
       baiduDescription: `此組件用於取得www.baidu.com的搜尋結果，一般作為知識庫的補充，Top N指定需要採納的搜尋結果數。`,
       duckDuckGo: 'DuckDuckGo',
       duckDuckGoDescription:
-        '此元件用於從 www.duckduckgo.com 取得搜尋結果。通常，它作為知識庫的補充。 Top N 指定您需要採用的搜尋結果數。',
+        '此組件用於從 www.duckduckgo.com 取得搜尋結果，通常充當知識庫的補充。Top N 指定搜尋結果的數量。',
       searXNG: 'SearXNG',
       searXNGDescription:
-        '該組件通過您提供的 SearXNG 實例地址進行搜索。請設置 Top N 和實例 URL。',
-      channel: '頻道',
-      channelTip: '針對該組件的輸入進行文字搜尋或新聞搜索',
-      text: '文字',
-      news: '新聞',
-      messageHistoryWindowSize: '歷史訊息視窗大小',
+        '此組件透過您提供的 SearXNG 實例 URL 進行搜尋。請設定 Top N 和實例 URL。',
+      pdfGenerator: '文檔生成器',
+      pPDFGenerator: '文檔生成器',
+      pdfGeneratorDescription: `該組件從 markdown 格式的內容生成文檔（PDF、DOCX、TXT），支援自定義樣式、圖片和表格。支援：**粗體**、*斜體*、# 標題、- 列表、使用 | 語法的表格。`,
+      pPDFGeneratorDescription: `該組件從 markdown 格式的內容生成文檔（PDF、DOCX、TXT），支援自定義樣式、圖片和表格。支援：**粗體**、*斜體*、# 標題、- 列表、使用 | 語法的表格。`,
+      subtitle: '副標題',
+      logoImage: '標誌圖片',
+      logoPosition: '標誌位置',
+      logoWidth: '標誌寬度',
+      logoHeight: '標誌高度',
+      fontFamily: '字體系列',
+      fontSize: '字體大小',
+      titleFontSize: '標題字體大小',
+      pageSize: '頁面大小',
+      orientation: '方向',
+      marginTop: '上邊距',
+      marginBottom: '下邊距',
+      filename: '檔名',
+      outputDirectory: '輸出目錄',
+      addPageNumbers: '添加頁碼',
+      addTimestamp: '添加時間戳',
+      watermarkText: '浮水印文字',
       messageHistoryWindowSizeTip:
         'LLM 需要查看的對話歷史視窗大小。越大越好，但要注意 LLM 的最大 Token 數。',
       wikipedia: '維基百科',

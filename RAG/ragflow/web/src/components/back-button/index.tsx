@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils';
+import { t } from 'i18next';
 import { ArrowBigLeft } from 'lucide-react';
 import React from 'react';
-import { useNavigate } from 'umi';
+import { useNavigate } from 'react-router';
 import { Button } from '../ui/button';
 
-interface BackButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface BackButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   to?: string;
 }
 
@@ -28,12 +28,15 @@ const BackButton: React.FC<BackButtonProps> = ({
   return (
     <Button
       variant="ghost"
-      className={cn('gap-2 bg-bg-card border border-border-default', className)}
+      className={cn(
+        'gap-2 bg-bg-card border border-border-default hover:bg-border-button hover:text-text-primary',
+        className,
+      )}
       onClick={handleClick}
       {...props}
     >
       <ArrowBigLeft className="h-4 w-4" />
-      {children || 'Back'}
+      {children || t('common.back')}
     </Button>
   );
 };

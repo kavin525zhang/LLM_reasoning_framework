@@ -7,10 +7,11 @@ import { Form } from '@/components/ui/form';
 import { FormLayout } from '@/constants/form';
 import { DocumentParserType } from '@/constants/knowledge';
 import { PermissionRole } from '@/constants/permission';
-import { DataSourceInfo } from '@/pages/user-setting/data-source/contant';
+import { IConnector, IKnowledge } from '@/interfaces/database/knowledge';
+import { useDataSourceInfo } from '@/pages/user-setting/data-source/constant';
 import { IDataSourceBase } from '@/pages/user-setting/data-source/interface';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -34,6 +35,10 @@ const enum DocumentType {
   DeepDOC = 'DeepDOC',
   PlainText = 'Plain Text',
 }
+export const DataSetContext = createContext<{
+  loading: boolean;
+  knowledgeDetails: IKnowledge;
+}>({ loading: false, knowledgeDetails: {} as IKnowledge });
 
 const initialEntityTypes = [
   'organization',
@@ -57,21 +62,32 @@ export default function DatasetSettings() {
       name: '',
       parser_id: DocumentParserType.Naive,
       permission: PermissionRole.Me,
+      language: 'English',
       parser_config: {
         layout_recognize: DocumentType.DeepDOC,
         chunk_token_num: 512,
         delimiter: `\n`,
+        enable_children: false,
+        children_delimiter: `\n`,
         auto_keywords: 0,
         auto_questions: 0,
         html4excel: false,
         topn_tags: 3,
         toc_extraction: false,
+        image_table_context_window: 0,
+        overlapped_percent: 0,
+        // MinerU-specific defaults
+        mineru_parse_method: 'auto',
+        mineru_formula_enable: true,
+        mineru_table_enable: true,
+        mineru_lang: 'English',
         raptor: {
           use_raptor: true,
           max_token: 256,
           threshold: 0.1,
           max_cluster: 64,
           random_seed: 0,
+          scope: 'file',
           prompt: t('knowledgeConfiguration.promptText'),
         },
         graphrag: {
@@ -79,6 +95,9 @@ export default function DatasetSettings() {
           entity_types: initialEntityTypes,
           method: MethodValue.Light,
         },
+        metadata: [],
+        enable_metadata: false,
+        llm_id: '',
       },
       pipeline_id: '',
       parseType: 1,
@@ -86,7 +105,9 @@ export default function DatasetSettings() {
       connectors: [],
     },
   });
-  const knowledgeDetails = useFetchKnowledgeConfigurationOnMount(form);
+  const { dataSourceInfo } = useDataSourceInfo();
+  const { knowledgeDetails, loading: datasetSettingLoading } =
+    useFetchKnowledgeConfigurationOnMount(form);
   // const [pipelineData, setPipelineData] = useState<IDataPipelineNodeProps>();
   const [sourceData, setSourceData] = useState<IDataSourceNodeProps[]>();
   const [graphRagGenerateData, setGraphRagGenerateData] =
@@ -110,7 +131,7 @@ export default function DatasetSettings() {
           return {
             ...connector,
             icon:
-              DataSourceInfo[connector.source as keyof typeof DataSourceInfo]
+              dataSourceInfo[connector.source as keyof typeof dataSourceInfo]
                 ?.icon || '',
           };
         });
@@ -149,13 +170,14 @@ export default function DatasetSettings() {
   //   }
   // };
 
-  const handleLinkOrEditSubmit = (data: IDataSourceBase[] | undefined) => {
+  const handleLinkOrEditSubmit = (data: IConnector[] | undefined) => {
     if (data) {
       const connectors = data.map((connector) => {
         return {
           ...connector,
+          auto_parse: connector.auto_parse === '0' ? '0' : '1',
           icon:
-            DataSourceInfo[connector.source as keyof typeof DataSourceInfo]
+            dataSourceInfo[connector.source as keyof typeof dataSourceInfo]
               ?.icon || '',
         };
       });
@@ -208,6 +230,28 @@ export default function DatasetSettings() {
       // form.setValue('pipeline_avatar', data.avatar || '');
     }
   };
+  const handleAutoParse = ({
+    source_id,
+    isAutoParse,
+  }: {
+    source_id: string;
+    isAutoParse: boolean;
+  }) => {
+    if (source_id) {
+      const connectors = sourceData?.map((connector) => {
+        if (connector.id === source_id) {
+          return {
+            ...connector,
+            auto_parse: isAutoParse ? '1' : '0',
+          };
+        }
+        return connector;
+      });
+      setSourceData(connectors as IDataSourceNodeProps[]);
+      form.setValue('connectors', connectors || []);
+    }
+  };
+
   return (
     <section className="p-5 h-full flex flex-col">
       <TopTitle
@@ -215,80 +259,90 @@ export default function DatasetSettings() {
         description={t('knowledgeConfiguration.titleDescription')}
       ></TopTitle>
       <div className="flex gap-14 flex-1 min-h-0">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
-            <div className="w-[768px] h-[calc(100vh-240px)] pr-1 overflow-y-auto scrollbar-auto">
-              <MainContainer className="text-text-secondary">
-                <div className="text-base font-medium text-text-primary">
-                  {t('knowledgeConfiguration.baseInfo')}
-                </div>
-                <GeneralForm></GeneralForm>
-                <Divider />
-                <div className="text-base font-medium text-text-primary">
-                  {t('knowledgeConfiguration.gobalIndex')}
-                </div>
-                <GraphRagItems
-                  className="border-none p-0"
-                  data={graphRagGenerateData as IGenerateLogButtonProps}
-                  onDelete={() =>
-                    handleDeletePipelineTask(GenerateType.KnowledgeGraph)
-                  }
-                ></GraphRagItems>
-                <Divider />
-                <RaptorFormFields
-                  data={raptorGenerateData as IGenerateLogButtonProps}
-                  onDelete={() => handleDeletePipelineTask(GenerateType.Raptor)}
-                ></RaptorFormFields>
-                <Divider />
-                <div className="text-base font-medium text-text-primary">
-                  {t('knowledgeConfiguration.dataPipeline')}
-                </div>
-                <ParseTypeItem line={1} />
-                {parseType === 1 && (
-                  <ChunkMethodItem line={1}></ChunkMethodItem>
-                )}
-                {parseType === 2 && (
-                  <DataFlowSelect
-                    isMult={false}
-                    showToDataPipeline={true}
-                    formFieldName="pipeline_id"
-                    layout={FormLayout.Horizontal}
-                  />
-                )}
+        <DataSetContext.Provider
+          value={{
+            loading: datasetSettingLoading,
+            knowledgeDetails: knowledgeDetails,
+          }}
+        >
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
+              <div className="w-[768px] h-[calc(100vh-240px)] pr-1 overflow-y-auto scrollbar-auto">
+                <MainContainer className="text-text-secondary">
+                  <div className="text-base font-medium text-text-primary">
+                    {t('knowledgeConfiguration.baseInfo')}
+                  </div>
+                  <GeneralForm></GeneralForm>
 
-                {/* <Divider /> */}
-                {parseType === 1 && <ChunkMethodForm />}
+                  <Divider />
+                  <div className="text-base font-medium text-text-primary">
+                    {t('knowledgeConfiguration.dataPipeline')}
+                  </div>
+                  <ParseTypeItem line={1} />
+                  {parseType === 1 && (
+                    <ChunkMethodItem line={1}></ChunkMethodItem>
+                  )}
+                  {parseType === 2 && (
+                    <DataFlowSelect
+                      isMult={false}
+                      showToDataPipeline={true}
+                      formFieldName="pipeline_id"
+                      layout={FormLayout.Horizontal}
+                    />
+                  )}
 
-                {/* <LinkDataPipeline
+                  {/* <Divider /> */}
+                  {parseType === 1 && <ChunkMethodForm />}
+
+                  {/* <LinkDataPipeline
                   data={pipelineData}
                   handleLinkOrEditSubmit={handleLinkOrEditSubmit}
                 /> */}
-
-                <Divider />
-                <LinkDataSource
-                  data={sourceData}
-                  handleLinkOrEditSubmit={handleLinkOrEditSubmit}
-                  unbindFunc={unbindFunc}
-                />
-              </MainContainer>
-            </div>
-            <div className="text-right items-center flex justify-end gap-3 w-[768px]">
-              <Button
-                type="reset"
-                className="bg-transparent text-color-white hover:bg-transparent border-gray-500 border-[1px]"
-                onClick={() => {
-                  form.reset();
-                }}
-              >
-                {t('knowledgeConfiguration.cancel')}
-              </Button>
-              <SavingButton></SavingButton>
-            </div>
-          </form>
-        </Form>
-        <div className="flex-1">
-          {parseType === 1 && <ChunkMethodLearnMore parserId={selectedTag} />}
-        </div>
+                  <Divider />
+                  <LinkDataSource
+                    data={sourceData}
+                    handleLinkOrEditSubmit={handleLinkOrEditSubmit}
+                    unbindFunc={unbindFunc}
+                    handleAutoParse={handleAutoParse}
+                  />
+                  <Divider />
+                  <div className="text-base font-medium text-text-primary">
+                    {t('knowledgeConfiguration.globalIndex')}
+                  </div>
+                  <GraphRagItems
+                    className="border-none p-0"
+                    data={graphRagGenerateData as IGenerateLogButtonProps}
+                    onDelete={() =>
+                      handleDeletePipelineTask(GenerateType.KnowledgeGraph)
+                    }
+                  ></GraphRagItems>
+                  <Divider />
+                  <RaptorFormFields
+                    data={raptorGenerateData as IGenerateLogButtonProps}
+                    onDelete={() =>
+                      handleDeletePipelineTask(GenerateType.Raptor)
+                    }
+                  ></RaptorFormFields>
+                </MainContainer>
+              </div>
+              <div className="text-right items-center flex justify-end gap-3 w-[768px]">
+                <Button
+                  type="reset"
+                  className="bg-transparent text-color-white hover:bg-transparent border-gray-500 border-[1px]"
+                  onClick={() => {
+                    form.reset();
+                  }}
+                >
+                  {t('knowledgeConfiguration.cancel')}
+                </Button>
+                <SavingButton></SavingButton>
+              </div>
+            </form>
+          </Form>
+          <div className="flex-1">
+            {parseType === 1 && <ChunkMethodLearnMore parserId={selectedTag} />}
+          </div>
+        </DataSetContext.Provider>
       </div>
     </section>
   );

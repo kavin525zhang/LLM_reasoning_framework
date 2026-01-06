@@ -28,6 +28,7 @@ class IntentRouter:
         """处理用户输入"""
         # 获取上下文
         context = self.context_manager.get_context_for_classification()
+        print("context:{}".format(context))
         
         # 意图识别
         intent_result = self.classifier.classify(user_input, context)

@@ -32,7 +32,7 @@ import { t } from 'i18next';
 import { pick } from 'lodash';
 import { Eye } from 'lucide-react';
 import { useCallback, useMemo } from 'react';
-import { useNavigate } from 'umi';
+import { useNavigate } from 'react-router';
 import { useLogListDataSource } from '../hooks';
 
 const columns = ({
@@ -217,8 +217,8 @@ export const DataSourceLogsTable = ({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell colSpan={5} className="h-24 text-center">
+                {t('common.noData')}
               </TableCell>
             </TableRow>
           )}

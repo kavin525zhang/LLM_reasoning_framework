@@ -83,10 +83,10 @@
                                     "value": []
                                 }
                             },
-                            "password": "20010812Yy!",
+                            "password": "",
                             "port": 3306,
                             "sql": "{Agent:WickedGoatsDivide@content}",
-                            "username": "13637682833@163.com"
+                            "username": ""
                         }
                     },
                     "upstream": [
@@ -527,10 +527,10 @@
                                         "value": []
                                     }
                                 },
-                                "password": "20010812Yy!",
+                                "password": "",
                                 "port": 3306,
                                 "sql": "{Agent:WickedGoatsDivide@content}",
-                                "username": "13637682833@163.com"
+                                "username": ""
                             },
                             "label": "ExeSQL",
                             "name": "ExeSQL"
@@ -578,7 +578,7 @@
                     {
                         "data": {
                             "form": {
-                                "text": "Searches for relevant database creation statements.\n\nIt should label with a knowledgebase to which the schema is dumped in. You could use \" General \" as parsing method, \" 2 \" as chunk size and \" ; \"  as delimiter."
+                                "text": "Searches for relevant database creation statements.\n\nIt should label with a dataset to which the schema is dumped in. You could use \" General \" as parsing method, \" 2 \" as chunk size and \" ; \"  as delimiter."
                             },
                             "label": "Note",
                             "name": "Note Schema"

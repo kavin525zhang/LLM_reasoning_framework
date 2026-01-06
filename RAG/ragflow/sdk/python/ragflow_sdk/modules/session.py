@@ -67,8 +67,10 @@ class Session(Base):
                     or (self.__session_type == "chat" and json_data.get("data") is True)
                 ):
                     return
-
-                yield self._structure_answer(json_data)
+                if self.__session_type == "agent":
+                    yield self._structure_answer(json_data)
+                else:
+                    yield self._structure_answer(json_data["data"])
         else:
             try:
                 json_data = res.json()
@@ -78,6 +80,7 @@ class Session(Base):
         
 
     def _structure_answer(self, json_data):
+        answer = ""
         if self.__session_type == "agent":
            answer = json_data["data"]["content"]
         elif self.__session_type == "chat":

@@ -9,16 +9,16 @@ import kbService, {
 } from '@/services/knowledge-service';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useState } from 'react';
-import { useParams, useSearchParams } from 'umi';
+import { useParams, useSearchParams } from 'react-router';
 import { LogTabs } from './dataset-common';
-import { IFileLogList, IOverviewTital } from './interface';
+import { IFileLogList, IOverviewTotal } from './interface';
 
 const useFetchOverviewTital = () => {
   const [searchParams] = useSearchParams();
   const { id } = useParams();
   const knowledgeBaseId = searchParams.get('id') || id;
-  const { data } = useQuery<IOverviewTital>({
-    queryKey: ['overviewTital'],
+  const { data } = useQuery<IOverviewTotal>({
+    queryKey: ['overviewTotal'],
     queryFn: async () => {
       const { data: res = {} } = await kbService.getKnowledgeBasicInfo({
         kb_id: knowledgeBaseId,

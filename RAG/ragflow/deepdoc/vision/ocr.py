@@ -117,7 +117,6 @@ def load_model(model_dir, nm, device_id: int | None = None):
             providers=['CUDAExecutionProvider'],
             provider_options=[cuda_provider_options]
             )
-        run_options.add_run_config_entry("memory.enable_memory_arena_shrinkage", "gpu:" + str(provider_device_id))
         logging.info(f"load_model {model_file_path} uses GPU (device {provider_device_id}, gpu_mem_limit={cuda_provider_options['gpu_mem_limit']}, arena_strategy={arena_strategy})")
     else:
         sess = ort.InferenceSession(
@@ -583,7 +582,7 @@ class OCR:
         self.crop_image_res_index = 0
 
     def get_rotate_crop_image(self, img, points):
-        '''
+        """
         img_height, img_width = img.shape[0:2]
         left = int(np.min(points[:, 0]))
         right = int(np.max(points[:, 0]))
@@ -592,7 +591,7 @@ class OCR:
         img_crop = img[top:bottom, left:right, :].copy()
         points[:, 0] = points[:, 0] - left
         points[:, 1] = points[:, 1] - top
-        '''
+        """
         assert len(points) == 4, "shape of points must be 4*2"
         img_crop_width = int(
             max(

@@ -1,7 +1,7 @@
 import { FileUploadProps } from '@/components/file-upload';
 import { useHandleFilterSubmit } from '@/components/list-filter-bar/use-handle-filter-submit';
 import message from '@/components/ui/message';
-import { AgentGlobals } from '@/constants/agent';
+import { AgentGlobals, initialBeginValues } from '@/constants/agent';
 import {
   IAgentLogsRequest,
   IAgentLogsResponse,
@@ -9,16 +9,21 @@ import {
   IFlowTemplate,
   IPipeLineListRequest,
   ITraceData,
+  IWebhookTrace,
 } from '@/interfaces/database/agent';
-import { IDebugSingleRequestBody } from '@/interfaces/request/agent';
+import {
+  IAgentWebhookTraceRequest,
+  IDebugSingleRequestBody,
+} from '@/interfaces/request/agent';
 import i18n from '@/locales/config';
 import { BeginId } from '@/pages/agent/constant';
 import { IInputs } from '@/pages/agent/interface';
-import { useGetSharedChatSearchParams } from '@/pages/chat/shared-hooks';
+import { useGetSharedChatSearchParams } from '@/pages/next-chats/hooks/use-send-shared-message';
 import agentService, {
   fetchAgentLogsByCanvasId,
   fetchPipeLineList,
   fetchTrace,
+  fetchWebhookTrace,
 } from '@/services/agent-service';
 import api from '@/utils/api';
 import { buildMessageListWithUuid } from '@/utils/chat';
@@ -26,7 +31,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useDebounce } from 'ahooks';
 import { get, set } from 'lodash';
 import { useCallback, useState } from 'react';
-import { useParams, useSearchParams } from 'umi';
+import { useParams, useSearchParams } from 'react-router';
 import {
   useGetPaginationWithRouter,
   useHandleSearchChange,
@@ -54,6 +59,8 @@ export const enum AgentApiAction {
   SetAgentSetting = 'setAgentSetting',
   FetchPrompt = 'fetchPrompt',
   CancelDataflow = 'cancelDataflow',
+  CancelCanvas = 'cancelCanvas',
+  FetchWebhookTrace = 'fetchWebhookTrace',
 }
 
 export const EmptyDsl = {
@@ -69,6 +76,7 @@ export const EmptyDsl = {
         data: {
           label: 'Begin',
           name: 'begin',
+          form: initialBeginValues,
         },
         sourcePosition: 'left',
         targetPosition: 'right',
@@ -614,10 +622,10 @@ export const useFetchExternalAgentInputs = () => {
     isFetching: loading,
     refetch,
   } = useQuery<IInputs>({
-    queryKey: [AgentApiAction.FetchExternalAgentInputs],
+    queryKey: [AgentApiAction.FetchExternalAgentInputs, sharedId],
     initialData: {} as IInputs,
     refetchOnReconnect: false,
-    refetchOnMount: false,
+    // refetchOnMount: false,
     refetchOnWindowFocus: false,
     gcTime: 0,
     enabled: !!sharedId,
@@ -734,3 +742,121 @@ export const useCancelDataflow = () => {
 
 //   return { list: data, loading };
 // };
+
+export function useCancelConversation() {
+  const {
+    data,
+    isPending: loading,
+    mutateAsync,
+  } = useMutation({
+    mutationKey: [AgentApiAction.CancelCanvas],
+    mutationFn: async (taskId: string) => {
+      const ret = await agentService.cancelCanvas(taskId);
+
+      return ret?.data?.code;
+    },
+  });
+
+  return { data, loading, cancelConversation: mutateAsync };
+}
+
+export const useFetchFlowSSE = (): {
+  data: IFlow;
+  loading: boolean;
+  refetch: () => void;
+} => {
+  const { sharedId } = useGetSharedChatSearchParams();
+
+  const {
+    data,
+    isFetching: loading,
+    refetch,
+  } = useQuery({
+    queryKey: ['flowDetailSSE'],
+    initialData: {} as IFlow,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    gcTime: 0,
+    queryFn: async () => {
+      if (!sharedId) return {};
+      const { data } = await agentService.getCanvasSSE(sharedId);
+
+      const messageList = buildMessageListWithUuid(
+        get(data, 'data.dsl.messages', []),
+      );
+      set(data, 'data.dsl.messages', messageList);
+
+      return data?.data ?? {};
+    },
+  });
+
+  return { data, loading, refetch };
+};
+
+export const useFetchWebhookTrace = (autoStart: boolean = true) => {
+  const { id } = useParams();
+  const [currentWebhookId, setCurrentWebhookId] = useState<string>('');
+  const [currentNextSinceTs, setCurrentNextSinceTs] = useState<number>(0);
+  const [shouldPoll, setShouldPoll] = useState(autoStart);
+
+  const {
+    data,
+    isFetching: loading,
+    refetch,
+  } = useQuery<IWebhookTrace>({
+    queryKey: [AgentApiAction.FetchWebhookTrace, id],
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: false,
+    gcTime: 0,
+    enabled: !!id && shouldPoll,
+    queryFn: async () => {
+      if (!id) return {};
+
+      const payload: IAgentWebhookTraceRequest =
+        {} as IAgentWebhookTraceRequest;
+
+      if (currentNextSinceTs) {
+        payload['since_ts'] = currentNextSinceTs;
+      }
+
+      if (currentWebhookId) {
+        payload['webhook_id'] = currentWebhookId;
+      }
+
+      const { data } = await fetchWebhookTrace(id, payload);
+
+      const result = data.data ?? {};
+
+      if (result.webhook_id && result.webhook_id !== currentWebhookId) {
+        setCurrentWebhookId(result.webhook_id);
+      }
+
+      if (
+        currentNextSinceTs === 0 &&
+        result.next_since_ts &&
+        result.next_since_ts !== currentNextSinceTs
+      ) {
+        setCurrentNextSinceTs(result.next_since_ts);
+      }
+
+      if (result.finished) {
+        setShouldPoll(false);
+      }
+
+      return result;
+    },
+    refetchInterval: shouldPoll ? 3000 : false,
+  });
+
+  return {
+    data,
+    loading,
+    refetch,
+    isPolling: shouldPoll,
+    currentWebhookId,
+    currentNextSinceTs,
+  };
+};

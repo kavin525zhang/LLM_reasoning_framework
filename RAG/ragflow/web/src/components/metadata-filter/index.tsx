@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { SelectWithSearch } from '../originui/select-with-search';
 import { RAGFlowFormItem } from '../ragflow-form';
 import { MetadataFilterConditions } from './metadata-filter-conditions';
+import { MetadataSemiAutoFields } from './metadata-semi-auto-fields';
 
 type MetadataFilterProps = {
   prefix?: string;
@@ -14,6 +15,7 @@ type MetadataFilterProps = {
 export const MetadataFilterSchema = {
   meta_data_filter: z
     .object({
+      logic: z.string().optional(),
       method: z.string().optional(),
       manual: z
         .array(
@@ -24,6 +26,7 @@ export const MetadataFilterSchema = {
           }),
         )
         .optional(),
+      semi_auto: z.array(z.string()).optional(),
     })
     .optional(),
 };
@@ -74,6 +77,12 @@ export function MetadataFilter({
           prefix={prefix}
           canReference={canReference}
         ></MetadataFilterConditions>
+      )}
+      {hasKnowledge && metadata === DatasetMetadata.SemiAutomatic && (
+        <MetadataSemiAutoFields
+          kbIds={kbIds}
+          prefix={prefix}
+        ></MetadataSemiAutoFields>
       )}
     </>
   );

@@ -6,6 +6,7 @@ export interface IConnector {
   name: string;
   status: RunningStatus;
   source: DataSourceKey;
+  auto_parse?: '0' | '1';
 }
 // knowledge base
 export interface IKnowledge {
@@ -115,12 +116,15 @@ export interface ITenantInfo {
   tts_id: string;
 }
 
+export type ChunkDocType = 'image' | 'table' | 'text';
+
 export interface IChunk {
   available_int: number; // Whether to enable, 0: not enabled, 1: enabled
   chunk_id: string;
   content_with_weight: string;
   doc_id: string;
   doc_name: string;
+  doc_type_kwd?: ChunkDocType;
   image_id: string;
   important_kwd?: string[];
   question_kwd?: string[]; // keywords

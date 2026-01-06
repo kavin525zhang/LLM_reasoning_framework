@@ -14,7 +14,8 @@
 #  limitations under the License.
 #
 
-
+import os
+import logging
 import re
 from werkzeug.security import check_password_hash
 from common.constants import ActiveEnum
@@ -23,6 +24,7 @@ from api.db.joint_services.user_account_service import create_new_user, delete_u
 from api.db.services.canvas_service import UserCanvasService
 from api.db.services.user_service import TenantService
 from api.db.services.knowledgebase_service import KnowledgebaseService
+from api.db.services.system_settings_service import SystemSettingsService
 from api.utils.crypt import decrypt
 from api.utils import health_utils
 
@@ -136,6 +138,38 @@ class UserMgr:
         UserService.update_user(usr.id, {"is_active": target_status})
         return f"Turn {_activate_status} user activate status successfully!"
 
+    @staticmethod
+    def grant_admin(username: str):
+        # use email to find user. check exist and unique.
+        user_list = UserService.query_user_by_email(username)
+        if not user_list:
+            raise UserNotFoundError(username)
+        elif len(user_list) > 1:
+            raise AdminException(f"Exist more than 1 user: {username}!")
+        # check activate status different from new
+        usr = user_list[0]
+        if usr.is_superuser:
+            return f"{usr} is already superuser!"
+        # update is_active
+        UserService.update_user(usr.id, {"is_superuser": True})
+        return "Grant successfully!"
+
+    @staticmethod
+    def revoke_admin(username: str):
+        # use email to find user. check exist and unique.
+        user_list = UserService.query_user_by_email(username)
+        if not user_list:
+            raise UserNotFoundError(username)
+        elif len(user_list) > 1:
+            raise AdminException(f"Exist more than 1 user: {username}!")
+        # check activate status different from new
+        usr = user_list[0]
+        if not usr.is_superuser:
+            return f"{usr} isn't superuser, yet!"
+        # update is_active
+        UserService.update_user(usr.id, {"is_superuser": False})
+        return "Revoke successfully!"
+
 
 class UserServiceMgr:
 
@@ -180,18 +214,27 @@ class ServiceMgr:
 
     @staticmethod
     def get_all_services():
+        doc_engine = os.getenv('DOC_ENGINE', 'elasticsearch')
         result = []
         configs = SERVICE_CONFIGS.configs
         for service_id, config in enumerate(configs):
             config_dict = config.to_dict()
+            if config_dict['service_type'] == 'retrieval':
+                if config_dict['extra']['retrieval_type'] != doc_engine:
+                    continue
             try:
                 service_detail = ServiceMgr.get_service_details(service_id)
                 if "status" in service_detail:
                     config_dict['status'] = service_detail['status']
                 else:
                     config_dict['status'] = 'timeout'
-            except Exception:
+            except Exception as e:
+                logging.warning(f"Can't get service details, error: {e}")
                 config_dict['status'] = 'timeout'
+            if not config_dict['host']:
+                config_dict['host'] = '-'
+            if not config_dict['port']:
+                config_dict['port'] = '-'
             result.append(config_dict)
         return result
 
@@ -201,17 +244,13 @@ class ServiceMgr:
 
     @staticmethod
     def get_service_details(service_id: int):
-        service_id = int(service_id)
+        service_idx = int(service_id)
         configs = SERVICE_CONFIGS.configs
-        service_config_mapping = {
-            c.id: {
-                'name': c.name,
-                'detail_func_name': c.detail_func_name
-            } for c in configs
-        }
-        service_info = service_config_mapping.get(service_id, {})
-        if not service_info:
-            raise AdminException(f"invalid service_id: {service_id}")
+        if service_idx < 0 or service_idx >= len(configs):
+            raise AdminException(f"invalid service_index: {service_idx}")
+
+        service_config = configs[service_idx]
+        service_info = {'name': service_config.name, 'detail_func_name': service_config.detail_func_name}
 
         detail_func = getattr(health_utils, service_info.get('detail_func_name'))
         res = detail_func()
@@ -225,3 +264,79 @@ class ServiceMgr:
     @staticmethod
     def restart_service(service_id: int):
         raise AdminException("restart_service: not implemented")
+
+class SettingsMgr:
+    @staticmethod
+    def get_all():
+
+        settings = SystemSettingsService.get_all()
+        result = []
+        for setting in settings:
+            result.append({
+                'name': setting.name,
+                'source': setting.source,
+                'data_type': setting.data_type,
+                'value': setting.value,
+            })
+        return result
+
+    @staticmethod
+    def get_by_name(name: str):
+        settings = SystemSettingsService.get_by_name(name)
+        if len(settings) == 0:
+            raise AdminException(f"Can't get setting: {name}")
+        result = []
+        for setting in settings:
+            result.append({
+                'name': setting.name,
+                'source': setting.source,
+                'data_type': setting.data_type,
+                'value': setting.value,
+            })
+        return result
+
+    @staticmethod
+    def update_by_name(name: str, value: str):
+        settings = SystemSettingsService.get_by_name(name)
+        if len(settings) == 1:
+            setting = settings[0]
+            setting.value = value
+            setting_dict = setting.to_dict()
+            SystemSettingsService.update_by_name(name, setting_dict)
+        elif len(settings) > 1:
+            raise AdminException(f"Can't update more than 1 setting: {name}")
+        else:
+            raise AdminException(f"No setting: {name}")
+
+class ConfigMgr:
+
+    @staticmethod
+    def get_all():
+        result = []
+        configs = SERVICE_CONFIGS.configs
+        for config in configs:
+            config_dict = config.to_dict()
+            result.append(config_dict)
+        return result
+
+class EnvironmentsMgr:
+    @staticmethod
+    def get_all():
+        result = []
+
+        env_kv = {"env": "DOC_ENGINE", "value": os.getenv('DOC_ENGINE')}
+        result.append(env_kv)
+
+        env_kv = {"env": "DEFAULT_SUPERUSER_EMAIL", "value": os.getenv("DEFAULT_SUPERUSER_EMAIL", "admin@ragflow.io")}
+        result.append(env_kv)
+
+        env_kv = {"env": "DB_TYPE", "value": os.getenv("DB_TYPE", "mysql")}
+        result.append(env_kv)
+
+        env_kv = {"env": "DEVICE", "value": os.getenv("DEVICE", "cpu")}
+        result.append(env_kv)
+
+        env_kv = {"env": "STORAGE_IMPL", "value": os.getenv("STORAGE_IMPL", "MINIO")}
+        result.append(env_kv)
+
+        return result

@@ -3,11 +3,12 @@ import {
   useResetAgent,
   useSetAgent,
 } from '@/hooks/use-agent-request';
+import { GlobalVariableType } from '@/interfaces/database/agent';
 import { RAGFlowNodeType } from '@/interfaces/database/flow';
 import { formatDate } from '@/utils/date';
 import { useDebounceEffect } from 'ahooks';
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'umi';
+import { useParams } from 'react-router';
 import useGraphStore from '../store';
 import { useBuildDslData } from './use-build-dsl';
 
@@ -18,11 +19,14 @@ export const useSaveGraph = (showMessage: boolean = true) => {
   const { buildDslData } = useBuildDslData();
 
   const saveGraph = useCallback(
-    async (currentNodes?: RAGFlowNodeType[]) => {
+    async (
+      currentNodes?: RAGFlowNodeType[],
+      otherParam?: { globalVariables: Record<string, GlobalVariableType> },
+    ) => {
       return setAgent({
         id,
         title: data.title,
-        dsl: buildDslData(currentNodes),
+        dsl: buildDslData(currentNodes, otherParam),
       });
     },
     [setAgent, data, id, buildDslData],

@@ -1,3 +1,4 @@
+import { KeyInput } from '@/components/key-input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -19,6 +20,7 @@ import { CirclePlus, HelpCircle, Info } from 'lucide-react';
 import { useId, useState, type FC, type FormEvent } from 'react';
 import { useTranslation } from '../../hooks/use-translation';
 import type { NewField, SchemaType } from '../../types/json-schema';
+import { KeyInputProps } from './interface';
 import SchemaTypeSelector from './schema-type-selector';
 
 interface AddFieldButtonProps {
@@ -26,9 +28,10 @@ interface AddFieldButtonProps {
   variant?: 'primary' | 'secondary';
 }
 
-const AddFieldButton: FC<AddFieldButtonProps> = ({
+const AddFieldButton: FC<AddFieldButtonProps & KeyInputProps> = ({
   onAddField,
   variant = 'primary',
+  pattern,
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [fieldName, setFieldName] = useState('');
@@ -112,13 +115,14 @@ const AddFieldButton: FC<AddFieldButtonProps> = ({
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                  <Input
+                  <KeyInput
                     id={fieldNameId}
                     value={fieldName}
-                    onChange={(e) => setFieldName(e.target.value)}
+                    onChange={setFieldName}
                     placeholder={t.fieldNamePlaceholder}
                     className="font-mono text-sm w-full"
                     required
+                    searchValue={pattern}
                   />
                 </div>
 

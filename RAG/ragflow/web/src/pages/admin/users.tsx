@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'umi';
+import { useNavigate } from 'react-router';
 
 import {
   createColumnHelper,
@@ -12,7 +12,12 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import {
   LucideClipboardList,
@@ -22,7 +27,6 @@ import {
   LucideUserPlus,
 } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
 import { rsaPsw } from '@/utils';
 
 import Spotlight from '@/components/spotlight';
@@ -39,14 +43,18 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LoadingButton } from '@/components/ui/loading-button';
 import {
   Popover,
   PopoverContent,
@@ -55,13 +63,6 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { RAGFlowPagination } from '@/components/ui/ragflow-pagination';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import {
   Table,
@@ -95,6 +96,7 @@ import {
   parseBooleanish,
 } from './utils';
 
+import { DialogDescription } from '@radix-ui/react-dialog';
 import EnterpriseFeature from './components/enterprise-feature';
 
 const columnHelper = createColumnHelper<AdminService.ListUsersItem>();
@@ -128,12 +130,14 @@ function AdminUserManagement() {
     queryFn: async () => (await listRoles()).data.data.roles,
     enabled: IS_ENTERPRISE,
     retry: false,
+    placeholderData: keepPreviousData,
   });
 
   const { data: usersList } = useQuery({
     queryKey: ['admin/listUsers'],
     queryFn: async () => (await listUsers()).data.data,
     retry: false,
+    placeholderData: keepPreviousData,
   });
 
   // Delete user mutation
@@ -213,6 +217,15 @@ function AdminUserManagement() {
       }),
       columnHelper.accessor('nickname', {
         header: t('admin.nickname'),
+        cell: ({ row, cell }) => (
+          <div className="flex items-center">
+            <span className="mr-2 empty:hidden">{cell.getValue()}</span>
+
+            {row.original.is_superuser ? (
+              <Badge variant="secondary">{t('admin.superuser')}</Badge>
+            ) : null}
+          </div>
+        ),
       }),
 
       ...(IS_ENTERPRISE
@@ -220,30 +233,29 @@ function AdminUserManagement() {
             columnHelper.accessor('role', {
               header: t('admin.role'),
               cell: ({ row, cell }) => (
-                <Select
-                  value={cell.getValue()}
-                  onValueChange={(value) => {
-                    if (!updateUserRoleMutation.isPending) {
-                      updateUserRoleMutation.mutate({
-                        email: row.original.email,
-                        role: value,
-                      });
-                    }
-                  }}
-                  disabled={updateUserRoleMutation.isPending}
-                >
-                  <SelectTrigger className="h-10">
-                    <SelectValue />
-                  </SelectTrigger>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="min-w-16">
+                      {cell.getValue()}
+                    </Button>
+                  </DropdownMenuTrigger>
 
-                  <SelectContent className="bg-bg-base">
+                  <DropdownMenuContent>
                     {roleList?.map(({ id, role_name }) => (
-                      <SelectItem key={id} value={role_name}>
+                      <DropdownMenuItem
+                        key={id}
+                        onClick={() => {
+                          updateUserRoleMutation.mutate({
+                            email: row.original.email,
+                            role: role_name,
+                          });
+                        }}
+                      >
                         {role_name}
-                      </SelectItem>
+                      </DropdownMenuItem>
                     ))}
-                  </SelectContent>
-                </Select>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               ),
               filterFn: createColumnFilterFn(
                 (row, id, filterValue) => row.getValue(id) === filterValue,
@@ -275,13 +287,8 @@ function AdminUserManagement() {
         header: t('admin.status'),
         cell: ({ cell }) => (
           <Badge
-            variant="secondary"
-            className={cn(
-              'pl-2 font-normal text-sm',
-              parseBooleanish(cell.getValue())
-                ? 'bg-state-success-5 text-state-success'
-                : '',
-            )}
+            variant={parseBooleanish(cell.getValue()) ? 'success' : 'secondary'}
+            className="pl-[.5em]"
           >
             <LucideDot className="size-[1em] stroke-[8] mr-1" />
             {t(
@@ -304,11 +311,11 @@ function AdminUserManagement() {
         id: 'actions',
         header: t('admin.actions'),
         cell: ({ row }) => (
-          <div className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-100">
+          <div className="opacity-0 group-hover/row:opacity-100 group-focus-within/row:opacity-100 transition-opacity">
             <Button
               variant="transparent"
               size="icon"
-              className="border-0 text-text-secondary"
+              className="border-0"
               onClick={() =>
                 navigate(`${Routes.AdminUserManagement}/${row.original.email}`)
               }
@@ -318,7 +325,7 @@ function AdminUserManagement() {
             <Button
               variant="transparent"
               size="icon"
-              className="border-0 text-text-secondary"
+              className="border-0"
               onClick={() => {
                 setUserToMakeAction(row.original);
                 setPasswordModalOpen(true);
@@ -327,9 +334,9 @@ function AdminUserManagement() {
               <LucideUserLock />
             </Button>
             <Button
-              variant="transparent"
+              variant="danger"
               size="icon"
-              className="border-0 text-text-secondary"
+              className="border-0"
               onClick={() => {
                 setUserToMakeAction(row.original);
                 setDeleteModalOpen(true);
@@ -354,11 +361,19 @@ function AdminUserManagement() {
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+
+    autoResetPageIndex: false,
   });
+
+  useLayoutEffect(() => {
+    if (table.getState().pagination.pageIndex > table.getPageCount()) {
+      table.setPageIndex(Math.max(0, table.getPageCount() - 1));
+    }
+  }, [usersList, table]);
 
   return (
     <>
-      <Card className="!shadow-none relative h-full border border-border-button bg-transparent rounded-xl overflow-x-hidden overflow-y-auto">
+      <Card className="!shadow-none relative h-full bg-transparent overflow-hidden">
         <Spotlight />
 
         <ScrollArea className="size-full">
@@ -493,8 +508,8 @@ function AdminUserManagement() {
                   {() => <col className="w-[12%]" />}
                 </EnterpriseFeature>
 
-                <col className="w-[10%]" />
-                <col className="w-[12%]" />
+                <col className="w-[8%]" />
+                <col className="w-[15%]" />
                 <col className="w-52" />
               </colgroup>
 
@@ -518,7 +533,7 @@ function AdminUserManagement() {
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id} className="group">
+                    <TableRow key={row.id} className="group/row">
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
                           {flexRender(
@@ -538,7 +553,7 @@ function AdminUserManagement() {
 
           <CardFooter className="flex items-center justify-end">
             <RAGFlowPagination
-              total={usersList?.length ?? 0}
+              total={table.getFilteredRowModel().rows.length}
               current={table.getState().pagination.pageIndex + 1}
               pageSize={table.getState().pagination.pageSize}
               onChange={(page, pageSize) => {
@@ -554,22 +569,22 @@ function AdminUserManagement() {
 
       {/* Delete Confirmation Modal */}
       <Dialog open={deleteModalOpen} onOpenChange={setDeleteModalOpen}>
-        <DialogContent className="p-0 border-border-button">
-          <DialogHeader className="p-6 border-b border-border-button">
+        <DialogContent>
+          <DialogHeader>
             <DialogTitle>{t('admin.deleteUser')}</DialogTitle>
           </DialogHeader>
 
-          <section className="px-12 py-4">
-            <DialogDescription className="text-text-primary">
+          <section className="px-6">
+            <DialogDescription>
               {t('admin.deleteUserConfirmation')}
-
-              <div className="rounded-lg mt-6 p-4 border border-border-button">
-                {userToMakeAction?.email}
-              </div>
             </DialogDescription>
+
+            <div className="rounded-lg mt-6 p-4 border-0.5 border-border-button">
+              {userToMakeAction?.email}
+            </div>
           </section>
 
-          <DialogFooter className="flex justify-end gap-4 px-12 pt-4 pb-8">
+          <DialogFooter className="gap-4 px-6 py-4">
             <Button
               className="px-4 h-10 dark:border-border-button"
               variant="outline"
@@ -579,7 +594,7 @@ function AdminUserManagement() {
               {t('admin.cancel')}
             </Button>
 
-            <LoadingButton
+            <Button
               className="px-4 h-10"
               variant="destructive"
               onClick={() =>
@@ -590,7 +605,7 @@ function AdminUserManagement() {
               loading={deleteUserMutation.isPending}
             >
               {t('admin.delete')}
-            </LoadingButton>
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -598,18 +613,17 @@ function AdminUserManagement() {
       {/* Change Password Modal */}
       <Dialog open={passwordModalOpen} onOpenChange={setPasswordModalOpen}>
         <DialogContent
-          className="p-0 border-border-button"
           onAnimationEnd={() => {
             if (!passwordModalOpen) {
               changePasswordForm.form.reset();
             }
           }}
         >
-          <DialogHeader className="p-6 border-b border-border-button">
+          <DialogHeader>
             <DialogTitle>{t('admin.changePassword')}</DialogTitle>
           </DialogHeader>
 
-          <section className="px-12 py-4 text-text-secondary">
+          <section className="px-6">
             <changePasswordForm.FormComponent
               key="changePasswordForm"
               email={userToMakeAction?.email || ''}
@@ -624,7 +638,7 @@ function AdminUserManagement() {
             />
           </section>
 
-          <DialogFooter className="flex justify-end gap-4 px-12 pt-4 pb-8">
+          <DialogFooter className="gap-4 px-6 py-4">
             <Button
               className="px-4 h-10 dark:border-border-button"
               variant="outline"
@@ -637,7 +651,7 @@ function AdminUserManagement() {
               {t('admin.cancel')}
             </Button>
 
-            <LoadingButton
+            <Button
               form={changePasswordForm.id}
               className="px-4 h-10"
               variant="default"
@@ -646,7 +660,7 @@ function AdminUserManagement() {
               loading={changePasswordMutation.isPending}
             >
               {t('admin.changePassword')}
-            </LoadingButton>
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -659,19 +673,19 @@ function AdminUserManagement() {
           createUserForm.form.reset();
         }}
       >
-        <DialogContent className="p-0 border-border-button">
-          <DialogHeader className="p-6 border-b border-border-button">
+        <DialogContent>
+          <DialogHeader>
             <DialogTitle>{t('admin.createNewUser')}</DialogTitle>
           </DialogHeader>
 
-          <section className="px-12 py-4">
+          <section className="px-6">
             <createUserForm.FormComponent
               id={createUserForm.id}
               onSubmit={createUserMutation.mutate}
             />
           </section>
 
-          <DialogFooter className="flex justify-end gap-4 px-12 pt-4 pb-8">
+          <DialogFooter className="gap-4 px-6 py-4">
             <Button
               className="px-4 h-10 dark:border-border-button"
               variant="outline"
@@ -684,7 +698,7 @@ function AdminUserManagement() {
               {t('admin.cancel')}
             </Button>
 
-            <LoadingButton
+            <Button
               form={createUserForm.id}
               type="submit"
               className="px-4 h-10"
@@ -693,7 +707,7 @@ function AdminUserManagement() {
               loading={createUserMutation.isPending}
             >
               {t('admin.confirm')}
-            </LoadingButton>
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

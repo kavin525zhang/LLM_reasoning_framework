@@ -20,6 +20,7 @@ from requests.exceptions import HTTPError
 
 from common.data_source.config import INDEX_BATCH_SIZE, DocumentSource, CONTINUE_ON_CONNECTOR_FAILURE, \
     CONFLUENCE_CONNECTOR_LABELS_TO_SKIP, CONFLUENCE_TIMEZONE_OFFSET, CONFLUENCE_CONNECTOR_USER_PROFILES_OVERRIDE, \
+    CONFLUENCE_SYNC_TIME_BUFFER_SECONDS, \
     OAUTH_CONFLUENCE_CLOUD_CLIENT_ID, OAUTH_CONFLUENCE_CLOUD_CLIENT_SECRET, _DEFAULT_PAGINATION_LIMIT, \
     _PROBLEMATIC_EXPANSIONS, _REPLACEMENT_EXPANSIONS, _USER_NOT_FOUND, _COMMENT_EXPANSION_FIELDS, \
     _ATTACHMENT_EXPANSION_FIELDS, _PAGE_EXPANSION_FIELDS, ONE_DAY, ONE_HOUR, _RESTRICTIONS_EXPANSION_FIELDS, \
@@ -125,7 +126,7 @@ class OnyxConfluence:
     def _renew_credentials(self) -> tuple[dict[str, Any], bool]:
         """credential_json - the current json credentials
         Returns a tuple
-        1. The up to date credentials
+        1. The up-to-date credentials
         2. True if the credentials were updated
 
         This method is intended to be used within a distributed lock.
@@ -178,14 +179,14 @@ class OnyxConfluence:
             credential_json["confluence_refresh_token"],
         )
 
-        # store the new credentials to redis and to the db thru the provider
-        # redis: we use a 5 min TTL because we are given a 10 minute grace period
+        # store the new credentials to redis and to the db through the provider
+        # redis: we use a 5 min TTL because we are given a 10 minutes grace period
         # when keys are rotated. it's easier to expire the cached credentials
         # reasonably frequently rather than trying to handle strong synchronization
         # between the db and redis everywhere the credentials might be updated
         new_credential_str = json.dumps(new_credentials)
         self.redis_client.set(
-            self.credential_key, new_credential_str, nx=True, ex=self.CREDENTIAL_TTL
+            self.credential_key, new_credential_str, exp=self.CREDENTIAL_TTL
         )
         self._credentials_provider.set_credentials(new_credentials)
 
@@ -689,7 +690,7 @@ class OnyxConfluence:
     ) -> Iterator[dict[str, Any]]:
         """
         This function will paginate through the top level query first, then
-        paginate through all of the expansions.
+        paginate through all the expansions.
         """
 
         def _traverse_and_update(data: dict | list) -> None:
@@ -716,7 +717,7 @@ class OnyxConfluence:
         """
         The search/user endpoint can be used to fetch users.
         It's a separate endpoint from the content/search endpoint used only for users.
-        Otherwise it's very similar to the content/search endpoint.
+        It's very similar to the content/search endpoint.
         """
 
         # this is needed since there is a live bug with Confluence Server/Data Center
@@ -862,7 +863,7 @@ def get_user_email_from_username__server(
             # For now, we'll just return None and log a warning. This means
             # we will keep retrying to get the email every group sync.
             email = None
-            # We may want to just return a string that indicates failure so we dont
+            # We may want to just return a string that indicates failure so we don't
             # keep retrying
             # email = f"FAILED TO GET CONFLUENCE EMAIL FOR {user_name}"
         _USER_EMAIL_CACHE[user_name] = email
@@ -911,7 +912,7 @@ def extract_text_from_confluence_html(
     confluence_object: dict[str, Any],
     fetched_titles: set[str],
 ) -> str:
-    """Parse a Confluence html page and replace the 'user Id' by the real
+    """Parse a Confluence html page and replace the 'user id' by the real
         User Display Name
 
     Args:
@@ -1109,7 +1110,10 @@ def _make_attachment_link(
 ) -> str | None:
     download_link = ""
 
-    if "api.atlassian.com" in confluence_client.url:
+    from urllib.parse import urlparse
+    netloc =urlparse(confluence_client.url).hostname
+    if netloc == "api.atlassian.com" or (netloc and netloc.endswith(".api.atlassian.com")):
+    # if "api.atlassian.com" in confluence_client.url:
         # https://developer.atlassian.com/cloud/confluence/rest/v1/api-group-content---attachments/#api-wiki-rest-api-content-id-child-attachment-attachmentid-download-get
         if not parent_content_id:
             logging.warning(
@@ -1289,6 +1293,7 @@ class ConfluenceConnector(
         # pages.
         labels_to_skip: list[str] = CONFLUENCE_CONNECTOR_LABELS_TO_SKIP,
         timezone_offset: float = CONFLUENCE_TIMEZONE_OFFSET,
+        time_buffer_seconds: int = CONFLUENCE_SYNC_TIME_BUFFER_SECONDS,
         scoped_token: bool = False,
     ) -> None:
         self.wiki_base = wiki_base
@@ -1300,11 +1305,15 @@ class ConfluenceConnector(
         self.batch_size = batch_size
         self.labels_to_skip = labels_to_skip
         self.timezone_offset = timezone_offset
+        self.time_buffer_seconds = max(0, time_buffer_seconds)
         self.scoped_token = scoped_token
         self._confluence_client: OnyxConfluence | None = None
         self._low_timeout_confluence_client: OnyxConfluence | None = None
         self._fetched_titles: set[str] = set()
         self.allow_images = False
+        # Track document names to detect duplicates
+        self._document_name_counts: dict[str, int] = {}
+        self._document_name_paths: dict[str, list[str]] = {}
 
         # Remove trailing slash from wiki_base if present
         self.wiki_base = wiki_base.rstrip("/")
@@ -1355,6 +1364,24 @@ class ConfluenceConnector(
     def set_allow_images(self, value: bool) -> None:
         logging.info(f"Setting allow_images to {value}.")
         self.allow_images = value
+
+    def _adjust_start_for_query(
+        self, start: SecondsSinceUnixEpoch | None
+    ) -> SecondsSinceUnixEpoch | None:
+        if not start or start <= 0:
+            return start
+        if self.time_buffer_seconds <= 0:
+            return start
+        return max(0.0, start - self.time_buffer_seconds)
+
+    def _is_newer_than_start(
+        self, doc_time: datetime | None, start: SecondsSinceUnixEpoch | None
+    ) -> bool:
+        if not start or start <= 0:
+            return True
+        if doc_time is None:
+            return True
+        return doc_time.timestamp() > start
 
     @property
     def confluence_client(self) -> OnyxConfluence:
@@ -1414,9 +1441,10 @@ class ConfluenceConnector(
         """
         page_query = self.base_cql_page_query + self.cql_label_filter
         # Add time filters
-        if start:
+        query_start = self._adjust_start_for_query(start)
+        if query_start:
             formatted_start_time = datetime.fromtimestamp(
-                start, tz=self.timezone
+                query_start, tz=self.timezone
             ).strftime("%Y-%m-%d %H:%M")
             page_query += f" and lastmodified >= '{formatted_start_time}'"
         if end:
@@ -1436,10 +1464,12 @@ class ConfluenceConnector(
     ) -> str:
         attachment_query = f"type=attachment and container='{confluence_page_id}'"
         attachment_query += self.cql_label_filter
+
         # Add time filters to avoid reprocessing unchanged attachments during refresh
-        if start:
+        query_start = self._adjust_start_for_query(start)
+        if query_start:
             formatted_start_time = datetime.fromtimestamp(
-                start, tz=self.timezone
+                query_start, tz=self.timezone
             ).strftime("%Y-%m-%d %H:%M")
             attachment_query += f" and lastmodified >= '{formatted_start_time}'"
         if end:
@@ -1447,6 +1477,7 @@ class ConfluenceConnector(
                 "%Y-%m-%d %H:%M"
             )
             attachment_query += f" and lastmodified <= '{formatted_end_time}'"
+
         attachment_query += " order by lastmodified asc"
         return attachment_query
 
@@ -1484,6 +1515,40 @@ class ConfluenceConnector(
             page_url = build_confluence_document_id(
                 self.wiki_base, page["_links"]["webui"], self.is_cloud
             )
+
+            # Build hierarchical path for semantic identifier
+            space_name = page.get("space", {}).get("name", "")
+            
+            # Build path from ancestors
+            path_parts = []
+            if space_name:
+                path_parts.append(space_name)
+            
+            # Add ancestor pages to path if available
+            if "ancestors" in page and page["ancestors"]:
+                for ancestor in page["ancestors"]:
+                    ancestor_title = ancestor.get("title", "")
+                    if ancestor_title:
+                        path_parts.append(ancestor_title)
+            
+            # Add current page title
+            path_parts.append(page_title)
+            
+            # Track page names for duplicate detection
+            full_path = " / ".join(path_parts) if len(path_parts) > 1 else page_title
+            
+            # Count occurrences of this page title
+            if page_title not in self._document_name_counts:
+                self._document_name_counts[page_title] = 0
+                self._document_name_paths[page_title] = []
+            self._document_name_counts[page_title] += 1
+            self._document_name_paths[page_title].append(full_path)
+            
+            # Use simple name if no duplicates, otherwise use full path
+            if self._document_name_counts[page_title] == 1:
+                semantic_identifier = page_title
+            else:
+                semantic_identifier = full_path
 
             # Get the page content
             page_content = extract_text_from_confluence_html(
@@ -1531,12 +1596,13 @@ class ConfluenceConnector(
             return Document(
                 id=page_url,
                 source=DocumentSource.CONFLUENCE,
-                semantic_identifier=page_title,
+                semantic_identifier=semantic_identifier,
                 extension=".html",  # Confluence pages are HTML
                 blob=page_content.encode("utf-8"),  # Encode page content as bytes
-                size_bytes=len(page_content.encode("utf-8")),  # Calculate size in bytes
                 doc_updated_at=datetime_from_string(page["version"]["when"]),
+                size_bytes=len(page_content.encode("utf-8")),  # Calculate size in bytes
                 primary_owners=primary_owners if primary_owners else None,
+                metadata=metadata if metadata else None,
             )
         except Exception as e:
             logging.error(f"Error converting page {page.get('id', 'unknown')}: {e}")
@@ -1572,7 +1638,6 @@ class ConfluenceConnector(
             expand=",".join(_ATTACHMENT_EXPANSION_FIELDS),
         ):
             media_type: str = attachment.get("metadata", {}).get("mediaType", "")
-
             # TODO(rkuo): this check is partially redundant with validate_attachment_filetype
             # and checks in convert_attachment_to_content/process_attachment
             # but doing the check here avoids an unnecessary download. Due for refactoring.
@@ -1640,6 +1705,34 @@ class ConfluenceConnector(
                     self.wiki_base, attachment["_links"]["webui"], self.is_cloud
                 )
 
+                # Build semantic identifier with space and page context
+                attachment_title = attachment.get("title", object_url)
+                space_name = page.get("space", {}).get("name", "")
+                page_title = page.get("title", "")
+                
+                # Create hierarchical name: Space / Page / Attachment
+                attachment_path_parts = []
+                if space_name:
+                    attachment_path_parts.append(space_name)
+                if page_title:
+                    attachment_path_parts.append(page_title)
+                attachment_path_parts.append(attachment_title)
+                
+                full_attachment_path = " / ".join(attachment_path_parts) if len(attachment_path_parts) > 1 else attachment_title
+                
+                # Track attachment names for duplicate detection
+                if attachment_title not in self._document_name_counts:
+                    self._document_name_counts[attachment_title] = 0
+                    self._document_name_paths[attachment_title] = []
+                self._document_name_counts[attachment_title] += 1
+                self._document_name_paths[attachment_title].append(full_attachment_path)
+                
+                # Use simple name if no duplicates, otherwise use full path
+                if self._document_name_counts[attachment_title] == 1:
+                    attachment_semantic_identifier = attachment_title
+                else:
+                    attachment_semantic_identifier = full_attachment_path
+
                 primary_owners: list[BasicExpertInfo] | None = None
                 if "version" in attachment and "by" in attachment["version"]:
                     author = attachment["version"]["by"]
@@ -1651,11 +1744,12 @@ class ConfluenceConnector(
 
                 extension = Path(attachment.get("title", "")).suffix or ".unknown"
 
+
                 attachment_doc = Document(
                     id=attachment_id,
                     # sections=sections,
                     source=DocumentSource.CONFLUENCE,
-                    semantic_identifier=attachment.get("title", object_url),
+                    semantic_identifier=attachment_semantic_identifier,
                     extension=extension,
                     blob=file_blob,
                     size_bytes=len(file_blob),
@@ -1668,7 +1762,8 @@ class ConfluenceConnector(
                     ),
                     primary_owners=primary_owners,
                 )
-                attachment_docs.append(attachment_doc)
+                if self._is_newer_than_start(attachment_doc.doc_updated_at, start):
+                    attachment_docs.append(attachment_doc)
             except Exception as e:
                 logging.error(
                     f"Failed to extract/summarize attachment {attachment['title']}",
@@ -1711,7 +1806,7 @@ class ConfluenceConnector(
             start_ts, end, self.batch_size
         )
         logging.debug(f"page_query_url: {page_query_url}")
-
+        
         # store the next page start for confluence server, cursor for confluence cloud
         def store_next_page_url(next_page_url: str) -> None:
             checkpoint.next_page_url = next_page_url
@@ -1729,7 +1824,8 @@ class ConfluenceConnector(
                 continue
 
             # yield completed document (or failure)
-            yield doc_or_failure
+            if self._is_newer_than_start(doc_or_failure.doc_updated_at, start):
+                yield doc_or_failure
 
             # Now get attachments for that page:
             attachment_docs, attachment_failures = self._fetch_page_attachments(
@@ -1761,6 +1857,7 @@ class ConfluenceConnector(
         cql_url = self.confluence_client.build_cql_url(
             page_query, expand=",".join(_PAGE_EXPANSION_FIELDS)
         )
+        logging.info(f"[Confluence Connector] Building CQL URL {cql_url}")
         return update_param_in_path(cql_url, "limit", str(limit))
 
     @override

@@ -20,8 +20,11 @@ import logging
 import time
 import threading
 import traceback
-from werkzeug.serving import run_simple
+import faulthandler
+
 from flask import Flask
+from flask_login import LoginManager
+from werkzeug.serving import run_simple
 from routes import admin_bp
 from common.log_utils import init_root_logger
 from common.constants import SERVICE_CONF
@@ -30,12 +33,12 @@ from common import settings
 from config import load_configurations, SERVICE_CONFIGS
 from auth import init_default_admin, setup_auth
 from flask_session import Session
-from flask_login import LoginManager
 from common.versions import get_ragflow_version
 
 stop_event = threading.Event()
 
 if __name__ == '__main__':
+    faulthandler.enable()
     init_root_logger("admin_service")
     logging.info(r"""
         ____  ___   ______________                 ___       __          _     

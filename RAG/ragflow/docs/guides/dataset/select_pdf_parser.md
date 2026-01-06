@@ -1,5 +1,5 @@
 ---
-sidebar_position: -4
+sidebar_position: -3
 slug: /select_pdf_parser
 ---
 
@@ -16,14 +16,14 @@ RAGFlow isn't one-size-fits-all. It is built for flexibility and supports deeper
 ## Prerequisites
 
 - The PDF parser dropdown menu appears only when you select a chunking method compatible with PDFs, including:
-    - **General**
-    - **Manual**
-    - **Paper**
-    - **Book**
-    - **Laws**
-    - **Presentation**
-    - **One**
-- To use a third-party visual model for parsing PDFs, ensure you have set a default img2txt model under **Set default models** on the **Model providers** page.
+  - **General**
+  - **Manual**
+  - **Paper**
+  - **Book**
+  - **Laws**
+  - **Presentation**
+  - **One**
+- To use a third-party visual model for parsing PDFs, ensure you have set a default VLM under **Set default models** on the **Model providers** page.
 
 ## Quickstart
 
@@ -33,31 +33,38 @@ RAGFlow isn't one-size-fits-all. It is built for flexibility and supports deeper
 
 2. Select the option that works best with your scenario:
 
-  - DeepDoc: (Default) The default visual model performing OCR, TSR, and DLR tasks on PDFs, which can be time-consuming.
-  - Naive: Skip OCR, TSR, and DLR tasks if *all* your PDFs are plain text.
-  - MinerU: An experimental feature.
-  - A third-party visual model provided by a specific model provider.
+- DeepDoc: (Default) The default visual model performing OCR, TSR, and DLR tasks on PDFs, but can be time-consuming.
+- Naive: Skip OCR, TSR, and DLR tasks if _all_ your PDFs are plain text.
+- [MinerU](https://github.com/opendatalab/MinerU): (Experimental) An open-source tool that converts PDF into machine-readable formats.
+- [Docling](https://github.com/docling-project/docling): (Experimental) An open-source document processing tool for gen AI.
+- A third-party visual model from a specific model provider.
 
-:::danger IMPORTANG
-MinerU PDF document parsing is available starting from v0.21.1. To use this feature, follow these steps:
+:::danger IMPORTANT
+Starting from v0.22.0, RAGFlow includes MinerU (&ge; 2.6.3) as an optional PDF parser of multiple backends. Please note that RAGFlow acts only as a *remote client* for MinerU, calling the MinerU API to parse documents and reading the returned files. To use this feature:
+:::
 
-1. Before deploying ragflow-server, update your **docker/.env** file:  
-   - Enable `HF_ENDPOINT=https://hf-mirror.com`
-   - Add a MinerU entry: `MINERU_EXECUTABLE=/ragflow/uv_tools/.venv/bin/mineru`
+1. Prepare a reachable MinerU API service (FastAPI server).
+2. In the **.env** file or from the **Model providers** page in the UI, configure RAGFlow as a remote client to MinerU:
+   - `MINERU_APISERVER`: The MinerU API endpoint (e.g., `http://mineru-host:8886`).
+   - `MINERU_BACKEND`: The MinerU backend:
+      - `"pipeline"` (default)
+      - `"vlm-http-client"`
+      - `"vlm-transformers"`
+      - `"vlm-vllm-engine"`
+      - `"vlm-mlx-engine"`
+      - `"vlm-vllm-async-engine"`
+      - `"vlm-lmdeploy-engine"`.
+   - `MINERU_SERVER_URL`: (optional) The downstream vLLM HTTP server (e.g., `http://vllm-host:30000`). Applicable when `MINERU_BACKEND` is set to `"vlm-http-client"`. 
+   - `MINERU_OUTPUT_DIR`: (optional) The local directory for holding the outputs of the MinerU API service (zip/JSON) before ingestion.
+   - `MINERU_DELETE_OUTPUT`: Whether to delete temporary output when a temporary directory is used:
+     - `1`: Delete.
+     - `0`: Retain.
+3. In the web UI, navigate to your dataset's **Configuration** page and find the **Ingestion pipeline** section:  
+   - If you decide to use a chunking method from the **Built-in** dropdown, ensure it supports PDF parsing, then select **MinerU** from the **PDF parser** dropdown.
+   - If you use a custom ingestion pipeline instead, select **MinerU** in the **PDF parser** section of the **Parser** component.
 
-2. Start the ragflow-server and run the following commands inside the container:  
-
-```bash
-mkdir uv_tools
-cd uv_tools
-uv venv .venv
-source .venv/bin/activate
-uv pip install -U "mineru[core]" -i https://mirrors.aliyun.com/pypi/simple
-```
-
-3. Restart the ragflow-server.
-4. In the web UI, navigate to the **Configuration** page of your dataset. Click **Built-in** in the **Ingestion pipeline** section, select a chunking method from the **Built-in** dropdown, which supports PDF parsing, and slect **MinerU** in **PDF parser**.
-5. If you use a custom ingestion pipeline instead, you must also complete the first three steps before selecting **MinerU** in the **Parsing method** section of the **Parser** component.
+:::note
+All MinerU environment variables are optional. When set, these values are used to auto-provision a MinerU OCR model for the tenant on first use. To avoid auto-provisioning, skip the environment variable settings and only configure MinerU from the **Model providers** page in the UI.
 :::
 
 :::caution WARNING
@@ -68,9 +75,8 @@ Third-party visual models are marked **Experimental**, because we have not fully
 
 ### When should I select DeepDoc or a third-party visual model as the PDF parser?
 
-Use a visual model to extract data if your PDFs contain formatted or image-based text rather than plain text. DeepDoc is the default visual model but can be time-consuming. You can also choose a lightweight or high-performance img2txt model depending on your needs and hardware capabilities.
+Use a visual model to extract data if your PDFs contain formatted or image-based text rather than plain text. DeepDoc is the default visual model but can be time-consuming. You can also choose a lightweight or high-performance VLM depending on your needs and hardware capabilities.
 
 ### Can I select a visual model to parse my DOCX files?
 
 No, you cannot. This dropdown menu is for PDFs only. To use this feature, convert your DOCX files to PDF first.
-

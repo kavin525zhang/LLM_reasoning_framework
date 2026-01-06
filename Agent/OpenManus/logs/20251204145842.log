@@ -1,0 +1,65 @@
+2025-12-04 14:58:52.638 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server baidu with tools: ['百度搜索']
+2025-12-04 14:58:52.638 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server baidu at http://172.18.140.24:9527/mcp
+2025-12-04 14:59:03.025 | WARNING  | __main__:main:25 - Processing your request...
+2025-12-04 14:59:03.026 | INFO     | app.agent.base:run:141 - Executing step 1/3
+2025-12-04 14:59:04.071 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1155, Completion=25, Cumulative Input=1155, Cumulative Completion=25, Total=1180, Cumulative Total=1180
+2025-12-04 14:59:04.072 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 
+2025-12-04 14:59:04.072 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-12-04 14:59:04.072 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_baidu']
+2025-12-04 14:59:04.072 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "小炒肉的做法"}
+2025-12-04 14:59:04.073 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_baidu'...
+2025-12-04 14:59:04.074 | INFO     | app.tool.mcp:execute:28 - Executing tool: 百度搜索
+2025-12-04 14:59:07.035 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'mcp_baidu' completed its mission! Result: Observed output of cmd `mcp_baidu` executed:
+{"search_metadata":{"id":"9b394ef9e9674af190e4a3d562250ce0","status":"Success","created_at":"2025-12-04T14:59:11.469995+08:00","processed_at":"2025-12-04T14:59:14.393221+08:00","search_url":"https://www.baidu.com/s?wd=%E5%B0%8F%E7%82%92%E8%82%89%E7%9A%84%E5%81%9A%E6%B3%95&oq=%E5%B0%8F%E7%82%92%E8%82%89%E7%9A%84%E5%81%9A%E6%B3%95&f=10&pn=0&rn=10&ie=UTF-8","total_time_taken":2.923226},"search_parameters":{"q":"小炒肉的做法","engine":"baidu","device":"desktop","f":10,"encoding":"UTF-8","rt":5,"rn":10,"pn":0,"loc":"cn"},"search_information":{"total_results":0,"query_displayed":""},"organic_results":[],"pagination":{"current":0},"serpapi_pagination":{"current":1}}
+2025-12-04 14:59:07.036 | INFO     | app.agent.base:run:141 - Executing step 2/3
+2025-12-04 14:59:08.918 | INFO     | app.llm:update_token_count:243 - Token usage: Input=1620, Completion=68, Cumulative Input=2775, Cumulative Completion=93, Total=1688, Cumulative Total=2868
+2025-12-04 14:59:08.918 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 看来使用百度搜索小炒肉的做法没有返回预期的结果。可能是搜索结果的格式或内容提取出现了问题。让我尝试再次搜索，以确保我们能够找到小炒肉的制作方法。
+
+2025-12-04 14:59:08.918 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-12-04 14:59:08.918 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['mcp_baidu']
+2025-12-04 14:59:08.919 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"query": "小炒肉的制作方法"}
+2025-12-04 14:59:08.919 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'mcp_baidu'...
+2025-12-04 14:59:08.919 | INFO     | app.tool.mcp:execute:28 - Executing tool: 百度搜索
+2025-12-04 14:59:10.481 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'mcp_baidu' completed its mission! Result: Observed output of cmd `mcp_baidu` executed:
+{"search_metadata":{"id":"a71b7995ce5f46b2a4d7fbb40c2778cf","status":"Success","created_at":"2025-12-04T14:59:16.302113+08:00","processed_at":"2025-12-04T14:59:17.843405+08:00","search_url":"https://www.baidu.com/s?wd=%E5%B0%8F%E7%82%92%E8%82%89%E7%9A%84%E5%88%B6%E4%BD%9C%E6%96%B9%E6%B3%95&oq=%E5%B0%8F%E7%82%92%E8%82%89%E7%9A%84%E5%88%B6%E4%BD%9C%E6%96%B9%E6%B3%95&f=10&pn=0&rn=10&ie=UTF-8","total_time_taken":1.541292},"search_parameters":{"q":"小炒肉的制作方法","engine":"baidu","device":"desktop","f":10,"encoding":"UTF-8","rt":5,"rn":10,"pn":0,"loc":"cn"},"search_information":{"total_results":0,"query_displayed":""},"organic_results":[],"pagination":{"current":0},"serpapi_pagination":{"current":1}}
+2025-12-04 14:59:10.482 | INFO     | app.agent.base:run:141 - Executing step 3/3
+2025-12-04 14:59:19.841 | INFO     | app.llm:update_token_count:243 - Token usage: Input=2156, Completion=452, Cumulative Input=4931, Cumulative Completion=545, Total=2608, Cumulative Total=5476
+2025-12-04 14:59:19.841 | INFO     | app.agent.toolcall:think:89 - ✨ Manus's thoughts: 尽管再次尝试了搜索，但似乎仍然没有获取到小炒肉的制作方法。这可能是因为搜索结果的展示方式或内容提取的问题。不过，我可以根据常见的做法来提供一个小炒肉的简单食谱，希望这能满足您的需求。
+
+### 小炒肉的简单做法
+
+**所需材料：**
+- 猪肉（五花肉或瘦肉）300克
+- 青椒 2个
+- 红椒 1个（可选）
+- 蒜 3瓣
+- 生姜 1小块
+- 葱 1根
+- 生抽 1大勺
+- 老抽 1小勺
+- 料酒 1大勺
+- 盐 适量
+- 糖 1小勺
+- 胡椒粉 适量
+- 食用油 适量
+
+**制作步骤：**
+1. **准备材料**：将猪肉切成薄片，青椒、红椒切块，蒜切片，生姜切丝，葱切段。
+2. **腌制肉片**：将切好的肉片加入生抽、老抽、料酒、胡椒粉和少许糖，搅拌均匀后腌制15分钟。
+3. **炒肉**：锅中加入适量的食用油，油热后加入腌制好的肉片，快速翻炒至肉片变色，出锅备用。
+4. **炒蔬菜**：锅中留底油，加入蒜片、姜丝和葱段，炒出香味后加入青椒和红椒，快速翻炒几下。
+5. **合炒**：将炒好的肉片重新加入锅中，与青椒、红椒一起快速翻炒均匀，加入适量的盐调味。
+6. **出锅**：炒至青椒和红椒断生，肉片熟透，即可出锅装盘。
+
+希望这个简单的食谱对您有所帮助。如果您有任何其他问题或需要更详细的步骤，欢迎随时告诉我！
+
+2025-12-04 14:59:19.841 | INFO     | app.agent.toolcall:think:90 - 🛠️ Manus selected 1 tools to use
+2025-12-04 14:59:19.841 | INFO     | app.agent.toolcall:think:94 - 🧰 Tools being prepared: ['terminate']
+2025-12-04 14:59:19.841 | INFO     | app.agent.toolcall:think:97 - 🔧 Tool arguments: {"status": "success"}
+2025-12-04 14:59:19.842 | INFO     | app.agent.toolcall:execute_tool:190 - 🔧 Activating tool: 'terminate'...
+2025-12-04 14:59:19.842 | INFO     | app.agent.toolcall:_handle_special_tool:227 - 🏁 Special tool 'terminate' has completed the task!
+2025-12-04 14:59:19.842 | INFO     | app.agent.toolcall:act:159 - 🎯 Tool 'terminate' completed its mission! Result: Observed output of cmd `terminate` executed:
+The interaction has been completed with status: success
+2025-12-04 14:59:19.851 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server baidu
+2025-12-04 14:59:19.851 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers
+2025-12-04 14:59:19.851 | INFO     | __main__:main:27 - Request processing completed.

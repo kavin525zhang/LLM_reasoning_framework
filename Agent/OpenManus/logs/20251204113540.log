@@ -1,0 +1,18 @@
+2025-12-04 11:35:50.414 | INFO     | app.tool.mcp:_initialize_and_list_tools:150 - Connected to server baidu with tools: ['百度搜索']
+2025-12-04 11:35:50.414 | INFO     | app.agent.manus:initialize_mcp_servers:82 - Connected to MCP server baidu at http://172.18.140.24:9527/mcp
+2025-12-04 11:36:15.694 | WARNING  | __main__:main:25 - Processing your request...
+2025-12-04 11:36:15.694 | INFO     | app.agent.base:run:141 - Executing step 1/3
+2025-12-04 11:36:15.772 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:15.772 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:16.808 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:16.809 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:17.931 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:17.932 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:21.956 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:21.956 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:25.542 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:25.542 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:30.845 | ERROR    | app.llm:ask_tool:757 - OpenAI API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:30.845 | ERROR    | app.llm:ask_tool:763 - API error: Error code: 404 - {'object': 'error', 'message': 'The model `/mnt/disk2/wy/models/Qwen2.5-72B-Instruct` does not exist.', 'type': 'NotFoundError', 'param': None, 'code': 404}
+2025-12-04 11:36:30.854 | INFO     | app.tool.mcp:disconnect:211 - Disconnected from MCP server baidu
+2025-12-04 11:36:30.854 | INFO     | app.tool.mcp:disconnect:220 - Disconnected from all MCP servers

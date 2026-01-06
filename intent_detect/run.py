@@ -3,6 +3,7 @@ import os
 sys.path.append(os.getcwd())
 
 from typing import Dict
+import json
 
 from intent_detect.router import IntentRouter
 
@@ -79,14 +80,7 @@ def test_system():
     #     "请将数据用表格形式输出"
     # ]
     test_cases = [
-        "讲了什么",
-        "请总结一下这篇文档",
-        "请总结这个目录",
-        "概述一下这篇文章",
-        "写一份总结",
-        "视频里有什么",
-        "音频里说了什么",
-        "图片里讲了什么"
+        "星环科技2024年营业收入是多少？"
     ]
     
     print("意图识别系统测试\n" + "="*50)
@@ -94,6 +88,7 @@ def test_system():
     for query in test_cases:
         print(f"\n输入: {query}")
         result = system.process_query(query)
+        print("result:{}".format(json.dumps(result, ensure_ascii=False, indent=4)))
         
         # 显示主要结果
         print(f"主意图: {result['data'].get('action', '未知')}")

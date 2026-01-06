@@ -9,7 +9,10 @@ import { ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { JsonSchemaDataType } from '../../constant';
-import { useFilterQueryVariableOptionsByTypes } from '../../hooks/use-get-begin-query';
+import {
+  BuildQueryVariableOptions,
+  useFilterQueryVariableOptionsByTypes,
+} from '../../hooks/use-get-begin-query';
 import { GroupedSelectWithSecondaryMenu } from './select-with-secondary-menu';
 
 type QueryVariableProps = {
@@ -19,7 +22,9 @@ type QueryVariableProps = {
   hideLabel?: boolean;
   className?: string;
   onChange?: (value: string) => void;
-};
+  pureQuery?: boolean;
+  value?: string;
+} & BuildQueryVariableOptions;
 
 export function QueryVariable({
   name = 'query',
@@ -28,11 +33,39 @@ export function QueryVariable({
   hideLabel = false,
   className,
   onChange,
+  pureQuery = false,
+  value,
+  nodeIds = [],
+  variablesExceptOperatorOutputs,
 }: QueryVariableProps) {
   const { t } = useTranslation();
   const form = useFormContext();
 
-  const finalOptions = useFilterQueryVariableOptionsByTypes(types);
+  const finalOptions = useFilterQueryVariableOptionsByTypes({
+    types,
+    nodeIds,
+    variablesExceptOperatorOutputs,
+  });
+
+  const renderWidget = (
+    value?: string,
+    handleChange?: (value: string) => void,
+  ) => (
+    <GroupedSelectWithSecondaryMenu
+      options={finalOptions}
+      value={value}
+      onChange={(val) => {
+        handleChange?.(val);
+        onChange?.(val);
+      }}
+      // allowClear
+      types={types}
+    ></GroupedSelectWithSecondaryMenu>
+  );
+
+  if (pureQuery) {
+    renderWidget(value, onChange);
+  }
 
   return (
     <FormField
@@ -45,18 +78,7 @@ export function QueryVariable({
               {t('flow.query')}
             </FormLabel>
           )}
-          <FormControl>
-            <GroupedSelectWithSecondaryMenu
-              options={finalOptions}
-              value={field.value}
-              onChange={(val) => {
-                field.onChange(val);
-                onChange?.(val);
-              }}
-              // allowClear
-              types={types}
-            ></GroupedSelectWithSecondaryMenu>
-          </FormControl>
+          <FormControl>{renderWidget(field.value, field.onChange)}</FormControl>
           <FormMessage />
         </FormItem>
       )}

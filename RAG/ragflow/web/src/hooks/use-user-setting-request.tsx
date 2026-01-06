@@ -18,13 +18,13 @@ import userService, {
   listTenant,
   listTenantUser,
 } from '@/services/user-service';
+import { history } from '@/utils/simple-history-util';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Modal } from 'antd';
 import DOMPurify from 'dompurify';
 import { isEmpty } from 'lodash';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { history } from 'umi';
 
 export const enum UserSettingApiAction {
   UserInfo = 'userInfo',
@@ -72,7 +72,7 @@ export const useFetchTenantInfo = (
 ): ResponseGetType<ITenantInfo> => {
   const { t } = useTranslation();
   const { data, isFetching: loading } = useQuery({
-    queryKey: [UserSettingApiAction.TenantInfo],
+    queryKey: [UserSettingApiAction.TenantInfo, showEmptyModelWarn],
     initialData: {},
     gcTime: 0,
     queryFn: async () => {

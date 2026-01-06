@@ -5,8 +5,8 @@ import {
   useSelectDerivedMessages,
 } from '@/hooks/logic-hooks';
 import {
+  IAttachment,
   IEventList,
-  IInputEvent,
   IMessageEndData,
   IMessageEndEvent,
   IMessageEvent,
@@ -26,7 +26,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useParams } from 'umi';
+import { useParams } from 'react-router';
 import { v4 as uuid } from 'uuid';
 import { BeginId } from '../constant';
 import { AgentChatLogContext } from '../context';
@@ -35,6 +35,7 @@ import {
   useIsTaskMode,
   useSelectBeginNodeDataInputs,
 } from '../hooks/use-get-begin-query';
+import { useStopMessage } from '../hooks/use-stop-message';
 import { BeginQuery } from '../interface';
 import useGraphStore from '../store';
 import { receiveMessageError } from '../utils';
@@ -48,10 +49,13 @@ export function findMessageFromList(eventList: IEventList) {
 
   let startIndex = -1;
   let endIndex = -1;
-
+  let audioBinary = undefined;
   messageEventList.forEach((x, idx) => {
     const { data } = x;
-    const { content, start_to_think, end_to_think } = data;
+    const { content, start_to_think, end_to_think, audio_binary } = data;
+    if (audio_binary) {
+      audioBinary = audio_binary;
+    }
     if (start_to_think === true) {
       nextContent += '<think>' + content;
       startIndex = idx;
@@ -74,16 +78,21 @@ export function findMessageFromList(eventList: IEventList) {
     nextContent += '</think>';
   }
 
+  const workflowFinished = eventList.find(
+    (x) => x.event === MessageEventType.WorkflowFinished,
+  ) as IMessageEvent;
   return {
     id: eventList[0]?.message_id,
     content: nextContent,
+    audio_binary: audioBinary,
+    attachment: workflowFinished?.data?.outputs?.attachment || {},
   };
 }
 
 export function findInputFromList(eventList: IEventList) {
   const inputEvent = eventList.find(
     (x) => x.event === MessageEventType.UserInputs,
-  ) as IInputEvent;
+  );
 
   if (!inputEvent) {
     return {};
@@ -243,6 +252,14 @@ export const useSendAgentMessage = ({
     fileList,
   } = useSetUploadResponseData();
 
+  const { stopMessage } = useStopMessage();
+
+  const stopConversation = useCallback(() => {
+    const taskId = answerList.at(0)?.task_id;
+    stopOutputMessage();
+    stopMessage(taskId);
+  }, [answerList, stopMessage, stopOutputMessage]);
+
   const sendMessage = useCallback(
     async ({
       message,
@@ -309,7 +326,7 @@ export const useSendAgentMessage = ({
     async (body: { id?: string; inputs: Record<string, BeginQuery> }) => {
       addNewestOneQuestion({
         content: Object.entries(body.inputs)
-          .map(([key, val]) => `${key}: ${val.value}`)
+          .map(([, val]) => `${val.name}: ${val.value}`)
           .join('<br/>'),
         role: MessageType.User,
       });
@@ -321,7 +338,7 @@ export const useSendAgentMessage = ({
 
   // reset session
   const resetSession = useCallback(() => {
-    stopOutputMessage();
+    stopConversation();
     resetAnswerList();
     setSessionId(null);
     if (isTaskMode) {
@@ -330,7 +347,7 @@ export const useSendAgentMessage = ({
       removeAllMessagesExceptFirst();
     }
   }, [
-    stopOutputMessage,
+    stopConversation,
     resetAnswerList,
     isTaskMode,
     removeAllMessages,
@@ -379,12 +396,16 @@ export const useSendAgentMessage = ({
   }, [sendMessageInTaskMode]);
 
   useEffect(() => {
-    const { content, id } = findMessageFromList(answerList);
+    const { content, id, attachment, audio_binary } =
+      findMessageFromList(answerList);
     const inputAnswer = findInputFromList(answerList);
     const answer = content || getLatestError(answerList);
+
     if (answerList.length > 0) {
       addNewestOneAnswer({
         answer: answer ?? '',
+        audio_binary: audio_binary,
+        attachment: attachment as IAttachment,
         id: id,
         ...inputAnswer,
       });
@@ -432,7 +453,7 @@ export const useSendAgentMessage = ({
     handlePressEnter,
     handleInputChange,
     removeMessageById,
-    stopOutputMessage,
+    stopOutputMessage: stopConversation,
     send,
     sendFormMessage,
     resetSession,

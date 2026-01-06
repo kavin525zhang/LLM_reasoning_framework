@@ -45,6 +45,7 @@ export interface DSL {
   messages?: Message[];
   reference?: IReference[];
   globals: Record<string, any>;
+  variables: Record<string, GlobalVariableType>;
   retrieval: IReference[];
 }
 
@@ -169,6 +170,7 @@ export interface IAgentForm {
   tools: Array<{
     name: string;
     component_name: string;
+    id: string;
     params: Record<string, any>;
   }>;
   mcp: Array<{
@@ -282,4 +284,18 @@ export interface IPipeLineListRequest {
   orderby?: string;
   desc?: boolean;
   canvas_category?: AgentCategory;
+}
+
+export interface GlobalVariableType {
+  name: string;
+  value: any;
+  description: string;
+  type: string;
+}
+
+export interface IWebhookTrace {
+  webhook_id: null;
+  events: any[];
+  next_since_ts: number;
+  finished: boolean;
 }

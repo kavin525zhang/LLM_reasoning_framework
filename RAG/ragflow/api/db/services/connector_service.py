@@ -15,6 +15,7 @@
 #
 import logging
 from datetime import datetime
+import os
 from typing import Tuple, List
 
 from anthropic import BaseModel
@@ -24,7 +25,6 @@ from api.db import InputType
 from api.db.db_models import Connector, SyncLogs, Connector2Kb, Knowledgebase
 from api.db.services.common_service import CommonService
 from api.db.services.document_service import DocumentService
-from api.db.services.file_service import FileService
 from common.misc_utils import get_uuid
 from common.constants import TaskStatus
 from common.time_utils import current_timestamp, timestamp_to_date
@@ -68,11 +68,12 @@ class ConnectorService(CommonService):
 
     @classmethod
     def rebuild(cls, kb_id:str, connector_id: str, tenant_id:str):
+        from api.db.services.file_service import FileService
         e, conn = cls.get_by_id(connector_id)
         if not e:
-            return
+            return None
         SyncLogsService.filter_delete([SyncLogs.connector_id==connector_id, SyncLogs.kb_id==kb_id])
-        docs = DocumentService.query(source_type=f"{conn.source}/{conn.id}")
+        docs = DocumentService.query(source_type=f"{conn.source}/{conn.id}", kb_id=kb_id)
         err = FileService.delete_docs([d.id for d in docs], tenant_id)
         SyncLogsService.schedule(connector_id, kb_id, reindex=True)
         return err
@@ -103,7 +104,8 @@ class SyncLogsService(CommonService):
             Knowledgebase.avatar.alias("kb_avatar"),
             Connector2Kb.auto_parse,
             cls.model.from_beginning.alias("reindex"),
-            cls.model.status
+            cls.model.status,
+            cls.model.update_time
         ]
         if not connector_id:
             fields.append(Connector.config)
@@ -116,7 +118,11 @@ class SyncLogsService(CommonService):
         if connector_id:
             query = query.where(cls.model.connector_id == connector_id)
         else:
-            interval_expr = SQL("INTERVAL `t2`.`refresh_freq` MINUTE")
+            database_type = os.getenv("DB_TYPE", "mysql")
+            if "postgres" in database_type.lower():
+                interval_expr = SQL("make_interval(mins => t2.refresh_freq)")
+            else:
+                interval_expr = SQL("INTERVAL `t2`.`refresh_freq` MINUTE")
             query = query.where(
                 Connector.input_type == InputType.POLL,
                 Connector.status == TaskStatus.SCHEDULE,
@@ -125,11 +131,11 @@ class SyncLogsService(CommonService):
             )
 
         query = query.distinct().order_by(cls.model.update_time.desc())
-        totbal = query.count()
+        total = query.count()
         if page_number:
             query = query.paginate(page_number, items_per_page)
 
-        return list(query.dicts()), totbal
+        return list(query.dicts()), total
 
     @classmethod
     def start(cls, id, connector_id):
@@ -191,6 +197,7 @@ class SyncLogsService(CommonService):
 
     @classmethod
     def duplicate_and_parse(cls, kb, docs, tenant_id, src, auto_parse=True):
+        from api.db.services.file_service import FileService
         if not docs:
             return None
 
@@ -207,9 +214,21 @@ class SyncLogsService(CommonService):
         err, doc_blob_pairs = FileService.upload_document(kb, files, tenant_id, src)
         errs.extend(err)
 
+        # Create a mapping from filename to metadata for later use
+        metadata_map = {}
+        for d in docs:
+            if d.get("metadata"):
+                filename = d["semantic_identifier"]+(f"{d['extension']}" if d["semantic_identifier"][::-1].find(d['extension'][::-1])<0 else "")
+                metadata_map[filename] = d["metadata"]
+
         kb_table_num_map = {}
         for doc, _ in doc_blob_pairs:
             doc_ids.append(doc["id"])
+            
+            # Set metadata if available for this document
+            if doc["name"] in metadata_map:
+                DocumentService.update_by_id(doc["id"], {"meta_fields": metadata_map[doc["name"]]})
+            
             if not auto_parse or auto_parse == "0":
                 continue
             DocumentService.run(tenant_id, doc, kb_table_num_map)
@@ -236,6 +255,7 @@ class Connector2KbService(CommonService):
             conn_id = conn["id"]
             connector_ids.append(conn_id)
             if conn_id in old_conn_ids:
+                cls.filter_update([cls.model.connector_id==conn_id, cls.model.kb_id==kb_id], {"auto_parse": conn.get("auto_parse", "1")})
                 continue
             cls.save(**{
                 "id": get_uuid(),
@@ -268,6 +288,7 @@ class Connector2KbService(CommonService):
             Connector.id,
             Connector.source,
             Connector.name,
+            cls.model.auto_parse,
             Connector.status
         ]
         return list(cls.model.select(*fields)\

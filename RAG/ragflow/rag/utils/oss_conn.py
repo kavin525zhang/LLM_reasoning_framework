@@ -42,14 +42,16 @@ class RAGFlowOSS:
             # If there is a default bucket, use the default bucket
             actual_bucket = self.bucket if self.bucket else bucket
             return method(self, actual_bucket, *args, **kwargs)
+
         return wrapper
-    
+
     @staticmethod
     def use_prefix_path(method):
         def wrapper(self, bucket, fnm, *args, **kwargs):
             # If the prefix path is set, use the prefix path
             fnm = f"{self.prefix_path}/{fnm}" if self.prefix_path else fnm
             return method(self, bucket, fnm, *args, **kwargs)
+
         return wrapper
 
     def __open__(self):
@@ -141,7 +143,7 @@ class RAGFlowOSS:
                 logging.exception(f"fail get {bucket}/{fnm}")
                 self.__open__()
                 time.sleep(1)
-        return
+        return None
 
     @use_prefix_path
     @use_default_bucket
@@ -170,5 +172,4 @@ class RAGFlowOSS:
                 logging.exception(f"fail get url {bucket}/{fnm}")
                 self.__open__()
                 time.sleep(1)
-        return
-
+        return None
