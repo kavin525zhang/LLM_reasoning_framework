@@ -54,8 +54,19 @@
 |  kibana  |  8.11.3  |  1.03GB  |
 |  elasticsearch  |  8.11.3  |  1.41GB  |
 
+### 模型服务准备
+#### embedding
+版本：vllm==0.7.2
+```python
+CUDA_VISIBLE_DEVICES=3 python -m vllm.entrypoints.openai.api_server --model="/home/transwarp/kavin/colbert/bge-m3" --tensor-parallel-size 1 --gpu-memory-utilization 0.1 --dtype half --served-model-name "bge-m3" --host 172.18.140.12 --port 9528 --max-model-len 4096
+```
+配置截图：
+![模型配置](./ragflow/images//emb_settings.png)
 
-
+#### LLM
+CUDA_VISIBLE_DEVICES=2,3,4,5 python -m vllm.entrypoints.openai.api_server --model /mnt/disk2/wy/models/Qwen2.5-72B-Instruct --tool-call-parser hermes --enable-auto-tool-choice --host 172.17.124.34 --port 9528 --tensor-parallel-size 4 --max-model-len 50000
+配置截图：
+![模型配置](./ragflow/images//LLM_settings.png)
 
 
 ## 参考资料  
