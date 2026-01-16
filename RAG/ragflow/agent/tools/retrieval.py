@@ -174,7 +174,7 @@ class Retrieval(ToolBase, ABC):
 
         if kbs:
             query = re.sub(r"^user[:：\s]*", "", query, flags=re.IGNORECASE)
-            kbinfos = settings.retriever.retrieval(
+            kbinfos = await settings.retriever.retrieval(
                 query,
                 embd_mdl,
                 [kb.tenant_id for kb in kbs],
@@ -193,7 +193,7 @@ class Retrieval(ToolBase, ABC):
 
             if self._param.toc_enhance:
                 chat_mdl = LLMBundle(self._canvas._tenant_id, LLMType.CHAT)
-                cks = settings.retriever.retrieval_by_toc(query, kbinfos["chunks"], [kb.tenant_id for kb in kbs],
+                cks = await settings.retriever.retrieval_by_toc(query, kbinfos["chunks"], [kb.tenant_id for kb in kbs],
                                                           chat_mdl, self._param.top_n)
                 if self.check_if_canceled("Retrieval processing"):
                     return

@@ -4,6 +4,23 @@
 ## 利用元数据：为检索增添更多上下文
 ## 语义分块：让信息更有意义
 
+## RAGFlow
+### 镜像准备
+|  REPOSITORY  |  TAG  |  SIZE  |
+|  ----  |  ----  |  ----  |
+|  infiniflow/ragflow  |  v0.23.1  |  7.77GB  |
+|  valkey/valkey  |  8  |  111MB  |
+|  infiniflow/sandbox-executor-manager  |  latest  |  472MB  |
+|  infiniflow/infinity  |  v0.6.4  |  836MB  |
+|  quay.io/minio/minio  |  RELEASE.2025-06-13T11-33-47Z  |  175MB  |
+|  opensearchproject/opensearch  |  2.19.1  |  1.45GB  |
+|  mysql  |  8.0.39  |  573MB  |
+|  kibana  |  8.11.3  |  1.03GB  |
+|  elasticsearch  |  8.11.3  |  1.41GB  |
+
+
+
+
 ## 参考资料  
 * [LightRAG](https://github.com/HKUDS/LightRAG)
 * [GraphRAG](https://github.com/microsoft/graphrag)
