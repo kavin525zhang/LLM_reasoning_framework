@@ -5,7 +5,43 @@
 ## 语义分块：让信息更有意义
 
 ## RAGFlow
-### 镜像准备
+### 一、docker准备
+#### 1.1、ip配置
+防止docker和容器占用局域网段`172.xxx`，配置`/etc/docker/daemon.json`
+```json
+{
+    "bip": "192.168.67.1/24",
+    "default-address-pools": [
+        {
+	    "base": "10.66.0.0/16",
+	    "size": 24
+	}
+    ],
+    "runtimes": {
+        "nvidia": {
+            "args": [],
+            "path": "nvidia-container-runtime"
+        }
+    },
+    "registry-mirrors": [
+        "https://docker.registry.cyou",
+        "https://docker-cf.registry.cyou",
+        "https://dockercf.jsdelivr.fyi",
+        "https://docker.jsdelivr.fyi",
+        "https://dockertest.jsdelivr.fyi",
+        "https://mirror.aliyuncs.com",
+        "https://dockerproxy.com",
+        "https://mirror.baidubce.com",
+        "https://docker.m.daocloud.io",
+        "https://docker.nju.edu.cn",
+        "https://docker.mirrors.sjtug.sjtu.edu.cn",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://mirror.iscas.ac.cn",
+        "https://docker.rainbond.cc"
+    ]
+}
+```
+#### 1.2、镜像准备
 |  REPOSITORY  |  TAG  |  SIZE  |
 |  ----  |  ----  |  ----  |
 |  infiniflow/ragflow  |  v0.23.1  |  7.77GB  |
@@ -17,6 +53,7 @@
 |  mysql  |  8.0.39  |  573MB  |
 |  kibana  |  8.11.3  |  1.03GB  |
 |  elasticsearch  |  8.11.3  |  1.41GB  |
+
 
 
 
