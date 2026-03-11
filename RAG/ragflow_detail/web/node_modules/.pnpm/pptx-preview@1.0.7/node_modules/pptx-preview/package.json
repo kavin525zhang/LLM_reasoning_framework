@@ -1,0 +1,21 @@
+{
+  "name": "pptx-preview",
+  "version": "1.0.7",
+  "description": "纯前端实现的pptx文件的预览库",
+  "main": "dist/pptx-preview.es.js",
+  "typings": "dist/index.d.ts",
+  "author": "微信：_hit757_",
+  "license": "ISC",
+  "keywords": [
+    "pptx",
+    "pptxjs",
+    "pptx preview"
+  ],
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "lodash": "^4.17.21",
+    "tslib": "^2.7.0",
+    "uuid": "^10.0.0",
+    "echarts": "^5.5.1"
+  }
+}

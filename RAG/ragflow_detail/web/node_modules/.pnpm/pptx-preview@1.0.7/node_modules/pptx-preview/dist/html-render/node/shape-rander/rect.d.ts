@@ -1,0 +1,9 @@
+export declare function createRect(shapeNode: any): SVGElement;
+export declare function createSnip1Rect(shapeNode: any): SVGElement;
+export declare function createSnip2SameRect(shapeNode: any): SVGElement;
+export declare function createSnip2DiagRect(shapeNode: any): SVGElement;
+export declare function createSnipRoundRect(shapeNode: any): SVGElement;
+export declare function createRound1Rect(shapeNode: any): SVGElement;
+export declare function createRound2SameRect(shapeNode: any): SVGElement;
+export declare function createRound2DiagRect(shapeNode: any): SVGElement;
+export declare function createRoundRect(shapeNode: any): SVGElement;

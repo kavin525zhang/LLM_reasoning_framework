@@ -1,0 +1,41 @@
+import Node from './Node';
+import PPTX from "../PPTX";
+import Slide from "../Slide";
+import SlideLayout from "../SlideLayout";
+import SlideMaster from "../SlideMaster";
+import Group from "../Group";
+import { TableGridType, TablePropsType, TableStyleType, TableTrType } from "../../type/table";
+import Theme from "../Theme";
+export default class TableNode extends Node {
+    pptx: PPTX;
+    userDrawn: boolean;
+    props: TablePropsType;
+    tableGrid: TableGridType;
+    tr: Array<TableTrType>;
+    tableStyles: {
+        wholeTbl?: TableStyleType;
+        band1H?: TableStyleType;
+        band2H?: TableStyleType;
+        band1V?: TableStyleType;
+        band2V?: TableStyleType;
+        lastCol?: TableStyleType;
+        firstCol?: TableStyleType;
+        lastRow?: TableStyleType;
+        firstRow?: TableStyleType;
+    };
+    get slideMaster(): any;
+    get theme(): Theme;
+    constructor(source: any, pptx: PPTX, ctx: Slide | SlideLayout | SlideMaster, group?: Group);
+    private _parseTableProps;
+    private _parseTableGrid;
+    private _parseTr;
+    private _parseTd;
+    private _parseParagraph;
+    private _parseRow;
+    private _formatPPr;
+    private _formatRPr;
+    private _isLastCol;
+    private _isBandRow;
+    private _isBandCol;
+    private _parseInheritStyles;
+}

@@ -1,0 +1,31 @@
+import Node from "./Node";
+import PPTX from "../PPTX";
+import Slide from "../Slide";
+import SlideLayout from "../SlideLayout";
+import SlideMaster from "../SlideMaster";
+import Group from "../Group";
+import Theme from "../Theme";
+export default class ChartNode extends Node {
+    pptx: PPTX;
+    options: any;
+    userDrawn: boolean;
+    get slideMaster(): any;
+    get theme(): Theme;
+    constructor(source: any, pptx: PPTX, ctx: Slide | SlideLayout | SlideMaster, group?: Group);
+    parseNode(): Promise<void>;
+    private parseAreaLine;
+    private parseLine;
+    private parseBar;
+    private parsePie;
+    private parseDoughnutChart;
+    private parsePieTitle;
+    private parseChartTitle;
+    private parseBarColors;
+    private parseLineColors;
+    private parsePieColors;
+    private parsePieSeries;
+    private parseBarSeries;
+    private parseLineSeries;
+    private getCategory;
+    private getVal;
+}

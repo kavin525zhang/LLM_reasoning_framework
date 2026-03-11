@@ -42,7 +42,7 @@ class ToolCallAgent(ReActAgent):
         self.next_step_prompt:
         Based on user needs, proactively select the most appropriate tool or combination of tools. For complex tasks, you can break down the problem and use different tools step by step to solve it. After using each tool, clearly explain the execution results and suggest the next steps.
 
-        If you want to stop the interaction at any point, use the `terminate` tool/function call. 
+        If you want to stop the interaction at any point, use the `terminate` tool/function call.
         '''
         if self.next_step_prompt:
             user_msg = Message.user_message(self.next_step_prompt)
@@ -152,6 +152,7 @@ class ToolCallAgent(ReActAgent):
             self._current_base64_image = None
 
             result = await self.execute_tool(command)
+            print("resulttttttttttt:{}".format(result))
 
             if self.max_observe:
                 result = result[: self.max_observe]
@@ -185,7 +186,7 @@ class ToolCallAgent(ReActAgent):
         try:
             # Parse arguments
             args = json.loads(command.function.arguments or "{}")
-
+            logger.info("tool args:{}".format(args))
             # Execute the tool
             logger.info(f"🔧 Activating tool: '{name}'...")
             result = await self.available_tools.execute(name=name, tool_input=args)

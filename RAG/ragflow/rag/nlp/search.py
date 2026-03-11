@@ -97,6 +97,12 @@ class Dealer:
         kwds = set([])
 
         qst = req.get("question", "")
+        """
+        qst: 茂名市农业农村局：2024茂名荔枝白皮书中，荔枝种植户成本收益情况数据显示亩均利润 5000元以上的荔枝品种有哪些？###（注：由于目标语言仅为中文，此处仅提供原文。）
+        filters: {'kb_id': ['a75ccf25f27a11f0a17602420a420806'], 'doc_id': [], 'available_int': 1}
+        idx_names: ['ragflow_3aa438e0f20311f0b5e702420a420806']
+        kb_ids: ['a75ccf25f27a11f0a17602420a420806']
+        """
         q_vec = []
         if not qst:
             if req.get("sort"):

@@ -746,6 +746,7 @@ def chunk(filename, binary=None, from_page=0, to_page=100000, lang="Chinese", ca
     is_english = lang.lower() == "english"  # is_english(cks)
     parser_config = kwargs.get("parser_config", {"chunk_token_num": 512, "delimiter": "\n!?。；！？", "layout_recognize": "DeepDOC", "analyze_hyperlink": True})
 
+    # child_deli 应该就是""
     child_deli = (parser_config.get("children_delimiter") or "").encode("utf-8").decode("unicode_escape").encode("latin1").decode("utf-8")
     cust_child_deli = re.findall(r"`([^`]+)`", child_deli)
     child_deli = "|".join(re.sub(r"`([^`]+)`", "", child_deli))
@@ -767,7 +768,8 @@ def chunk(filename, binary=None, from_page=0, to_page=100000, lang="Chinese", ca
     is_root = kwargs.get("is_root", True)
     embed_res = []
     if is_root:
-        # Only extract embedded files at the root call
+        # Only extract embedded files at the root call 
+        # is_root 和 embed有什么关系呢？
         embeds = []
         if binary is not None:
             embeds = extract_embed_file(binary)

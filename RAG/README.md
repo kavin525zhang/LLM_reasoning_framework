@@ -64,7 +64,9 @@ CUDA_VISIBLE_DEVICES=3 python -m vllm.entrypoints.openai.api_server --model="/ho
 ![模型配置](./ragflow/images//emb_settings.png)
 
 #### LLM
+```python
 CUDA_VISIBLE_DEVICES=2,3,4,5 python -m vllm.entrypoints.openai.api_server --model /mnt/disk2/wy/models/Qwen2.5-72B-Instruct --tool-call-parser hermes --enable-auto-tool-choice --host 172.17.124.34 --port 9528 --tensor-parallel-size 4 --max-model-len 50000
+```
 配置截图：
 ![模型配置](./ragflow/images//LLM_settings.png)
 

@@ -731,6 +731,11 @@ class LLM:
                 )
 
             params["stream"] = False  # Always use non-streaming for tool requests
+            import json, codecs
+            # logger.info("ask_tool params:{}".format(json.dumps(params, ensure_ascii=False, indent=4)))
+            with codecs.open("/home/transwarp/Documents/workspace/private/LLM_reasoning_framework/Agent/OpenManus/logs/ask_tool_params.json", "a", "utf-8") as fw:
+                fw.write(json.dumps(params, ensure_ascii=False, indent=4) + "\n")
+            print("sssssself.client: {}, self.client.chat.completions:{}".format(self.client, self.client.chat.completions))
             response: ChatCompletion = await self.client.chat.completions.create(
                 **params
             )

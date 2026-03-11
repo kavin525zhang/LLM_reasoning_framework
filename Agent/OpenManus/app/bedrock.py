@@ -207,6 +207,7 @@ class ChatCompletions:
             system_prompt,
             bedrock_messages,
         ) = self._convert_openai_messages_to_bedrock_format(messages)
+        print("self.clientttttttttttttt:{}".format(self.client))
         response = self.client.converse(
             modelId=model,
             system=system_prompt,
