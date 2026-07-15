@@ -1,0 +1,117 @@
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { Send } from "lucide-react";
+import { useColony } from "@/context/ColonyContext";
+import { PENDING_CLASSIFY_KEY } from "./queen-routing";
+
+const promptHints = [
+  "Check my inbox for urgent emails",
+  "Find senior engineer roles that match my profile",
+  "Run a security scan on my domain",
+  "Summarize today's agent activity",
+];
+
+export default function Home() {
+  const navigate = useNavigate();
+  const { userProfile } = useColony();
+  const [inputValue, setInputValue] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const displayName = userProfile.displayName || "there";
+
+  // Stash the prompt and bounce to /queen-routing immediately. The classify
+  // LLM call (2-5s) runs on the routing screen rather than blocking nav, so
+  // the user never watches a spinner on the home page.
+  const startQueenSession = (text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    try {
+      sessionStorage.setItem(PENDING_CLASSIFY_KEY, trimmed);
+    } catch {
+      // sessionStorage disabled — fall through; the routing page will
+      // redirect back to home when the key is missing.
+    }
+    navigate("/queen-routing");
+  };
+
+  const handlePromptHint = (text: string) => {
+    setInputValue(text);
+    setTimeout(() => {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      ta.focus();
+      ta.style.height = "auto";
+      ta.style.height = `${Math.min(ta.scrollHeight, 160)}px`;
+      ta.selectionStart = ta.selectionEnd = ta.value.length;
+    }, 0);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+    void startQueenSession(inputValue);
+  };
+
+  return (
+    <div className="flex-1 flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-2xl">
+        {/* Personalized greeting */}
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-foreground mb-2">
+            Hey {displayName}, what can I help you with?
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Describe a task and I'll deploy an agent to handle it
+          </p>
+        </div>
+
+        {/* Chat input */}
+        <form onSubmit={handleSubmit} className="mb-6">
+          <div className="relative border border-border/60 rounded-xl bg-card/50 hover:border-primary/30 focus-within:border-primary/40 transition-colors shadow-sm">
+            <textarea
+              ref={textareaRef}
+              rows={1}
+              value={inputValue}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+                const ta = e.target;
+                ta.style.height = "auto";
+                ta.style.height = `${Math.min(ta.scrollHeight, 160)}px`;
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e);
+                }
+              }}
+              placeholder="Describe a task for the hive..."
+              className="w-full bg-transparent px-5 py-4 pr-12 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none rounded-xl resize-none overflow-y-auto"
+            />
+            <div className="absolute right-3 bottom-2.5">
+              <button
+                type="submit"
+                disabled={!inputValue.trim()}
+                className="w-8 h-8 rounded-lg bg-primary/90 hover:bg-primary text-primary-foreground flex items-center justify-center transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <Send className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {/* Prompt hint pills */}
+        <div className="flex flex-wrap justify-center gap-2">
+          {promptHints.map((hint) => (
+            <button
+              key={hint}
+              onClick={() => handlePromptHint(hint)}
+              className="text-xs text-muted-foreground hover:text-foreground border border-border/50 hover:border-primary/30 rounded-full px-3.5 py-1.5 transition-all hover:bg-primary/[0.03]"
+            >
+              {hint}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

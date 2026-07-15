@@ -73,6 +73,7 @@ class PlanningFlow(BaseFlow):
         # Set executor_keys to all agent keys if not specified
         if not self.executor_keys:
             self.executor_keys = list(self.agents.keys())
+        # self.executor_keys: ['manus', 'data_analysis']
 
     def get_executor(self, step_type: Optional[str] = None) -> BaseAgent:
         """
@@ -166,7 +167,6 @@ class PlanningFlow(BaseFlow):
         user_message = Message.user_message(
             f"Create a reasonable plan with clear steps to accomplish the task: {request}"
         )
-
         # Call LLM with PlanningTool
         response = await self.llm.ask_tool(
             messages=[user_message],
@@ -187,7 +187,6 @@ class PlanningFlow(BaseFlow):
                         except json.JSONDecodeError:
                             logger.error(f"Failed to parse tool arguments: {args}")
                             continue
-
                     # Ensure plan_id is set correctly and execute the tool
                     args["plan_id"] = self.active_plan_id
 

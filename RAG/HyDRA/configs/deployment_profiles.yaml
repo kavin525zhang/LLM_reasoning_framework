@@ -1,0 +1,50 @@
+default_profile: "development"
+
+profiles:
+  development:
+    description: "Maximum accuracy for evaluation and debugging. Uses uncompressed vectors and indexes."
+    embedding:
+      use_fp16: true
+    milvus:
+      collection_name: "hydra_knowledge_dev"
+      dense_index:
+        index_type: "HNSW"
+        metric_type: "IP"
+        build_params: { "M": 32, "efConstruction": 512 }
+      search_params: { "ef": 256 }
+      
+  production_balanced:
+    description: "Recommended for most CPU/GPU production environments. Balances high speed, high accuracy, and 4x memory savings."
+    embedding:
+      use_fp16: true
+    milvus:
+      collection_name: "hydra_knowledge_prod"
+      dense_index:
+        index_type: "HNSW_SQ"
+        metric_type: "IP"
+        build_params: { "M": 16, "efConstruction": 256, "sq_type": "SQ8", }
+      search_params: { "ef": 128 }
+  
+  production_hyperscale:
+    description: "For extremely large datasets on CPU where memory and cost are the primary constraints. Uses aggressive 32x binary quantization."
+    embedding:
+      use_fp16: false
+    milvus:
+      collection_name: "hydra_knowledge_hyperscale"
+      dense_index:
+        index_type: "IVF_RABITQ"
+        metric_type: "L2"
+        build_params: { "nlist": 4096, "refine": true, "refine_type": "SQ8" }
+      search_params: { "nprobe": 128, "refine_k": 2 }
+      
+  production_gpu_throughput:
+    description: "Optimized for high-throughput (QPS) on GPU hardware. Uses the advanced GPU_CAGRA index."
+    embedding:
+      use_fp16: true
+    milvus:
+      collection_name: "hydra_knowledge_gpu"
+      dense_index:
+        index_type: "GPU_CAGRA"
+        metric_type: "L2"
+        build_params: { "intermediate_graph_degree": 32, "graph_degree": 64, "build_algo": "IVF_PQ", "cache_dataset_on_device": "true" }
+      search_params: { "itopk_size": 64, "search_width": 8 }

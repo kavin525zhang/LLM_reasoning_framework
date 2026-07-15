@@ -1,6 +1,6 @@
 {
     "mcpServers": {
-      "baidu": {
+      "tavily_search": {
         "type": "streamable-http",
         "url": "http://172.18.140.24:9527/mcp"
       }

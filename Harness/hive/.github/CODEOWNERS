@@ -1,0 +1,15 @@
+# Default owners for everything in the repo
+* @adenhq/maintainers
+
+# Frontend
+/honeycomb/ @adenhq/maintainers
+
+# Backend
+/hive/ @adenhq/maintainers
+
+# Infrastructure
+/.github/ @adenhq/maintainers
+
+# Documentation
+/docs/ @adenhq/maintainers
+*.md @adenhq/maintainers

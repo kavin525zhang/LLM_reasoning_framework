@@ -82,9 +82,6 @@ class ToolCallAgent(ReActAgent):
         )
         content = response.content if response and response.content else ""
 
-        print("self.tool_callsssssssss:{}".format(self.tool_calls))
-        print("content:{}".format(content))
-
         # Log response info
         logger.info(f"✨ {self.name}'s thoughts: {content}")
         logger.info(
@@ -147,12 +144,13 @@ class ToolCallAgent(ReActAgent):
             return self.messages[-1].content or "No content or commands to execute"
 
         results = []
+        print("11111111111111:{}".format(self.tool_calls))
+        # 能规划好多步的工具调用吗？如果是并行的拆解还好，如果是串行的拆解，可能会有问题，因为每一步的结果可能会影响下一步的执行
         for command in self.tool_calls:
             # Reset base64_image for each tool call
             self._current_base64_image = None
 
             result = await self.execute_tool(command)
-            print("resulttttttttttt:{}".format(result))
 
             if self.max_observe:
                 result = result[: self.max_observe]
@@ -179,7 +177,6 @@ class ToolCallAgent(ReActAgent):
             return "Error: Invalid command format"
 
         name = command.function.name
-        print("name:{}, self.available_tools.tool_map:{}".format(name, list(self.available_tools.tool_map.keys())))
         if name not in self.available_tools.tool_map:
             return f"Error: Unknown tool '{name}'"
 

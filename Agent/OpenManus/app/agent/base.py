@@ -125,9 +125,11 @@ class BaseAgent(BaseModel, ABC):
         Raises:
             RuntimeError: If the agent is not in IDLE state at start.
         """
+        # 判断是否是空闲状态
         if self.state != AgentState.IDLE:
             raise RuntimeError(f"Cannot run agent from state: {self.state}")
 
+        # self.messages放的是历史记录
         if request:
             self.update_memory("user", request)
 

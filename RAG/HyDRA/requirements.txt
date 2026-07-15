@@ -1,0 +1,12 @@
+grpcio-tools==1.70.0
+langchain
+langchain-core
+langchain-google-genai
+pymilvus[model]
+python-dotenv
+pyyaml
+asyncddgs
+rich
+langchain-community
+langchain-mcp-adapters
+nest-asyncio

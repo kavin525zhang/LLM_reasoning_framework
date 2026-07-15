@@ -164,10 +164,6 @@ class MCPSettings(BaseModel):
                 servers = {}
 
                 for server_id, server_config in data.get("mcpServers", {}).items():
-                    print("type:{}, url:{}, command:{}, args:{}".format(server_config.get("type"),
-                                                                        server_config.get("url"),
-                                                                        server_config.get("command"),
-                                                                        server_config.get("args")))
                     servers[server_id] = MCPServerConfig(
                         type=server_config.get("type"),
                         url=server_config.get("url"),
@@ -176,7 +172,6 @@ class MCPSettings(BaseModel):
                     )
                 return servers
         except Exception as e:
-            print("111111111111:{}".format(traceback.format_exc()))
             raise ValueError(f"Failed to load MCP server config: {e}")
 
 

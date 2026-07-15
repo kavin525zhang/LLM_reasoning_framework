@@ -766,6 +766,7 @@ async def extract_entities(
         )
 
         # Process additional gleaning results
+        # 关系抽取
         for now_glean_index in range(entity_extract_max_gleaning):
             glean_result = await use_llm_func_with_cache(
                 continue_prompt,
@@ -1173,6 +1174,7 @@ async def _get_vector_context(
         if not valid_chunks:
             return [], [], []
 
+        # 后处理，控制长度
         maybe_trun_chunks = truncate_list_by_token_size(
             valid_chunks,
             key=lambda x: x["content"],

@@ -765,8 +765,8 @@ class LightRAG:
             id_: {
                 "status": DocStatus.PENDING,
                 "content": content_data["content"],
-                "content_summary": get_content_summary(content_data["content"]),
-                "content_length": len(content_data["content"]),
+                "content_summary": get_content_summary(content_data["content"]),  # 摘要，很粗暴，前250长度
+                "content_length": len(content_data["content"]),  # 长度
                 "created_at": datetime.now(timezone.utc).isoformat(),
                 "updated_at": datetime.now(timezone.utc).isoformat(),
                 "file_path": content_data[
@@ -783,6 +783,7 @@ class LightRAG:
         unique_new_doc_ids = await self.doc_status.filter_keys(all_new_doc_ids)
 
         # Log ignored document IDs
+        # 这不是多此一举，你用new_docs的key去检索的，检索结果肯定要么为空，要么是new_docs的一个子集
         ignored_ids = [
             doc_id for doc_id in unique_new_doc_ids if doc_id not in new_docs
         ]
