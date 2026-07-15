@@ -95,6 +95,6 @@ results = retriever.invoke("整治重点是什么？")
 
 if results:
     print(results[0].page_content)
-    child_ids = results[0].metadata.get('child_ids', [])
+    child_ids = results[0].metadata.get('child_ids', []) # 这个返回是空， 父文档和子文档是单向联系，如果想实现这个功能，得手动绑定
     print("包含的子文档 IDs:", child_ids)
     # retriever.docstore.mget(child_ids)
