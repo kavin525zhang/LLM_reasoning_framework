@@ -141,7 +141,7 @@ class RAGChecker():
             or 'retrieved2response'. Default: 'answer2response'.
         """
         match check_type:
-            case "answer2response":
+            case "answer2response":  # 模型输出答案
                 results = [ret for ret in results.results if ret.answer2response is None]
                 self.extract_claims(results, extract_type="response")
                 claims = [ret.response_claims for ret in results]
@@ -213,6 +213,7 @@ class RAGChecker():
             metrics = [metrics]
         ret_metrics = set()
         requirements = set()
+        # metrics 等于 all_metrics
         for metric in metrics:
             if metric not in METRIC_REQUIREMENTS:
                 if metric not in METRIC_GROUP_MAP:
@@ -239,6 +240,7 @@ class RAGChecker():
         for group, group_metrics in METRIC_GROUP_MAP.items():
             if group == all_metrics:
                 continue
+            # 为什么求得是一个平均值？
             for metric in group_metrics:
                 if metric in ret_metrics:
                     results.metrics[group][metric] = round(np.mean(
