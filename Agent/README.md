@@ -5,3 +5,4 @@
 * [anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook/tree/main/patterns/agents)
 * [building-effective-agents](https://www.anthropic.com/engineering/building-effective-agents)
 * [OpenManus](https://github.com/FoundationAgents/OpenManus)
+* [Learn-agent-architecture](https://github.com/hardness1020/learn-agent-architecture)

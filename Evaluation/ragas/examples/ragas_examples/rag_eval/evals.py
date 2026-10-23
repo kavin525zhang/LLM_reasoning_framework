@@ -16,7 +16,7 @@ from rag import default_rag_client
 openai_client = OpenAI(api_key="EMPTY", base_url="http://172.18.140.13:8003/v1")
 rag_client = default_rag_client(llm_client=openai_client, logdir="evals/logs")
 # llm = llm_factory("gpt-4o", client=openai_client)
-llm = llm_factory("llama2", client=openai_client)
+llm = llm_factory("llama2", provider="hosted_vllm", client=openai_client)
 
 
 def load_dataset():
